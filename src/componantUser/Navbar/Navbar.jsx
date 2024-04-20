@@ -1,7 +1,9 @@
 import React, {useContext, useState } from 'react';
 import './Navbar.css';
-import { NavLink ,Link} from 'react-router-dom';
+import { Link,NavLink } from 'react-router-dom';
 import { ContextUser } from '../../context/Context';
+import { Link as Lik} from "react-scroll";
+
 export default function Navbar() {
 
   const { role } = useContext( ContextUser );
@@ -40,17 +42,14 @@ export default function Navbar() {
             </li>
             <li className="nav-item">
               <Link
-                className={`nav-link   ${getLinkClass(
-                  "/lastNews"
-                )}`}
+                className={`nav-link  ${getLinkClass("/lastNews")} `}
                 aria-current="page"
                 to="/lastNews"
                 onClick={() => handleLinkClick("/lastNews")}
               >
-                 آخر الأخبار
+                اخر الاخبار
               </Link>
             </li>
-
             <li className="nav-item">
               <Link
                 className={`nav-link position-relative evolution-archive ${getLinkClass(
@@ -63,13 +62,25 @@ export default function Navbar() {
                 أرشيف الثورة{" "}
                 <i className="fa-solid fa-greater-than text-muted"></i>
                 <div className="evolution-archive-hover">
-                  <NavLink className="nav-link text-white" to={'/archiefthoura'}>الأرشيف</NavLink>
-                  <NavLink className="nav-link text-white" to={'/archiefthoura'}>
+                  <Lik
+                    className="nav-link text-white"
+                    to="oneone"
+                    duration={500}
+                    offset={-70}
+                  >
+                    الأرشيف
+                  </Lik>
+                  <Lik
+                    className="nav-link text-white"
+                    to="onetwo"
+                    duration={500}
+                    offset={-70}
+                  >
                     معارك الثوار
-                  </NavLink>
-                  <NavLink className="nav-link text-white" to={'/archiefthoura'}>
+                  </Lik>
+                  <Link className="nav-link text-white" to={"/archiefthoura"}>
                     ادعمنا بوثائق
-                  </NavLink>
+                  </Link>
                 </div>
               </Link>
             </li>
@@ -85,10 +96,22 @@ export default function Navbar() {
                 رموز الثورة{" "}
                 <i className="fa-solid fa-greater-than text-muted"></i>
                 <div className="evolution-archive-hover">
-                  <NavLink className="nav-link text-white" to={'/symbolthourauser'}>رموز الثورة</NavLink>
-                  <NavLink to={"/symbolthourauser"} className="nav-link text-white">
+                  <Lik
+                    className="nav-link text-white"
+                    to="twoone"
+                    duration={500}
+                    offset={-70}
+                  >
+                    رموز الثورة
+                  </Lik>
+                  <Lik
+                    to="twotwo"
+                    duration={500}
+                    offset={-70}
+                    className="nav-link text-white"
+                  >
                     بطاقة التكريم
-                  </NavLink>
+                  </Lik>
                 </div>
               </Link>
             </li>
@@ -104,11 +127,31 @@ export default function Navbar() {
                 القائمة السوداء{" "}
                 <i className="fa-solid fa-greater-than text-muted"></i>
                 <div className="evolution-archive-hover">
-                  <NavLink className="nav-link text-white" to={"/blacklistuser"}> القائمة السوداء</NavLink>
-                  <NavLink className="nav-link text-white" to={"/blacklistuser"}>الخونة</NavLink>
-                  <NavLink className="nav-link text-white" to={"/blacklistuser"}>
+                  <Lik
+                    className="nav-link text-white"
+                    to="threeone"
+                    duration={500}
+                    offset={-70}
+                  >
+                    {" "}
+                    القائمة السوداء
+                  </Lik>
+                  <Lik
+                    className="nav-link text-white"
+                    to="threetwo"
+                    duration={500}
+                    offset={-70}
+                  >
+                    الخونة
+                  </Lik>
+                  <Lik
+                    className="nav-link text-white"
+                    to="threethree"
+                    duration={500}
+                    offset={-70}
+                  >
                     مجرمين الحرب
-                  </NavLink>
+                  </Lik>
                 </div>
               </Link>
             </li>
@@ -124,12 +167,38 @@ export default function Navbar() {
                 جرائم النظام{" "}
                 <i className="fa-solid fa-greater-than text-muted"></i>
                 <div className="evolution-archive-hover">
-                  <NavLink className="nav-link text-white" to={"/graamsystem"}>
+                  <Lik
+                    className="nav-link text-white"
+                    to="fourone"
+                    duration={500}
+                    offset={-70}
+                  >
                     مجازر النظام{" "}
-                  </NavLink>
-                  <NavLink className="nav-link text-white" to={"/graamsystem"}>الشهداء</NavLink>
-                  <NavLink className="nav-link text-white" to={"/graamsystem"}>المفقودين</NavLink>
-                  <NavLink className="nav-link text-white" to={"/graamsystem"}>المعتقلين</NavLink>
+                  </Lik>
+                  <Lik
+                    className="nav-link text-white"
+                    to="fourtwo"
+                    duration={500}
+                    offset={-70}
+                  >
+                    الشهداء
+                  </Lik>
+                  <Lik
+                    className="nav-link text-white"
+                    to="fourthree"
+                    duration={500}
+                    offset={-70}
+                  >
+                    المفقودين
+                  </Lik>
+                  <Lik
+                    className="nav-link text-white"
+                    to="fourfour"
+                    duration={500}
+                    offset={-70}
+                  >
+                    المعتقلين
+                  </Lik>
                 </div>
               </Link>
             </li>
@@ -145,10 +214,38 @@ export default function Navbar() {
                 جرائم قسد{" "}
                 <i className="fa-solid fa-greater-than text-muted"></i>
                 <div className="evolution-archive-hover">
-                  <NavLink className="nav-link text-white" to={"/graemqasad"}>مجازر قسد </NavLink>
-                  <NavLink className="nav-link text-white" to={"/graemqasad"}>الشهداء</NavLink>
-                  <NavLink className="nav-link text-white" to={"/graemqasad"}>المفقودين</NavLink>
-                  <NavLink className="nav-link text-white" to={"/graemqasad"}>المعتقلين</NavLink>
+                  <Lik
+                    className="nav-link text-white"
+                    to="fiveone"
+                    duration={500}
+                    offset={-70}
+                  >
+                    مجازر قسد{" "}
+                  </Lik>
+                  <Lik
+                    className="nav-link text-white"
+                    to="fivetwo"
+                    duration={500}
+                    offset={-70}
+                  >
+                    الشهداء
+                  </Lik>
+                  <Lik
+                    className="nav-link text-white"
+                    to="fivethree"
+                    duration={500}
+                    offset={-70}
+                  >
+                    المفقودين
+                  </Lik>
+                  <Lik
+                    className="nav-link text-white"
+                    to="fivefour"
+                    duration={500}
+                    offset={-70}
+                  >
+                    المعتقلين
+                  </Lik>
                 </div>
               </Link>
             </li>
@@ -164,27 +261,55 @@ export default function Navbar() {
                 جرائم داعش{" "}
                 <i className="fa-solid fa-greater-than text-muted"></i>
                 <div className="evolution-archive-hover">
-                  <NavLink className="nav-link text-white" to={"/graemdashuser"}>مجازر داعش </NavLink>
-                  <NavLink className="nav-link text-white" to={"/graemdashuser"}>الشهداء</NavLink>
-                  <NavLink className="nav-link text-white" to={"/graemdashuser"}>المفقودين</NavLink>
-                  <NavLink className="nav-link text-white" to={"/graemdashuser"}>المعتقلين</NavLink>
+                  <Lik
+                    className="nav-link text-white"
+                    to="sevenone"
+                    duration={500}
+                    offset={-70}
+                  >
+                    مجازر داعش{" "}
+                  </Lik>
+                  <Lik
+                    className="nav-link text-white"
+                    to="seventwo"
+                    duration={500}
+                    offset={-70}
+                  >
+                    الشهداء
+                  </Lik>
+                  <Lik
+                    className="nav-link text-white"
+                    to="seventhree"
+                    duration={500}
+                    offset={-70}
+                  >
+                    المفقودين
+                  </Lik>
+                  <Lik
+                    className="nav-link text-white"
+                    to="sevenfour"
+                    duration={500}
+                    offset={-70}
+                  >
+                    المعتقلين
+                  </Lik>
                 </div>
               </Link>
             </li>
-          
-              <li className="nav-item">
-                <Link
-                  className={`nav-link position-relative evolution-archive ${getLinkClass(
-                    "/WantedToSystem"
-                  )}`}
-                  aria-current="page"
-                  to="/WantedToSystem"
-                  onClick={() => handleLinkClick("/WantedToSystem")}
-                >
-                    المطلوبين للنظام
-                </Link>
-              </li>
-            
+
+            <li className="nav-item">
+              <Link
+                className={`nav-link position-relative evolution-archive ${getLinkClass(
+                  "/WantedToSystem"
+                )}`}
+                aria-current="page"
+                to="/WantedToSystem"
+                onClick={() => handleLinkClick("/WantedToSystem")}
+              >
+                المطلوبين للنظام
+              </Link>
+            </li>
+
             {role === "admin" || role === "supervisor" ? (
               <li className="nav-item">
                 <NavLink

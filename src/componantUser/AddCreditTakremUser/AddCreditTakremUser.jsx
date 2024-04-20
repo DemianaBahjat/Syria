@@ -46,9 +46,11 @@ export default function AddMogramUser() {
     e.preventDefault();
     setSuccessAdd(false);
     let responseValidateUser = validationAddUser();
-    if (responseValidateUser.error) {
-      setErrorListUser([responseValidateUser.error.details]);
-    } else {
+    if ( responseValidateUser.error ) {
+      setErrorListUser( [ responseValidateUser.error.details ] );
+    } else if ( !localStorage.getItem( 'token' ) ) { 
+        setOpenAuth('login')
+    }else {
       await getSingleUser();
       if ( checkConfition === true ) {
              setErrorListUser("");

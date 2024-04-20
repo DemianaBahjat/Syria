@@ -8,7 +8,9 @@
     background-color:#00011C80;
     z-index: 5;
 }
-
+.small{
+    font-size: 10px;
+}
 .forms{
     width: 60%;
     height: 77%;
@@ -233,7 +235,7 @@ input[type="file"] {
         flex-direction: column;
     }
     .inform .input .inpi{
-    width: 90%;
+    width: 100%;
 }
 .wateca,.picture{
     flex-direction: column;

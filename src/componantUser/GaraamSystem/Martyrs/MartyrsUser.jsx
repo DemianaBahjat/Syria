@@ -14,7 +14,7 @@ export default function MartyrsUser() {
 
   return (
     <>
-      <section className="martyrs">
+      <section className="martyrs" id='fourtwo'>
         <div className="container py-2">
           <div className="header position-relative py-5">
             <h3 className=" text-danger">الشهداء</h3>

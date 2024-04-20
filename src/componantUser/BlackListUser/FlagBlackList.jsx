@@ -6,7 +6,7 @@ export default function FlagBlackList() {
   const { lastNews } = useUser();
 
   return (
-    <div>
+    <div id="threetwo">
       <div className="demonstrations py-3 " style={{ marginBottom: "100px" }}>
         <div className="container">
           <div className="row" style={{ justifyContent: "space-between" }}>

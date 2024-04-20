@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFile, faFileZipper } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate, useParams } from "react-router-dom";
 import { ContextUser, useUser } from "../../context/Context";
+import one from "../../image/png-clipart-computer-icons-avatar-icon-design-avatar-heroes-computer-wallpaper-thumbnail.png";
 export default function ResponseLastChild() {
   const [ martyrDisplay, setMartyrDataDisplay ] = useState( [] );
      const { setOpenAlert, setOpenAlertStore } = useContext(ContextUser);
@@ -191,7 +192,10 @@ export default function ResponseLastChild() {
                         ""
                       )}
                       {doc.slice(-4).toLowerCase() === ".mp4" ? (
-                        <video controls style={{width:'150px',height:'150px'}}>
+                        <video
+                          controls
+                          style={{ width: "150px", height: "150px" }}
+                        >
                           <source
                             src={`https://syrianrevolution1.com/imgData/${doc}`}
                             type="video/mp4"
@@ -216,11 +220,40 @@ export default function ResponseLastChild() {
           </div>
         </div>
         <div className={styles.detailsLeft}>
-          <h6>شرح مفصل : </h6>{" "}
-          {martyrDisplay.details !== undefined &&
-          martyrDisplay.details !== "undefined"
-            ? martyrDisplay.details
-            : "لم تتم الاضافة"}{" "}
+          <div>
+            <h6>شرح مفصل : </h6>{" "}
+            {martyrDisplay.details !== undefined &&
+            martyrDisplay.details !== "undefined"
+              ? martyrDisplay.details
+              : "لم تتم الاضافة"}{" "}
+          </div>
+          {/* <p>{user?.name }</p> */}
+          <div
+            style={{
+              display: "flex",
+              gap: "10px",
+              marginBottom: "10px",
+              alignItems: "center",
+            }}
+          >
+            {martyrDisplay?.user?.selfImg !== undefined &&
+            martyrDisplay?.user?.selfImg !== "undefined" &&
+            martyrDisplay?.user?.selfImg !== null ? (
+              <img
+                src={`https://syrianrevolution1.com/images/${martyrDisplay?.user?.selfImg}`}
+                alt="profile"
+                style={{ width: "50px", height: "50px", borderRadius: "50%" }}
+              />
+            ) : (
+              <img
+                src={one}
+                alt="profile"
+                style={{ width: "50px", height: "50px", borderRadius: "50%" }}
+              />
+            )}
+
+            <h6>{martyrDisplay?.user?.name}</h6>
+          </div>
         </div>
       </div>
       <div className={styles.btnbottom}>

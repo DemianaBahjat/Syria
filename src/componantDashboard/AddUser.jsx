@@ -22,6 +22,11 @@ export default function AddUse() {
     function handleChangeImageProfile(e) {
       setImageProfile(e.target.files[0]);
   }
+  ///////////////////////
+   const [imageDoc, setImageDoc] = useState("");
+  function handleChangeImageDoc( e ) {
+     setImageDoc(e.target.files[0]);
+  }
     ////////////valid Joi///////////////
     function validationAddUser() {
       let schema = Joi.object({
@@ -79,7 +84,8 @@ export default function AddUse() {
         const formData = new FormData();
         formData.append("username", user.username);
         formData.append( "name", user.name );
-        formData.append("selfImg", imageProfile);
+        formData.append( "selfImg", imageProfile );
+         formData.append("docImg", imageDoc);
         formData.append("email", user.email);
         formData.append("password", user.password);
         formData.append( "government", user.government );
@@ -95,7 +101,7 @@ export default function AddUse() {
               method: "POST",
               body: formData,
             }
-          )
+          );
           const result = await response.json();
           setLoading( false );
           console.log(result)
@@ -112,7 +118,7 @@ export default function AddUse() {
       
     }
  
-  console.log(errorBackUser)
+ 
   return (
     <div className={styles.AddSuperVisor}>
       <div className={styles.head}>
@@ -136,9 +142,13 @@ export default function AddUse() {
                 className="form-control"
                 onChange={handlechange}
               />
-              {errorBackUser && errorBackUser?.message && (
+              {/* {errorBackUser && errorBackUser?.message && (
                 <p className={`error`}>هذا الاسم موجود من قبل</p>
-              )}
+              )} */}
+              {errorBackUser &&
+                errorBackUser?.message?.includes(
+                  "E11000 duplicate key error collection: test.users index: username_1 dup key"
+                ) && <p className={`error`}>هذا الاسم موجود من قبل</p>}
             </div>
             <div className={styles.inp1}>
               <label htmlFor=""> الاسم بالكامل </label>
@@ -236,7 +246,22 @@ export default function AddUse() {
                 <option value="supervisor">مشرف</option>
               </select>
             </div>
-         
+            <div className={styles.inp1}>
+              <p style={{ fontSize: "12px", marginBottom: "5px" }}>
+                {" "}
+                الوثيقة الشخصية (اختياري)
+              </p>
+              <label htmlFor="file-upload3" className={`customfileupload`}>
+                ارفع الملف
+              </label>
+              <input
+                name="docImg"
+                id="file-upload3"
+                type="file"
+                className="form-control"
+                onChange={handleChangeImageDoc}
+              />
+            </div>
           </div>
         </div>
       </form>

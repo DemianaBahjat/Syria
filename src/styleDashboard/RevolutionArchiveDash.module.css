@@ -15,6 +15,7 @@
   color: black;
   margin-left: 1px;
   cursor: pointer;
+  font-size: 15px;
 }
 .filter .active {
   background-color: #A5C3EB;

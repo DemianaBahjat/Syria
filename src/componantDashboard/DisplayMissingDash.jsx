@@ -5,19 +5,24 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFile, faFileZipper } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate, useParams } from "react-router-dom";
 import { ContextUser, useUser } from "../context/Context";
+import one from "../image/png-clipart-computer-icons-avatar-icon-design-avatar-heroes-computer-wallpaper-thumbnail.png";
 export default function DisplayMissingDash() {
   const { setOpenAlert, setOpenAlertStore } = useContext( ContextUser );
    const { getMartyr } = useUser();
   const [martyrDisplay, setMartyrDataDisplay] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [loadingAccepted, setLoadingAccepted] = useState(false);
+  const [ loadingAccepted, setLoadingAccepted ] = useState( false );
+
   const navigate = useNavigate();
   const { id } = useParams();
   useEffect(() => {
     async function getMartyr() {
       await axios
         .get(`https://syrianrevolution1.com/childData/${id}`)
-        .then((result) => setMartyrDataDisplay(result.data.childData))
+        .then( ( result ) => {
+          setMartyrDataDisplay( result.data.childData )
+       
+        } )
         .catch((error) => {
           console.log(error);
         });
@@ -235,11 +240,41 @@ export default function DisplayMissingDash() {
           </div>
         </div>
         <div className={styles.detailsLeft}>
-          <h6>شرح مفصل : </h6>{" "}
-          {martyrDisplay.details !== undefined &&
-          martyrDisplay.details !== "undefined"
-            ? martyrDisplay.details
-            : "لم تتم الاضافة"}{" "}
+          <div>
+            <h6>شرح مفصل : </h6>{" "}
+            {martyrDisplay.details !== undefined &&
+            martyrDisplay.details !== "undefined"
+              ? martyrDisplay.details
+              : "لم تتم الاضافة"}{" "}
+          </div>
+       
+          {/* <p>{user?.name }</p> */}
+          <div
+            style={{
+              display: "flex",
+              gap: "10px",
+              marginBottom: "10px",
+              alignItems: "center",
+            }}
+          >
+            {martyrDisplay?.user?.selfImg !== undefined &&
+            martyrDisplay?.user?.selfImg !== "undefined" &&
+            martyrDisplay?.user?.selfImg !== null ? (
+              <img
+                src={`https://syrianrevolution1.com/images/${martyrDisplay?.user?.selfImg}`}
+                alt="profile"
+                style={{ width: "50px", height: "50px", borderRadius: "50%" }}
+              />
+            ) : (
+              <img
+                src={one}
+                alt="profile"
+                style={{ width: "50px", height: "50px", borderRadius: "50%" }}
+              />
+            )}
+
+            <h6>{martyrDisplay?.user?.name}</h6>
+          </div>
         </div>
       </div>
       <div className={styles.btnbottom}>

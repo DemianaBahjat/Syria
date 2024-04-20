@@ -66,10 +66,12 @@ export default function AddShahedUser() {
       e.preventDefault();
   
       let responseValidateUser = validationAddUser();
-      if (responseValidateUser.error) {
-        setErrorListUser([responseValidateUser.error.details]);
-      } else {
-  await getSingleUser();
+      if ( responseValidateUser.error ) {
+        setErrorListUser( [ responseValidateUser.error.details ] );
+      } else if ( !localStorage.getItem( 'token' ) ) { 
+        setOpenAuth('login')
+      }else {
+               await getSingleUser();
         
         if ( checkConfition === true ) {
                   setErrorListUser("");

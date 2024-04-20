@@ -10,7 +10,7 @@ export default function Liberated() {
 
   const navigate = useNavigate();
   return (
-    <div>
+    <div id="twoone">
       <div className="demonstrations py-3">
         <div className="container">
           <div className="row gy-3 mb-5">

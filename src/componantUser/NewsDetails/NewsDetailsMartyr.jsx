@@ -7,6 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFile, faFileZipper } from '@fortawesome/free-solid-svg-icons';
 import { ContextUser } from '../../context/Context';
+import one from '../../image/png-clipart-computer-icons-avatar-icon-design-avatar-heroes-computer-wallpaper-thumbnail.png'
 import AlertImageDash from '../../componantDashboard/AlertImageDash/AlertImageDash';
 export default function NewsDetailsMartyr() {
   const [ single, setSingle ] = useState( [] );
@@ -40,9 +41,7 @@ export default function NewsDetailsMartyr() {
   }
   return (
     <>
-  {
-     openAlert && <AlertImageDash src={openAlertStore} />
-  }
+      {openAlert && <AlertImageDash src={openAlertStore} />}
       <MainNav />
       <Navbar />
       <div className="demonstrations py-3" style={{ marginBottom: "30px" }}>
@@ -97,11 +96,11 @@ export default function NewsDetailsMartyr() {
                             src={`https://syrianrevolution1.com/imgData/${doc}`}
                             alt="documents"
                             style={{ width: "100px" }}
-                                onClick={() => {
-                            openImage(
-                              `https://syrianrevolution1.com/imgData/${doc}`
-                            );
-                          }}
+                            onClick={() => {
+                              openImage(
+                                `https://syrianrevolution1.com/imgData/${doc}`
+                              );
+                            }}
                           />
                         ) : (
                           ""
@@ -150,24 +149,46 @@ export default function NewsDetailsMartyr() {
                     ))
                   : "لم تتم الاضافة"}{" "}
               </div>
-              <div
-                style={{ display: "flex", gap: "10px", margin: "10px 0" }}
-              >
-                <img
-                  src={`https://syrianrevolution1.com/images/${single?.user?.selfImg}`}
-                  alt="profile"
-                  style={{ width: "50px", height: "50px", borderRadius: "50%" }}
-                />
+              <div style={{ display: "flex", gap: "10px", margin: "10px 0" }}>
+                <div
+                  style={{ display: "flex", gap: "10px", marginBottom: "10px",alignItems:'center' }}
+                >
+                  {single?.user?.selfImg !== undefined &&
+                  single?.user?.selfImg !== "undefined" &&
+                  single?.user?.selfImg !== null ? (
+                    <img
+                      src={`https://syrianrevolution1.com/images/${single?.user?.selfImg}`}
+                      alt="profile"
+                      style={{
+                        width: "50px",
+                        height: "50px",
+                        borderRadius: "50%",
+                      }}
+                    />
+                  ) : (
+                    <img
+                      src={one}
+                      alt="profile"
+                      style={{
+                        width: "50px",
+                        height: "50px",
+                        borderRadius: "50%",
+                      }}
+                    />
+                  )}
+
+                  <p>{single?.user?.name}</p>
+                </div>
                 <p>{single?.user?.name}</p>
               </div>
             </div>
             {/* /////////////////////// */}
             <div className="lastSlider1 col-md-4">
               <div className=" muted p-2 overflow-hidden">
-                {archief.map((e,i) => (
+                {archief.map((e, i) => (
                   <div
                     className="row border-bottom pb-2 pt-2 border-2 overflow-hidden"
-                    style={ { backgroundColor: "#fdfafa" } }
+                    style={{ backgroundColor: "#fdfafa" }}
                     key={i}
                   >
                     <div className="col-md-4">

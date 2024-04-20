@@ -5,13 +5,22 @@ import SliderBlackList from './SliderBlackList';
 import FlagBlackListTwo from './FlagBlackListTwo';
 import SliderBlackListTwo from './SliderBlackListTwo';
 import { Helmet } from 'react-helmet-async';
+import FlagBlackListThree from './FlagBlackListThree';
+import SliderBlackListThree from './SliderBlackListThree';
 export default function BlackListUser() {
   return (
     <>
       <Helmet>
-        <title>  القائمة السوداء</title>
+        <title> القائمة السوداء</title>
         <meta name="description" content="  القائمة السوداء" />
       </Helmet>
+      <div className="container">
+        <div className="header position-relative py-5">
+          <h3 className=" text-danger"> القائمة السوداء </h3>
+        </div>
+      </div>
+      <FlagBlackListThree />
+      <SliderBlackListThree />
       <div className="container">
         <div className="header position-relative py-5">
           <h3 className=" text-danger"> الخونة </h3>

@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFile, faFileZipper } from '@fortawesome/free-solid-svg-icons';
 import { ContextUser } from '../../context/Context';
 import AlertImageDash from '../../componantDashboard/AlertImageDash/AlertImageDash';
+import one from '../../image/png-clipart-computer-icons-avatar-icon-design-avatar-heroes-computer-wallpaper-thumbnail.png'
 export default function NewsDetailsMascers() {
   const [single, setSingle] = useState([]);
   const { setOpenAlert, setOpenAlertStore,openAlert,openAlertStore } = useContext(ContextUser);
@@ -140,11 +141,29 @@ export default function NewsDetailsMascers() {
               </div>
 
               <div style={{ display: "flex", gap: "10px", margin: "10px 0" }}>
-                <img
-                  src={`https://syrianrevolution1.com/images/${single?.user?.selfImg}`}
-                  alt="profile"
-                  style={{ width: "50px", height: "50px", borderRadius: "50%" }}
-                />
+                {single?.user?.selfImg !== undefined &&
+                single?.user?.selfImg !== "undefined " &&
+                single?.user?.selfImg !== null ? (
+                  <img
+                    src={`https://syrianrevolution1.com/images/${single?.user?.selfImg}`}
+                    alt="profile"
+                    style={{
+                      width: "50px",
+                      height: "50px",
+                      borderRadius: "50%",
+                    }}
+                  />
+                ) : (
+                  <img
+                    src={one}
+                    alt="profile"
+                    style={{
+                      width: "50px",
+                      height: "50px",
+                      borderRadius: "50%",
+                    }}
+                  />
+                )}
                 <p>{single?.user?.name}</p>
               </div>
             </div>

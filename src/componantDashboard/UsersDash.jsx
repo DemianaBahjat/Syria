@@ -34,7 +34,8 @@ export default function UsersDash() {
       });
       const result = await response.json();
       setUserDashboard(result.data);
-      setReport(result.data);
+      setReport( result.data );
+      console.log(result)
     } catch (error) {
       console.error(error);
     }
@@ -115,273 +116,290 @@ export default function UsersDash() {
     );
   };
   return (
-    <div className={styles.SuperVisor}>
-      <div className={`headDashboard`} style={{ display: "flex", gap: "10px" }}>
-        <p>المستخدمون/</p>
-        <div>
-          <span
-            className={styles.spanradiues}
-            style={{
-              backgroundColor: "yellow",
-              cursor: "pointer",
-            }}
-          ></span>
-          <small> انتظار </small>
-        </div>
-        <div>
-          <span
-            className={styles.spanradiues}
-            style={{
-              backgroundColor: "red",
-              cursor: "pointer",
-            }}
-          ></span>
-          <small> غير موثق </small>
-        </div>
-        <div>
-          <span
-            className={styles.spanradiues}
-            style={{
-              backgroundColor: "green",
-              cursor: "pointer",
-            }}
-          ></span>
-          <small> موثق </small>
-        </div>
-      </div>
-      <div className={styles.search}>
-        <FontAwesomeIcon icon={faMagnifyingGlass} className={styles.sd} />
-        <input
-          className="form-control"
-          placeholder="بحث باستخدام الاسم"
-          type="text"
-          onChange={filter}
-        />
-      </div>
-      <div className={styles.allUser}>
-        <div className={styles.containerTable}>
-          <table>
-            <thead>
-              <tr>
-                <th>الاسم</th>
-                <th>رقم الهاتف</th>
-                <th>الدور</th>
-
-                <th>توثيق الحساب</th>
-
-                <th>الحالة</th>
-              </tr>
-            </thead>
-            <tbody>
-              {report &&
-                report.map((user, index) => (
-                  <tr key={index}>
-                    <td>{user.name}</td>
-                    <td>{user.phone}</td>
-                    <td>{user.role}</td>
-                    <td>
-                      {user?.isConfident === true && user?.docImg !== null ? (
-                        <span
-                          className={styles.spanradiues}
-                          style={{ backgroundColor: "green" }}
-                        ></span>
-                      ) : user?.docImg !== null &&
-                        user?.isConfident === false ? (
-                        <span
-                          className={styles.spanradiues}
-                          style={{
-                            backgroundColor: "yellow",
-                            cursor: "pointer",
-                          }}
-                          onClick={() => {
-                            setDisTawsec("taws");
-                            getIdConfideint(user._id);
-                          }}
-                        ></span>
-                      ) : (
-                        <span
-                          className={styles.spanradiues}
-                          style={{ backgroundColor: "red", cursor: "pointer" }}
-                          onClick={() => {
-                            setOpenTawsk(true);
-                            setIdTawsek(user._id);
-                          }}
-                        ></span>
-                      )}
-                    </td>
-                    <td>
-                      <FontAwesomeIcon
-                        icon={faTrash}
-                        className="bg-danger p-1 text-white"
-                        style={{ cursor: "pointer" }}
-                        onClick={() => {
-                          setDelete(true);
-                          setIdDelete(user._id);
-                        }}
-                      />
-                      <FontAwesomeIcon
-                        icon={faPenToSquare}
-                        className="bg-primary p-1 text-white"
-                        style={{ cursor: "pointer" }}
-                        onClick={() => {
-                          localStorage.setItem("IdUpdateUser", user._id);
-                          navigate("/dashboard/updateuser");
-                        }}
-                      />
-                    </td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <button
-        className={`${styles.add} btn btn-success`}
-        onClick={() => navigate("/dashboard/adduser")}
-      >
-        اضافة مستخدم
-      </button>
-      {disTawsec === "taws" && (
-        <DisplayTawsec
-          setDisTawsec={setDisTawsec}
-          getAllUserDashboard={getAllUserDashboard}
-        />
-      )}
-      {openTawsek && (
+    <>
+      <div className={styles.SuperVisor}>
         <div
-          style={{
-            position: "fixed",
-            width: "100%",
-            height: "100%",
-            backgroundColor: "#00011C80",
-            top: 0,
-            left: 0,
-          }}
+          className={`headDashboard`}
+          style={{ display: "flex", gap: "10px" }}
         >
+          <p>المستخدمون/</p>
+          <div>
+            <span
+              className={styles.spanradiues}
+              style={{
+                backgroundColor: "yellow",
+                cursor: "pointer",
+              }}
+            ></span>
+            <small> انتظار </small>
+          </div>
+          <div>
+            <span
+              className={styles.spanradiues}
+              style={{
+                backgroundColor: "red",
+                cursor: "pointer",
+              }}
+            ></span>
+            <small> غير موثق </small>
+          </div>
+          <div>
+            <span
+              className={styles.spanradiues}
+              style={{
+                backgroundColor: "green",
+                cursor: "pointer",
+              }}
+            ></span>
+            <small> موثق </small>
+          </div>
+        </div>
+        <div className={styles.search}>
+          <FontAwesomeIcon icon={faMagnifyingGlass} className={styles.sd} />
+          <input
+            className="form-control"
+            placeholder="بحث باستخدام الاسم"
+            type="text"
+            onChange={filter}
+          />
+        </div>
+        <div className={styles.allUser}>
+          <div className={styles.containerTable}>
+            <table>
+              <thead>
+                <tr>
+                  <th>الاسم</th>
+                  <th>رقم الهاتف</th>
+                  <th>الدور</th>
+
+                  <th>توثيق الحساب</th>
+
+                  <th>الحالة</th>
+                </tr>
+              </thead>
+              <tbody>
+                {report &&
+                  report.map((user, index) => (
+                    <tr key={index}>
+                      <td>{user.name}</td>
+                      <td>{user.phone}</td>
+                      <td>{user.role}</td>
+                      <td>
+                        {user?.isConfident === true && user?.docImg !== null ? (
+                          <span
+                            className={styles.spanradiues}
+                            style={{ backgroundColor: "green" }}
+                          ></span>
+                        ) :( user?.docImg !== "")&&
+                          user?.isConfident === false ? (
+                          <span
+                            className={styles.spanradiues}
+                            style={{
+                              backgroundColor: "yellow",
+                              cursor: "pointer",
+                            }}
+                            onClick={() => {
+                              setDisTawsec("taws");
+                              getIdConfideint(user._id);
+                            }}
+                          ></span>
+                        ) : (
+                          <span
+                            className={styles.spanradiues}
+                            style={{
+                              backgroundColor: "red",
+                              cursor: "pointer",
+                            }}
+                            onClick={() => {
+                              setOpenTawsk(true);
+                              setIdTawsek(user._id);
+                            }}
+                          ></span>
+                        )}
+                      </td>
+                      <td>
+                        <FontAwesomeIcon
+                          icon={faTrash}
+                          className="bg-danger p-1 text-white"
+                          style={{ cursor: "pointer" }}
+                          onClick={() => {
+                            setDelete(true);
+                            setIdDelete(user._id);
+                          }}
+                        />
+                        <FontAwesomeIcon
+                          icon={faPenToSquare}
+                          className="bg-primary p-1 text-white"
+                          style={{ cursor: "pointer" }}
+                          onClick={() => {
+                            localStorage.setItem("IdUpdateUser", user._id);
+                            navigate("/dashboard/updateuser");
+                          }}
+                        />
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <button
+          className={`${styles.add} btn btn-success`}
+          onClick={() => navigate("/dashboard/adduser")}
+        >
+          اضافة مستخدم
+        </button>
+        {disTawsec === "taws" && (
+          <DisplayTawsec
+            setDisTawsec={setDisTawsec}
+            getAllUserDashboard={getAllUserDashboard}
+          />
+        )}
+        {openTawsek && (
           <div
-            className="gh"
             style={{
-              padding: "30px 10px",
-              width: "40%",
-              height: "35%",
-              transform: "translateY(150px)",
-              backgroundColor: "#F7F7F7",
-              borderRadius: "5px",
-              margin: "auto",
+              position: "fixed",
+              width: "100%",
+              height: "100%",
+              backgroundColor: "#00011C80",
+              top: 0,
+              left: 0,
             }}
           >
-            <p
+            <div
+              className="gh"
               style={{
-                textAlign: "center",
-                fontSize: "15px",
+                padding: "30px 10px",
+                width: "40%",
+                height: "35%",
+                transform: "translateY(150px)",
+                backgroundColor: "#F7F7F7",
+                borderRadius: "5px",
+                margin: "auto",
               }}
             >
-              ارفع صورة الوثيقة
-            </p>
-            {nofile && (
               <p
-                className="alert alert-secondary alerthemself"
-                style={{ transform: "translateY(-10px)", width: "100%" }}
+                style={{
+                  textAlign: "center",
+                  fontSize: "15px",
+                }}
               >
-                يرجي رفع الوثيقة
+                ارفع صورة الوثيقة
               </p>
-            )}
-            <label htmlFor="file-upload2" className={`customfileupload`}>
-              ارفع الملف
-            </label>
-            <input
-              name="selfImg"
-              id="file-upload2"
-              type="file"
-              className="form-control"
-              onChange={handleChangeImageProfile}
-            />
-            <div
-              style={{
-                position: "absolute",
-                bottom: "5%",
-                left: "50%",
-                transform: "translatex(-50%)",
-                display: "flex",
-                gap: "5px",
-              }}
-            >
-              <button className="btn btn-danger" onClick={handleTawsek}>
-                {loading ? (
-                  <div className="spinner-border text-secondary" role="status">
-                    <span className="sr-only"></span>
-                  </div>
-                ) : (
-                  " توثيق"
-                )}
-              </button>
-              <button
-                className="btn btn-primary"
-                onClick={() => setOpenTawsk("")}
+              {nofile && (
+                <p
+                  className="alert alert-secondary alerthemself"
+                  style={{ transform: "translateY(-10px)", width: "100%" }}
+                >
+                  يرجي رفع الوثيقة
+                </p>
+              )}
+              <label htmlFor="file-upload2" className={`customfileupload`}>
+                ارفع الملف
+              </label>
+              <input
+                name="selfImg"
+                id="file-upload2"
+                type="file"
+                className="form-control"
+                onChange={handleChangeImageProfile}
+              />
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: "5%",
+                  left: "50%",
+                  transform: "translatex(-50%)",
+                  display: "flex",
+                  gap: "5px",
+                }}
               >
-                الغاء
-              </button>
+                <button className="btn btn-danger" onClick={handleTawsek}>
+                  {loading ? (
+                    <div
+                      className="spinner-border text-secondary"
+                      role="status"
+                    >
+                      <span className="sr-only"></span>
+                    </div>
+                  ) : (
+                    " توثيق"
+                  )}
+                </button>
+                <button
+                  className="btn btn-primary"
+                  onClick={() => setOpenTawsk("")}
+                >
+                  الغاء
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
-      {deleted && (
-        <div
-          style={{
-            position: "fixed",
-            width: "100%",
-            height: "100%",
-            backgroundColor: "#00011C80",
-            top: 0,
-            left: 0,
-          }}
-        >
+        )}
+        {deleted && (
           <div
-            className="gh"
             style={{
-              width: "40%",
-              height: "45%",
-              transform: "translateY(70px)",
-              backgroundColor: "#F7F7F7",
-              borderRadius: "5px",
-              margin: "auto",
+              position: "fixed",
+              width: "100%",
+              height: "100%",
+              backgroundColor: "#00011C80",
+              top: 0,
+              left: 0,
             }}
           >
-            <p
-              style={{
-                textAlign: "center",
-                transform: "translatey(50px)",
-                fontSize: "20px",
-              }}
-            >
-              هل انت متاكد من رغبتك <br /> بحذف هذا المستخدم
-            </p>
             <div
+              className="gh"
               style={{
-                position: "absolute",
-                bottom: "5%",
-                left: "50%",
-                transform: "translatex(-50%)",
-                display: "flex",
-                gap: "5px",
+                width: "40%",
+                height: "45%",
+                transform: "translateY(70px)",
+                backgroundColor: "#F7F7F7",
+                borderRadius: "5px",
+                margin: "auto",
               }}
             >
-              <button className="btn btn-danger" onClick={deleteUser}>
-                {idloading ? (
-                  <div className="spinner-border text-secondary" role="status">
-                    <span className="sr-only"></span>
-                  </div>
-                ) : (
-                  " حذف"
-                )}
-              </button>
-              <button className="btn btn-primary" onClick={() => setDelete("")}>
-                الغاء
-              </button>
+              <p
+                style={{
+                  textAlign: "center",
+                  transform: "translatey(50px)",
+                  fontSize: "20px",
+                }}
+              >
+                هل انت متاكد من رغبتك <br /> بحذف هذا المستخدم
+              </p>
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: "5%",
+                  left: "50%",
+                  transform: "translatex(-50%)",
+                  display: "flex",
+                  gap: "5px",
+                }}
+              >
+                <button className="btn btn-danger" onClick={deleteUser}>
+                  {idloading ? (
+                    <div
+                      className="spinner-border text-secondary"
+                      role="status"
+                    >
+                      <span className="sr-only"></span>
+                    </div>
+                  ) : (
+                    " حذف"
+                  )}
+                </button>
+                <button
+                  className="btn btn-primary"
+                  onClick={() => setDelete("")}
+                >
+                  الغاء
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+    </>
   );
 }

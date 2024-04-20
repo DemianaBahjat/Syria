@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFile, faFileZipper } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate, useParams } from "react-router-dom";
 import { ContextUser, useUser } from "../../context/Context";
+import one from "../../image/png-clipart-computer-icons-avatar-icon-design-avatar-heroes-computer-wallpaper-thumbnail.png";
 export default function DataSiteResponseMassacre() {
   const [martyrDisplay, setMartyrDataDisplay] = useState([]);
   const [loadingdel, setLoadingDel] = useState(false);
@@ -21,7 +22,8 @@ export default function DataSiteResponseMassacre() {
           },
         })
         .then((result) => {
-          setMartyrDataDisplay(result.data);
+          setMartyrDataDisplay( result.data );
+       
         })
         .catch((error) => {
           console.log(error);
@@ -182,11 +184,39 @@ export default function DataSiteResponseMassacre() {
           </div>
         </div>
         <div className={styles.detailsLeft}>
-          <h6>شرح مفصل : </h6>{" "}
-          {martyrDisplay.details !== undefined &&
-          martyrDisplay.details !== "undefined"
-            ? martyrDisplay.details
-            : "لم تتم الاضافة"}{" "}
+          <div>
+            <h6>شرح مفصل : </h6>{" "}
+            {martyrDisplay.details !== undefined &&
+            martyrDisplay.details !== "undefined"
+              ? martyrDisplay.details
+              : "لم تتم الاضافة"}{" "}
+          </div>
+          <div
+            style={{
+              display: "flex",
+              gap: "10px",
+              marginBottom: "10px",
+              alignItems: "center",
+            }}
+          >
+            {martyrDisplay?.user?.selfImg !== undefined &&
+            martyrDisplay?.user?.selfImg !== "undefined" &&
+            martyrDisplay?.user?.selfImg !== null ? (
+              <img
+                src={`https://syrianrevolution1.com/images/${martyrDisplay?.user?.selfImg}`}
+                alt="profile"
+                style={{ width: "50px", height: "50px", borderRadius: "50%" }}
+              />
+            ) : (
+              <img
+                src={one}
+                alt="profile"
+                style={{ width: "50px", height: "50px", borderRadius: "50%" }}
+              />
+            )}
+
+            <p>{martyrDisplay?.user?.name}</p>
+          </div>
         </div>
       </div>
       <div className={styles.btnbottom}>

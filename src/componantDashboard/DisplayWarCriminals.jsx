@@ -3,12 +3,14 @@ import styles from "../styleDashboard/DisplayMartysDash.module.css";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { ContextUser, useUser } from "../context/Context";
+import one from "../image/png-clipart-computer-icons-avatar-icon-design-avatar-heroes-computer-wallpaper-thumbnail.png";
 export default function DisplayHonorCard() {
   const { setOpenAlert, setOpenAlertStore } = useContext( ContextUser );
    const { getList } = useUser();
     const [martyrDisplay, setMartyrDataDisplay] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [loadingAccepted, setLoadingAccepted] = useState(false);
+  const [ loadingAccepted, setLoadingAccepted ] = useState( false );
+  // const [user,setUser] = useState([])
     const navigate = useNavigate();
     const { id } = useParams();
     useEffect(() => {
@@ -19,7 +21,10 @@ export default function DisplayHonorCard() {
               Authorization: localStorage.getItem("token"),
             },
           })
-          .then((result) => setMartyrDataDisplay(result.data))
+          .then( ( result ) => { 
+            setMartyrDataDisplay( result.data );
+            // console.log(result)
+          })
           .catch((error) => {
             console.log(error);
           });
@@ -126,11 +131,39 @@ export default function DisplayHonorCard() {
         </div>
 
         <div className={styles.detailsLeft}>
-          <h6>شرح مفصل : </h6>{" "}
-          {martyrDisplay.content !== undefined &&
-          martyrDisplay.content !== "undefined"
-            ? martyrDisplay.content
-            : "لم تتم الاضافة"}{" "}
+          <div>
+            <h6>شرح مفصل : </h6>{" "}
+            {martyrDisplay.content !== undefined &&
+            martyrDisplay.content !== "undefined"
+              ? martyrDisplay.content
+              : "لم تتم الاضافة"}{" "}
+          </div>
+          <div
+            style={{
+              display: "flex",
+              gap: "10px",
+              marginBottom: "10px",
+              alignItems: "center",
+            }}
+          >
+            {martyrDisplay?.user?.selfImg !== undefined &&
+            martyrDisplay?.user?.selfImg !== "undefined" &&
+            martyrDisplay?.user?.selfImg !== null ? (
+              <img
+                src={`https://syrianrevolution1.com/images/${martyrDisplay?.user?.selfImg}`}
+                alt="profile"
+                style={{ width: "50px", height: "50px", borderRadius: "50%" }}
+              />
+            ) : (
+              <img
+                src={one}
+                alt="profile"
+                style={{ width: "50px", height: "50px", borderRadius: "50%" }}
+              />
+            )}
+
+            <p>{martyrDisplay?.user?.name}</p>
+          </div>
         </div>
       </div>
       <div className={styles.btnbottom}>

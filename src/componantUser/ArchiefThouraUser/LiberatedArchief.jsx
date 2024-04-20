@@ -6,7 +6,7 @@ export default function LiberatedArchief() {
   const {lastNews} =  useUser()
   const navigate = useNavigate()
   return (
-    <div>
+    <div id='oneone'>
       <div className="demonstrations py-3">
         <div className="container">
           <div className="row gy-3 mb-5">

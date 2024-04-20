@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import MainNav from '../MainNav/MainNav';
 import Navbar from '../Navbar/Navbar';
 import Footer from '../Footer/Footer';
+import one from '../../image/png-clipart-computer-icons-avatar-icon-design-avatar-heroes-computer-wallpaper-thumbnail.png'
 import axios from 'axios';
 import { useNavigate, useParams } from "react-router-dom";
 export default function NewsDetails() {
@@ -63,12 +64,20 @@ export default function NewsDetails() {
                   ? single.externalLinks
                   : ""}
               </a>
-              <div style={{ display: "flex", gap: "10px" ,marginBottom:'10px'}}>
-                <img
-                  src={`https://syrianrevolution1.com/images/${single?.user?.selfImg}`}
+              <div
+                style={{ display: "flex", gap: "10px", marginBottom: "10px" }}
+              >
+                { single?.user?.selfImg !== undefined &&
+                  single?.user?.selfImg !== "undefined" &&
+                  single?.user?.selfImg !== null ? <img
+                  src={ `https://syrianrevolution1.com/images/${single?.user?.selfImg}` }
                   alt="profile"
-                  style={{ width: "50px", height: "50px", borderRadius: "50%" }}
-                />
+                  style={ { width: "50px", height: "50px", borderRadius: "50%" } }
+                /> : <img
+                  src={ one }
+                  alt="profile"
+                  style={ { width: "50px", height: "50px", borderRadius: "50%" } } /> }
+             
                 <p>{single?.user?.name}</p>
               </div>
             </div>

@@ -11,7 +11,7 @@ export default function DetaineesUser() {
 
   return (
     <>
-      <section className="detainees">
+      <section className="detainees" id="fourfour">
         <div className="container py-2">
           <div className="header position-relative py-5">
             <h3 className=" text-danger">المعتقلين</h3>

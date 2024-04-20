@@ -2,7 +2,8 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../../context/Context';
-import MainPage from '../MainPage/MainPage';
+
+import OneMainPageFirst from './OneMainPageFirst';
 export default function MainPageFirst() {
      const [martyr, setMartyr] = useState([]);
      const navigate = useNavigate();
@@ -41,7 +42,12 @@ export default function MainPageFirst() {
     }, []);
   return (
     <div>
-      <MainPage/>
+      <div className="container">
+        <div className="header position-relative py-5">
+          <h3 className=" text-danger"> آخر الأخبار </h3>
+        </div>
+      </div>
+     <OneMainPageFirst/>
       {/* one section */}
       <section className="martyrs">
         <div className="container py-2">
@@ -89,7 +95,7 @@ export default function MainPageFirst() {
                   {lastNews
                     .filter((e) => e.category === "mozaharat")
                     .slice(0, 4)
-                    .map((e,i) => (
+                    .map((e, i) => (
                       <div className="col-md-3" key={i}>
                         <div className="news">
                           <div className="item">
@@ -139,7 +145,7 @@ export default function MainPageFirst() {
                   {lastNews
                     .filter((e) => e.category === "maarek")
                     .slice(0, 4)
-                    .map((e,i) => (
+                    .map((e, i) => (
                       <div className="col-md-3" key={i}>
                         <div className="news">
                           <div className="item">
@@ -189,7 +195,7 @@ export default function MainPageFirst() {
                   {lastNews
                     .filter((e) => e.category === "symbols")
                     .slice(0, 4)
-                    .map((e,i) => (
+                    .map((e, i) => (
                       <div className="col-md-3" key={i}>
                         <div className="news">
                           <div className="item">
@@ -227,7 +233,7 @@ export default function MainPageFirst() {
       {/* five section  */}
       <div className="container">
         <div className="header position-relative py-5">
-          <h3 className=" text-danger">  المجازر </h3>
+          <h3 className=" text-danger"> المجازر </h3>
         </div>
       </div>
       <section className="regime" style={{ marginBottom: "100px" }}>

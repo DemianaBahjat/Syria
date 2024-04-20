@@ -5,7 +5,6 @@ import { useUser } from '../../context/Context';
 export default function DataSiteBlackList() {
   const navigate = useNavigate();
   const {lastNews} = useUser()
-  console.log(lastNews);
   return (
     <div className={styles.DataSiteLastNews}>
       <div className={styles.allUser}>
@@ -22,7 +21,8 @@ export default function DataSiteBlackList() {
               {lastNews &&
                 lastNews.map((user, index) =>
                   user.category === "Traitors" ||
-                  user.category === "mogramharb" ? (
+                  user.category === "mogramharb" ||
+                  user.category === "blacklist" ? (
                     <tr key={index}>
                       <td>{user.name}</td>
                       <td>{user.category}</td>

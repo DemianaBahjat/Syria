@@ -10,14 +10,7 @@ import TawsikEmail from '../TawsikEmail';
 export default function Header() {
   const {openAuth, setOpenAuth}= useContext(ContextUser)
   function handleOpen() {
-    if ( !localStorage.getItem( 'token' ) ) {
-      setOpenAuth( 'login' );
-    } else {
-    
-  
       setOpenAuth( "enterinform");
-    }
-  
   }
 
   return (

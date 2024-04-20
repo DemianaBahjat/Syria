@@ -1,20 +1,22 @@
-import React  from 'react'
 
-import {useNavigate} from 'react-router-dom'
-import { useUser } from '../../context/Context';
-export default function FlagArchief() {
-   const { lastNews } = useUser();
+
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { useUser } from "../../context/Context";
+export default function FlagBlackListThree() {
   const navigate = useNavigate();
+  const { lastNews } = useUser();
+
   return (
-    <div id='onetwo'>
-      <div className="demonstrations py-3">
+    <div id="threeone">
+      <div className="demonstrations py-3 " style={{ marginBottom: "100px" }}>
         <div className="container">
           <div className="row" style={{ justifyContent: "space-between" }}>
             <div className="col-md-6">
               <div className="row gy-2">
                 {lastNews
-                  .filter((e) => e.category === "mozaharat")
-                  .slice(4, 8)
+                  .filter((e) => e.category === "blacklist")
+                  .slice(0, 4)
                   .map((e) => (
                     <div className="col-md-6">
                       <div className="news">
@@ -22,16 +24,16 @@ export default function FlagArchief() {
                           <div className="image">
                             <img
                               src={`https://syrianrevolution1.com/postImages/${e?.selfImg}`}
-                              alt="mozaharat"
+                              alt="lastNews"
                               className=" w-100 rounded-3"
                             />
                           </div>
                           <div className="text">
-                            <p>
+                            <p style={{ margin: "10px 0" }}>
                               {e?.name}
                               <br />
                               <button
-                                className="btu d-inline-block mx-1 px-3 rounded-3"
+                                className=" d-inline-block mx-1 px-3 rounded-3 btu"
                                 onClick={() =>
                                   navigate(`/newsDetails/${e._id}`)
                                 }
@@ -49,7 +51,7 @@ export default function FlagArchief() {
             <div className="lastSlider col-md-5">
               <div className=" muted p-2 overflow-hidden">
                 {lastNews
-                  .filter((e) => e.category === "mozaharat")
+                  .filter((e) => e.category === "blacklist")
                   .map((e) => (
                     <div
                       className="row border-bottom pb-2 pt-2 border-2 overflow-hidden"
@@ -84,6 +86,11 @@ export default function FlagArchief() {
     </div>
   );
 }
+
+
+
+
+
 
 
 

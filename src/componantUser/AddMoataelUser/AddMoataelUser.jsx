@@ -65,9 +65,11 @@ export default function AddShahedUser() {
   async function handleSubmit(e) {
     e.preventDefault();
     let responseValidateUser = validationAddUser();
-    if (responseValidateUser.error) {
-      setErrorListUser([responseValidateUser.error.details]);
-    } else {
+    if ( responseValidateUser.error ) {
+      setErrorListUser( [ responseValidateUser.error.details ] );
+    } else if ( !localStorage.getItem( 'token' ) ) { 
+      setOpenAuth('login')
+    }else {
       await getSingleUser();
       if ( checkConfition === true ) {
            setErrorListUser("");
