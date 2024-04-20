@@ -9,7 +9,7 @@ export default function Footer() {
         <div className="container">
           <h3 className="mb-4">الثورة السورية</h3>
           <div className="row gy-4">
-            <div className="col-md-6">
+            <div className="col-md-5">
               <div className="row gy-3">
                 <div className="col-md-4 col-sm-4 x-sm">
                   <NavLink className="nav-link" to="/">
@@ -58,7 +58,7 @@ export default function Footer() {
                 </div>
               </div>
             </div>
-            <div className="col-md-6 d-flex justify-content-center align-items-center">
+            <div className="col-md-4 d-flex justify-content-center align-items-center">
               <div className="contact-footer text-center">
                 <p className=" para mb-3 p-0">تواصل معنا</p>
                 <div className="social-icons-footer d-flex align-items-center">
@@ -96,13 +96,36 @@ export default function Footer() {
                 </div>
               </div>
             </div>
+            <div className="col-md-2 d-flex justify-content-center align-items-center">
+              <div className="contact-footer text-center">
+                <p className=" para mb-3 p-0"> تثبيت التطبيق</p>
+                <div className="social-icons-footer d-flex align-items-center" style={{gap:'10px'}}>
+                  <a href="https://download938.mediafire.com/ksvcxnlsirvg7anWQbCfZCKdsfKPWKjzXTy3_4QoqYkVC5NO2xgGhzPM1mGJ_x2c5rwhYpeGv7FG3jtSBW4miGL4VygJP9LUGeB8JEI6qn_CGv1RPBnHodPV4MUvg83-qnxtOL6CHZKHA8B66w5ERZtYZzY9jvMq1gjdOAaq/4255p8y3xparesh/Syrian.Revolution+.apk">
+                    <button
+                      className="btn oda"
+                      style={{ border: "2px solid white", color: "white" }}
+                    >
+                      اندرويد
+                    </button>
+                  </a>
+                  <a href="https://www.mediafire.com/file/w5lzwl0sxvgvqoh/Syrian.Revolution/file?dkey=zwy4s8f1ig4&r=438">
+                    <button
+                      className="btn"
+                      style={{ border: "2px solid white", color: "white" }}
+                    >
+                      ايفون
+                    </button>
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
           <hr />
-          <p className=" para text-center p-0 m-0">  
-          جميع حقوق النشر محفوظة - 
-
-          <Link to="privacypolicy" style={{textDecoration:"none"}}>سياسة الخصوصية </Link>
-          
+          <p className=" para text-center p-0 m-0">
+            جميع حقوق النشر محفوظة -
+            <Link to="privacypolicy" style={{ textDecoration: "none" }}>
+              سياسة الخصوصية{" "}
+            </Link>
           </p>
         </div>
       </div>

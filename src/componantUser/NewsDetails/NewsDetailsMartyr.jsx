@@ -155,7 +155,7 @@ export default function NewsDetailsMartyr() {
                 >
                   {single?.user?.selfImg !== undefined &&
                   single?.user?.selfImg !== "undefined" &&
-                  single?.user?.selfImg !== null ? (
+                  single?.user?.selfImg !== "" ? (
                     <img
                       src={`https://syrianrevolution1.com/images/${single?.user?.selfImg}`}
                       alt="profile"

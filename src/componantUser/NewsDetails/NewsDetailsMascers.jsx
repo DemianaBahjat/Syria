@@ -143,7 +143,7 @@ export default function NewsDetailsMascers() {
               <div style={{ display: "flex", gap: "10px", margin: "10px 0" }}>
                 {single?.user?.selfImg !== undefined &&
                 single?.user?.selfImg !== "undefined " &&
-                single?.user?.selfImg !== null ? (
+                single?.user?.selfImg !== "" ? (
                   <img
                     src={`https://syrianrevolution1.com/images/${single?.user?.selfImg}`}
                     alt="profile"

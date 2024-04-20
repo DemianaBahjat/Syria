@@ -260,7 +260,7 @@ export default function DisplayMartysDash() {
           <div style={{ display: "flex", gap: "10px", marginBottom: "10px" ,alignItems:'center'}}>
             {martyrDisplay?.user?.selfImg !== undefined &&
             martyrDisplay?.user?.selfImg !== "undefined" &&
-            martyrDisplay?.user?.selfImg !== null ? (
+            martyrDisplay?.user?.selfImg !== "" ? (
               <img
                 src={`https://syrianrevolution1.com/images/${martyrDisplay?.user?.selfImg}`}
                 alt="profile"

@@ -69,7 +69,7 @@ export default function NewsDetails() {
               >
                 { single?.user?.selfImg !== undefined &&
                   single?.user?.selfImg !== "undefined" &&
-                  single?.user?.selfImg !== null ? <img
+                  single?.user?.selfImg !== "" ? <img
                   src={ `https://syrianrevolution1.com/images/${single?.user?.selfImg}` }
                   alt="profile"
                   style={ { width: "50px", height: "50px", borderRadius: "50%" } }
