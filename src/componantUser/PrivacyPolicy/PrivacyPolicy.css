@@ -9,6 +9,8 @@
 
 .policy{
     position: relative;
+    overflow-x: hidden ;
+
 }
 
 .policy::after{
