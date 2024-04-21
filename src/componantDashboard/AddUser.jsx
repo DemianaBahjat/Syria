@@ -59,9 +59,9 @@ export default function AddUse() {
           "string.empty": "   المحافظة مطلوبة",
           "any.required": "   المحافظة مطلوبة",
         }),
-        phone: Joi.string().min(10).required().messages({
+        phone: Joi.string().min(7).required().messages({
           "string.empty": "    رقم الهاتف مطلوب",
-          "string.min": "    رقم  الهاتف يجب الا يقل عن عشرة احرف",
+          "string.min": "    رقم  الهاتف يجب الا يقل عن سبعة احرف",
 
           "any.required": "    رقم الهاتف مطلوب",
         }),

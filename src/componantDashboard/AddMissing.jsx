@@ -189,7 +189,7 @@ export default function AddAMartyr() {
             <div className={styles.inp1}>
               <label htmlFor=""> كنية المفقود</label>
               <input
-                name="nikename"
+                name="nickname"
                 type="text"
                 placeholder=" كنية المفقود"
                 className="form-control"

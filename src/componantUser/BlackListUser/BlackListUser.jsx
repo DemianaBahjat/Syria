@@ -11,7 +11,7 @@ export default function BlackListUser() {
   return (
     <>
       <Helmet>
-        <title> القائمة السوداء</title>
+        <title> الثورة السورية </title>
         <meta name="description" content="  القائمة السوداء" />
       </Helmet>
       <div className="container">

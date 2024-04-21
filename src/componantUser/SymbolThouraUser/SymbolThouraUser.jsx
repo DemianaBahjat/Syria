@@ -9,7 +9,7 @@ export default function SymbolThouraUser() {
   return (
     <>
       <Helmet>
-        <title> رموز الثورة</title>
+        <title>  الثورة السورية</title>
         <meta name="description" content="رموز الثورة السورية" />
       </Helmet>
       <div className="container">

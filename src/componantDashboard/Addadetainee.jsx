@@ -189,7 +189,7 @@ export default function AddAMartyr() {
             <div className={styles.inp1}>
               <label htmlFor=""> كنية المعتقل</label>
               <input
-                name="nikename"
+                name="nickname"
                 type="text"
                 placeholder=" كنية المعتقل"
                 className="form-control"
@@ -244,7 +244,7 @@ export default function AddAMartyr() {
             </div>
             <div className={styles.inp1}>
               <p style={{ fontSize: "10px", marginBottom: "5px" }}>
-                صورة الشهيد (اجباري)
+                صورة المعتقل (اجباري)
               </p>
               <label htmlFor="qw" className="customfileupload">
                 {" "}

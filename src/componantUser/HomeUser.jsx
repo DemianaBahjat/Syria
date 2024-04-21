@@ -12,7 +12,7 @@ export default function HomeUser() {
   return (
     <div>
       <Helmet>
-        <title>سوريا</title>
+        <title>الثورة السورية</title>
         <meta name="description" content="اخبار الثورة السورية" />
       </Helmet>
       <MainNav />

@@ -8,7 +8,7 @@ export default function GaraamDaaehUser() {
   return (
     <>
       <Helmet>
-        <title> جرائم النظام</title>
+        <title>  الثورة السورية</title>
         <meta name="description" content="  جرائم النظام" />
       </Helmet>
       <div className="container">

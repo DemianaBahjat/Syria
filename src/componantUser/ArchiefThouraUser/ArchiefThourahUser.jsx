@@ -8,7 +8,7 @@ export default function ArchiefThourahUser() {
   return (
     <>
       <Helmet>
-        <title>ارشيف الثورة</title>
+        <title>الثورة السورية </title>
         <meta name="description" content="ارشيف الثورة السورية" />
       </Helmet>
       <div className="container">

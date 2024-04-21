@@ -8,7 +8,7 @@ export default function BaraemSystem() {
   return (
     <>
       <Helmet>
-        <title>  جرائم النظام</title>
+        <title>   الثورة السورية</title>
         <meta name="description" content="  جرائم النظام" />
       </Helmet>
       <div className="container">
