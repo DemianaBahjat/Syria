@@ -1,4 +1,4 @@
-import { React, useContext, useState } from "react";
+import { React, useContext, useEffect, useState } from "react";
 import styles from "../AddSahedUser/AddShahed.module.css";
 import { ContextUser } from "../../context/Context";
 import Joi from "joi";
@@ -21,6 +21,10 @@ export default function AddShahedUser() {
   function handleChangeImageProfile(e) {
     setImageProfile(e.target.files[0]);
   }
+  ///////////////////////////////////////////////////
+  useEffect(() => {
+    getSingleUser();
+  }, [getSingleUser]);
   ////////////handle documents///////////
   const [document, setDocument] = useState("");
   function handleChangeDocuments(e) {
@@ -65,81 +69,76 @@ export default function AddShahedUser() {
   async function handleSubmit(e) {
     e.preventDefault();
     let responseValidateUser = validationAddUser();
-    if ( responseValidateUser.error ) {
-      setErrorListUser( [ responseValidateUser.error.details ] );
-    } else if ( !localStorage.getItem( 'token' ) ) { 
-      setOpenAuth('login')
-    }else {
-      await getSingleUser();
-      if ( checkConfition === true ) {
-           setErrorListUser("");
-           setSuccessAdd(false);
-           const formData = new FormData();
-           formData.append("category", addData.category);
-           formData.append("name", addData.name);
-           formData.append("profileImage", imageProfile);
+    if (responseValidateUser.error) {
+      setErrorListUser([responseValidateUser.error.details]);
+    } else if (!localStorage.getItem("token")) {
+      setOpenAuth("login");
+    } else {
+      if (checkConfition === true) {
+        setErrorListUser("");
+        setSuccessAdd(false);
+        const formData = new FormData();
+        formData.append("category", addData.category);
+        formData.append("name", addData.name);
+        formData.append("profileImage", imageProfile);
 
-           if (Array.isArray(document)) {
-             document.forEach((file) => {
-               formData.append("documents", file);
-             });
-           } else if (document instanceof FileList) {
-             for (let i = 0; i < document.length; i++) {
-               formData.append("documents", document[i]);
-             }
-           }
+        if (Array.isArray(document)) {
+          document.forEach((file) => {
+            formData.append("documents", file);
+          });
+        } else if (document instanceof FileList) {
+          for (let i = 0; i < document.length; i++) {
+            formData.append("documents", document[i]);
+          }
+        }
 
-           formData.append("nickname", addData.nickname);
+        formData.append("nickname", addData.nickname);
 
-           if (
-             addData.dateOfBirth !== "" &&
-             addData.dateOfBirth !== undefined &&
-             addData.dateOfBirth !== null
-           ) {
-             formData.append("dateOfBirth", addData.dateOfBirth);
-           }
+        if (
+          addData.dateOfBirth !== "" &&
+          addData.dateOfBirth !== undefined &&
+          addData.dateOfBirth !== null
+        ) {
+          formData.append("dateOfBirth", addData.dateOfBirth);
+        }
 
-           formData.append(
-             "responsibleAuthority",
-             addData.responsibleAuthority
-           );
-           formData.append("governorate", addData.governorate);
-           formData.append("fatherName", addData.fatherName);
-           formData.append("motherName", addData.motherName);
-           formData.append("place", addData.place);
-           formData.append("externalLinks", addData.externalLinks);
-           formData.append("details", addData.details);
-           try {
-             setLoading(true);
-             const response = await fetch(
-               `https://syrianrevolution1.com/childData/${localStorage.getItem(
-                 "idUserLogin"
-               )}`,
-               {
-                 method: "POST",
-                 body: formData,
-                 headers: {
-                   Authorization: localStorage.getItem("token"),
-                 },
-               }
-             );
-             const result = await response.json();
-             console.log(result);
-             setLoading(false);
-             if (result._id) {
-               setSuccessAdd(true);
-               setErrorBackUser(null);
-               setErrorListUser(null);
-             } else {
-               setErrorBackUser(result);
-             }
-           } catch (error) {
-             console.error(error);
-           }
+        formData.append("responsibleAuthority", addData.responsibleAuthority);
+        formData.append("governorate", addData.governorate);
+        formData.append("fatherName", addData.fatherName);
+        formData.append("motherName", addData.motherName);
+        formData.append("place", addData.place);
+        formData.append("externalLinks", addData.externalLinks);
+        formData.append("details", addData.details);
+        try {
+          setLoading(true);
+          const response = await fetch(
+            `https://syrianrevolution1.com/childData/${localStorage.getItem(
+              "idUserLogin"
+            )}`,
+            {
+              method: "POST",
+              body: formData,
+              headers: {
+                Authorization: localStorage.getItem("token"),
+              },
+            }
+          );
+          const result = await response.json();
+          console.log(result);
+          setLoading(false);
+          if (result._id) {
+            setSuccessAdd(true);
+            setErrorBackUser(null);
+            setErrorListUser(null);
+          } else {
+            setErrorBackUser(result);
+          }
+        } catch (error) {
+          console.error(error);
+        }
       } else {
         setOpenAuth("faild");
       }
-   
     }
   }
   return (
@@ -180,7 +179,7 @@ export default function AddShahedUser() {
               className="alert alert-secondary alerthemself"
               style={{ width: "90%" }}
             >
-          يرجي رفع وثيقة تثبت الخدث طبقا للموضح بالاسفل
+              يرجي رفع وثيقة تثبت الخدث طبقا للموضح بالاسفل
             </p>
           )}
         {successAdd && setOpenAuth("successaddinform")}

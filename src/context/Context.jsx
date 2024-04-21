@@ -24,7 +24,7 @@ function ContextProvider({ children }) {
         }
       )
       .then((result) => {
-        console.log(result);
+      
         result?.data?.isConfident === true
           ? setCheckConfition(true)
           : setCheckConfition(false);

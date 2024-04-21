@@ -1,146 +1,143 @@
-import {React,useContext, useEffect, useState} from 'react';
-import styles from './AddShahed.module.css';
-import { ContextUser } from '../../context/Context';
-import Joi from 'joi';
+import { React, useContext, useEffect, useState } from "react";
+import styles from "./AddShahed.module.css";
+import { ContextUser } from "../../context/Context";
+import Joi from "joi";
+
 export default function AddShahedUser() {
   const { setOpenAuth, getSingleUser, checkConfition } =
     useContext(ContextUser);
   ///////////////////////////////////////////////////
-  useEffect( () => {
-    getSingleUser()
-  },[getSingleUser])
-    ///////////////handlechange//////////////
-    const [addData, setAddData] = useState({
-      category: "martyr",
-      responsibleAuthority: "system",
+  useEffect(() => {
+    getSingleUser();
+  }, []);
+  ///////////////handlechange//////////////
+  const [addData, setAddData] = useState({
+    category: "martyr",
+    responsibleAuthority: "system",
+  });
+  const [errorListUser, setErrorListUser] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [errorBackUser, setErrorBackUser] = useState(null);
+  const [successAdd, setSuccessAdd] = useState(false);
+  /////////handle image////////////////
+  const [imageProfile, setImageProfile] = useState("");
+  function handleChangeImageProfile(e) {
+    setImageProfile(e.target.files[0]);
+  }
+  ////////////handle documents///////////
+  const [document, setDocument] = useState("");
+  function handleChangeDocuments(e) {
+    setDocument(e.target.files);
+  }
+  //////////handle change //////////////
+  function handlechange(e) {
+    setAddData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  }
+  ////////////valid Joi///////////////
+  function validationAddUser() {
+    let schema = Joi.object({
+      category: Joi.string().required().messages({
+        "string.empty": "التصنيف  مطلوب",
+        "any.required": "التصنيف  مطلوب",
+      }),
+      name: Joi.string().required().messages({
+        "string.empty": "     اسم الشهيد مطلوب",
+        "any.required": "     اسم الشهيد مطلوب",
+      }),
+      documents: Joi.string().allow(""),
+      nickname: Joi.string().allow(""),
+      dateOfBirth: Joi.string().allow(""),
+      responsibleAuthority: Joi.string().required().messages({
+        "string.empty": "  الجهة المسئولة مطلوبة",
+        "any.required": "  الجهة المسئولة مطلوبة",
+      }),
+      governorate: Joi.string().allow(""),
+      fatherName: Joi.string().allow(""),
+      motherName: Joi.string().allow(""),
+      place: Joi.string().allow(""),
+
+      externalLinks: Joi.string().allow(""),
+      details: Joi.string().allow(""),
     });
-    const [errorListUser, setErrorListUser] = useState(null);
-    const [loading, setLoading] = useState(false);
-    const [errorBackUser, setErrorBackUser] = useState(null);
-    const [successAdd, setSuccessAdd] = useState(false);
-    /////////handle image////////////////
-    const [imageProfile, setImageProfile] = useState("");
-    function handleChangeImageProfile(e) {
-      setImageProfile(e.target.files[0]);
-    }
-    ////////////handle documents///////////
-    const [document, setDocument] = useState("");
-    function handleChangeDocuments(e) {
-      setDocument(e.target.files);
-    }
-    //////////handle change //////////////
-    function handlechange(e) {
-      setAddData((prevState) => ({
-        ...prevState,
-        [e.target.name]: e.target.value,
-      }));
-    }
-    ////////////valid Joi///////////////
-    function validationAddUser() {
-      let schema = Joi.object({
-        category: Joi.string().required().messages({
-          "string.empty": "التصنيف  مطلوب",
-          "any.required": "التصنيف  مطلوب",
-        }),
-        name: Joi.string().required().messages({
-          "string.empty": "     اسم الشهيد مطلوب",
-          "any.required": "     اسم الشهيد مطلوب",
-        }),
-        documents: Joi.string().allow(""),
-        nickname: Joi.string().allow(""),
-        dateOfBirth: Joi.string().allow(""),
-        responsibleAuthority: Joi.string().required().messages({
-          "string.empty": "  الجهة المسئولة مطلوبة",
-          "any.required": "  الجهة المسئولة مطلوبة",
-        }),
-        governorate: Joi.string().allow(""),
-        fatherName: Joi.string().allow(""),
-        motherName: Joi.string().allow(""),
-        place: Joi.string().allow(""),
+    return schema.validate(addData, { abortEarly: false });
+  }
+  console.log(checkConfition);
 
-        externalLinks: Joi.string().allow(""),
-        details: Joi.string().allow(""),
-      });
-      return schema.validate(addData, { abortEarly: false });
-    }
-      console.log(checkConfition);
+  async function handleSubmit(e) {
+    e.preventDefault();
 
-    async function handleSubmit(e) {
-      e.preventDefault();
-  
-      let responseValidateUser = validationAddUser();
-      if ( responseValidateUser.error ) {
-        setErrorListUser( [ responseValidateUser.error.details ] );
-      } else if ( !localStorage.getItem( 'token' ) ) { 
-        setOpenAuth('login')
-      }else {      
-        if ( checkConfition === true ) {
-                  setErrorListUser("");
-                  setSuccessAdd(false);
-                  const formData = new FormData();
-                  formData.append("category", addData.category);
-                  formData.append("name", addData.name);
-                  formData.append("profileImage", imageProfile);
-                  if (Array.isArray(document)) {
-                    document.forEach((file) => {
-                      formData.append("documents", file);
-                    });
-                  } else if (document instanceof FileList) {
-                    for (let i = 0; i < document.length; i++) {
-                      formData.append("documents", document[i]);
-                    }
-                  }
-                  formData.append("nickname", addData.nickname);
-                  if (
-                    addData.dateOfBirth !== "" &&
-                    addData.dateOfBirth !== undefined &&
-                    addData.dateOfBirth !== null
-                  ) {
-                    formData.append("dateOfBirth", addData.dateOfBirth);
-                  }
-                  formData.append(
-                    "responsibleAuthority",
-                    addData.responsibleAuthority
-                  );
-                  formData.append("governorate", addData.governorate);
-                  formData.append("fatherName", addData.fatherName);
-                  formData.append("motherName", addData.motherName);
-                  formData.append("place", addData.place);
-                  formData.append("externalLinks", addData.externalLinks);
-                  formData.append("details", addData.details);
-                  try {
-                    setLoading(true);
-                    const response = await fetch(
-                      `https://syrianrevolution1.com/childData/${localStorage.getItem(
-                        "idUserLogin"
-                      )}`,
-                      {
-                        method: "POST",
-                        body: formData,
-                        headers: {
-                          Authorization: localStorage.getItem("token"),
-                        },
-                      }
-                    );
-                    const result = await response.json();
-                    console.log(result);
-                    setLoading(false);
-                    if (result._id) {
-                      setSuccessAdd(true);
-                      setErrorBackUser(null);
-                      setErrorListUser(null);
-                    } else {
-                      setErrorBackUser(result);
-                    }
-                  } catch (error) {
-                    console.error(error);
-                  }
-        } else {
-          setOpenAuth('faild')
+    let responseValidateUser = validationAddUser();
+    if (responseValidateUser.error) {
+      setErrorListUser([responseValidateUser.error.details]);
+    } else if (!localStorage.getItem("token")) {
+      setOpenAuth("login");
+    } else {
+      if (checkConfition === true) {
+        setErrorListUser("");
+        setSuccessAdd(false);
+        const formData = new FormData();
+        formData.append("category", addData.category);
+        formData.append("name", addData.name);
+        formData.append("profileImage", imageProfile);
+        if (Array.isArray(document)) {
+          document.forEach((file) => {
+            formData.append("documents", file);
+          });
+        } else if (document instanceof FileList) {
+          for (let i = 0; i < document.length; i++) {
+            formData.append("documents", document[i]);
+          }
         }
-
+        formData.append("nickname", addData.nickname);
+        if (
+          addData.dateOfBirth !== "" &&
+          addData.dateOfBirth !== undefined &&
+          addData.dateOfBirth !== null
+        ) {
+          formData.append("dateOfBirth", addData.dateOfBirth);
+        }
+        formData.append("responsibleAuthority", addData.responsibleAuthority);
+        formData.append("governorate", addData.governorate);
+        formData.append("fatherName", addData.fatherName);
+        formData.append("motherName", addData.motherName);
+        formData.append("place", addData.place);
+        formData.append("externalLinks", addData.externalLinks);
+        formData.append("details", addData.details);
+        try {
+          setLoading(true);
+          const response = await fetch(
+            `https://syrianrevolution1.com/childData/${localStorage.getItem(
+              "idUserLogin"
+            )}`,
+            {
+              method: "POST",
+              body: formData,
+              headers: {
+                Authorization: localStorage.getItem("token"),
+              },
+            }
+          );
+          const result = await response.json();
+          console.log(result);
+          setLoading(false);
+          if (result._id) {
+            setSuccessAdd(true);
+            setErrorBackUser(null);
+            setErrorListUser(null);
+          } else {
+            setErrorBackUser(result);
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      } else {
+        setOpenAuth("faild");
       }
     }
+  }
   return (
     <div>
       <form action="" className={styles.form}>

@@ -1,4 +1,4 @@
-import {React,useContext, useState} from 'react'
+import {React,useContext, useEffect, useState} from 'react'
 import styles from '../AddSahedUser/AddShahed.module.css'
 import { ContextUser } from "../../context/Context";
 import Joi from 'joi';
@@ -8,95 +8,96 @@ export default function AddMogramUser() {
     useContext(ContextUser);
   //////////////////////////////////////////////////////////
 
-    const [addData, setAddData] = useState({
-      category: "mogramharb",
+  const [addData, setAddData] = useState({
+    category: "mogramharb",
+  });
+  const [errorListUser, setErrorListUser] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [errorBackUser, setErrorBackUser] = useState(null);
+  const [successAdd, setSuccessAdd] = useState(false);
+  /////////handle image////////////////
+  const [imageProfile, setImageProfile] = useState("");
+  function handleChangeImageProfile(e) {
+    setImageProfile(e.target.files[0]);
+  }
+  console.log(imageProfile);
+  //////////handle change //////////////
+  function handlechange(e) {
+    setAddData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  }
+  ///////////////////////////////////////////////////
+  useEffect(() => {
+    getSingleUser();
+  }, [ getSingleUser ] );
+  ////////////valid Joi///////////////
+  function validationAddUser() {
+    let schema = Joi.object({
+      name: Joi.string().required().messages({
+        "string.empty": "     الاسم  مطلوب",
+        "any.required": "     الاسم  مطلوب",
+      }),
+      category: Joi.string().required(),
+      content: Joi.string().allow(""),
+      governorate: Joi.string().allow(""),
+      externalLinks: Joi.string().allow(""),
     });
-    const [errorListUser, setErrorListUser] = useState(null);
-    const [loading, setLoading] = useState(false);
-    const [errorBackUser, setErrorBackUser] = useState(null);
-    const [successAdd, setSuccessAdd] = useState(false);
-    /////////handle image////////////////
-    const [imageProfile, setImageProfile] = useState("");
-    function handleChangeImageProfile(e) {
-      setImageProfile(e.target.files[0]);
-    }
-    console.log(imageProfile);
-    //////////handle change //////////////
-    function handlechange(e) {
-      setAddData((prevState) => ({
-        ...prevState,
-        [e.target.name]: e.target.value,
-      }));
-    }
-    ////////////valid Joi///////////////
-    function validationAddUser() {
-      let schema = Joi.object({
-        name: Joi.string().required().messages({
-          "string.empty": "     الاسم  مطلوب",
-          "any.required": "     الاسم  مطلوب",
-        }),
-        category: Joi.string().required(),
-        content: Joi.string().allow(""),
-        governorate: Joi.string().allow(""),
-        externalLinks: Joi.string().allow(""),
-      });
-      return schema.validate(addData, { abortEarly: false });
-    }
-    async function handleSubmit(e) {
-      e.preventDefault();
-      setSuccessAdd(false);
-      let responseValidateUser = validationAddUser();
-      if (responseValidateUser.error) {
-        setErrorListUser([responseValidateUser.error.details]);
-      } else if ( !localStorage.getItem( 'token' ) ) {
-        setOpenAuth('login')
-      }else {
-        await getSingleUser();
-        if ( checkConfition === true ) {
-                setErrorListUser("");
-                setSuccessAdd(false);
-                const formData = new FormData();
-                formData.append("name", addData.name);
-                formData.append("selfImg", imageProfile);
-                formData.append("externalLinks", addData.externalLinks);
-                formData.append("governorate", addData.governorate);
-                formData.append("category", addData.category);
-                formData.append("content", addData.content);
+    return schema.validate(addData, { abortEarly: false });
+  }
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setSuccessAdd(false);
+    let responseValidateUser = validationAddUser();
+    if (responseValidateUser.error) {
+      setErrorListUser([responseValidateUser.error.details]);
+    } else if (!localStorage.getItem("token")) {
+      setOpenAuth("login");
+    } else {
+      if (checkConfition === true) {
+        setErrorListUser("");
+        setSuccessAdd(false);
+        const formData = new FormData();
+        formData.append("name", addData.name);
+        formData.append("selfImg", imageProfile);
+        formData.append("externalLinks", addData.externalLinks);
+        formData.append("governorate", addData.governorate);
+        formData.append("category", addData.category);
+        formData.append("content", addData.content);
 
-                try {
-                  setLoading(true);
-                  const response = await fetch(
-                    `https://syrianrevolution1.com/lists/${localStorage.getItem(
-                      "idUserLogin"
-                    )}`,
-                    {
-                      method: "POST",
-                      body: formData,
-                      headers: {
-                        Authorization: localStorage.getItem("token"),
-                      },
-                    }
-                  );
-                  const result = await response.json();
-                  console.log(result);
-                  setLoading(false);
-                  if (result._id) {
-                    setSuccessAdd(true);
-                    setErrorBackUser(null);
-                    setErrorListUser(null);
-                  } else {
-                    setErrorBackUser(result);
-                  }
-                } catch (error) {
-                  console.error(error);
-                }
-        } else {
-           setOpenAuth("faild");
+        try {
+          setLoading(true);
+          const response = await fetch(
+            `https://syrianrevolution1.com/lists/${localStorage.getItem(
+              "idUserLogin"
+            )}`,
+            {
+              method: "POST",
+              body: formData,
+              headers: {
+                Authorization: localStorage.getItem("token"),
+              },
+            }
+          );
+          const result = await response.json();
+          console.log(result);
+          setLoading(false);
+          if (result._id) {
+            setSuccessAdd(true);
+            setErrorBackUser(null);
+            setErrorListUser(null);
+          } else {
+            setErrorBackUser(result);
+          }
+        } catch (error) {
+          console.error(error);
         }
-  
+      } else {
+        setOpenAuth("faild");
       }
     }
-
+  }
 
   return (
     <div>

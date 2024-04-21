@@ -93,6 +93,7 @@ export default function UsersDash() {
       const result = await response.json();
       if (result === "User Deleted Successfully") {
         getAllUserDashboard();
+     
         setIdLoading(false);
         setIdDelete("");
         setDelete("");
