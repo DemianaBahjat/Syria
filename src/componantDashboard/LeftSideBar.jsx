@@ -298,7 +298,7 @@ export default function LeftSideBar() {
               رموز الثورة
             </NavLink>
             <NavLink to="/dashboard/blacklist"> القائمة السوداء</NavLink>
-            <NavLink to="/dashboard/crimessystem"> جرائم النظام</NavLink>
+            <NavLink to="/dashboard/crimessystem">  الجرائم</NavLink>
             <NavLink to="/dashboard/allexcel"> مطلوبين للنظام</NavLink>
           </div>
         </div>
