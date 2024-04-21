@@ -182,7 +182,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import style from "../styleDashboard/leftSideBar.module.css";
 import imgAvatar from "../image/png-clipart-computer-icons-avatar-icon-design-avatar-heroes-computer-wallpaper-thumbnail.png";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowDown,
@@ -196,7 +196,8 @@ import { ContextUser, useUser } from "../context/Context";
 import AlertLogout from "../componantDashboard/AlertImageDash/AlertLogout";
 
 export default function LeftSideBar() {
-  const [isMobile, setIsMobile] = useState(false);
+  const [ isMobile, setIsMobile ] = useState( false );
+  const navigate = useNavigate()
   const { numberMogrem } = useUser();
   const { role, setOpenLogout, openLogout } = useContext(ContextUser);
   useEffect(() => {
@@ -313,7 +314,7 @@ export default function LeftSideBar() {
         </div>
         <div className={style.secondFourth}>
           <div className={style.headsecondsecond}>
-            <Link to="/">
+            <Link onClick={ () => {navigate('/') ; window.location.reload() } }>
               <FontAwesomeIcon icon={faHouse} />
               الرئيسية
             </Link>

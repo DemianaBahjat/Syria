@@ -10,11 +10,10 @@ import { useUser } from '../../../context/Context';
 export default function MartyrsUser() {
 
   const {child} =  useUser()
-    const navigate = useNavigate();
-
+  const navigate = useNavigate();
   return (
     <>
-      <section className="martyrs" id='fourtwo'>
+      <section className="martyrs" id="fourtwo">
         <div className="container py-2">
           <div className="header position-relative py-5">
             <h3 className=" text-danger">الشهداء</h3>
@@ -35,6 +34,7 @@ export default function MartyrsUser() {
                         src={`https://syrianrevolution1.com/imgData/${e.profileImage}`}
                         alt="martyr"
                         className=" w-100 rounded-3 fimg"
+                      
                       />
                     </div>
                     <p>

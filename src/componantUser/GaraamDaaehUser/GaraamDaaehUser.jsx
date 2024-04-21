@@ -13,7 +13,7 @@ export default function GaraamDaaehUser() {
       </Helmet>
       <div className="container">
         <div className="header position-relative py-5">
-          <h3 className=" text-danger"> مجاز داعش </h3>
+          <h3 className=" text-danger"> مجازر داعش </h3>
         </div>
       </div>
       <RegimeMassacres />

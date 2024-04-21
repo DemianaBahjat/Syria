@@ -14,7 +14,7 @@ export default function AddAMartyr() {
   const [ errorBackUser, setErrorBackUser ] = useState( null );
   const [ successAdd, setSuccessAdd ] = useState( false );
   /////////handle image////////////////
-  const [imageProfile, setImageProfile] = useState("");
+  const [profileImage, setImageProfile] = useState("");
   function handleChangeImageProfile(e) {
     setImageProfile(e.target.files[0]);
   }
@@ -71,7 +71,7 @@ export default function AddAMartyr() {
          const formData = new FormData();
          formData.append("category", addData.category);
          formData.append("name", addData.name);
-         formData.append("profileImage", imageProfile);
+         formData.append("profileImage", profileImage);
       
          if (Array.isArray(document)) {
            document.forEach((file) => {

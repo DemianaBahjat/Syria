@@ -13,7 +13,7 @@ export default function ArchiefThourahUser() {
       </Helmet>
       <div className="container">
         <div className="header position-relative py-5">
-          <h3 className=" text-danger">الأرشيف</h3>
+          <h3 className=" text-danger">المظاهرات</h3>
         </div>
       </div>
       <LiberatedArchief />

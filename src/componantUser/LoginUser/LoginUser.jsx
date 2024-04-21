@@ -106,7 +106,7 @@ export default function LoginUser() {
         {back && (
           <p
             className="alert alert-secondary alerthemself"
-            style={{ width: "90%", marginBottom: "20px" }}
+            style={{ width: "60%", marginBottom: "20px" }}
           >
           البيانات غير صحيحة
           </p>

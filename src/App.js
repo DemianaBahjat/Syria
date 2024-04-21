@@ -50,6 +50,8 @@ import AllExcelDash from './componantDashboard/AllExcelDash.jsx';
 import ExeclSheet from './componantDashboard/ExeclSheet.jsx';
 import MainPageFirst from './componantUser/MainPageFirst/MainPageFirst.jsx';
 import PrivacyPolicy from './componantUser/PrivacyPolicy/PrivacyPolicy.jsx';
+import Repaired from './componantUser/Repaired.jsx';
+
 const HomeUser = lazy( () => import( './componantUser/HomeUser.jsx' ) );
 const HomeDashboard = lazy(() =>
   import("./componantDashboard/HomeDashboard.jsx")
@@ -62,7 +64,8 @@ export default function App() {
         <BrowserRouter>
           <Suspense fallback={<SpinnerFull />}>
             <Routes>
-              <Route path="/" element={<HomeUser />}>
+              <Route path='/' index element={ <Repaired/>} />
+              <Route path="/" element={ <HomeUser /> }>
                 <Route path="/" element={<MainPageFirst />} />
                 <Route path="/lastNews" element={<MainPage />} />
                 <Route path="archiefthoura" element={<ArchiefThourahUser />} />
@@ -73,7 +76,6 @@ export default function App() {
                 <Route path="graemdashuser" element={<GaraamDaaehUser />} />
                 <Route path="/success/:id" element={<UpdatedPassword />} />
                 <Route path="privacypolicy" element={<PrivacyPolicy />} />
-
               </Route>
               <Route path="newsDetails/:id" element={<NewsDetails />} />
               <Route

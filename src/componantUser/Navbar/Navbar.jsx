@@ -5,8 +5,9 @@ import { ContextUser } from '../../context/Context';
 import { Link as Lik} from "react-scroll";
 
 export default function Navbar() {
+ 
 
-  const { role } = useContext( ContextUser );
+  const { role, setOpenAuth } = useContext(ContextUser);
     const [activeLink, setActiveLink] = useState('');
   const handleLinkClick = (link) => {
     setActiveLink(link);
@@ -14,6 +15,9 @@ export default function Navbar() {
   const getLinkClass = (link) => {
     return activeLink === link ? 'ahmed' : '';
   };
+  function handleOpen() {
+    setOpenAuth("enterinform");
+  }
   return (
     <nav className="navbar navbar-expand-lg border-bottom">
       <div className="container">
@@ -68,7 +72,7 @@ export default function Navbar() {
                     duration={500}
                     offset={-70}
                   >
-                    الأرشيف
+                    المظاهرات
                   </Lik>
                   <Lik
                     className="nav-link text-white"
@@ -78,7 +82,7 @@ export default function Navbar() {
                   >
                     معارك الثوار
                   </Lik>
-                  <Link className="nav-link text-white" to={"/archiefthoura"}>
+                  <Link className="nav-link text-white" onClick={handleOpen}>
                     ادعمنا بوثائق
                   </Link>
                 </div>
