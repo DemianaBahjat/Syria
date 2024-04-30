@@ -6,7 +6,7 @@ import { Link as Lik} from "react-scroll";
 
 export default function Navbar() {
 
-  const { role } = useContext( ContextUser );
+  const { role, setOpenAuth } = useContext(ContextUser);
     const [activeLink, setActiveLink] = useState('');
   const handleLinkClick = (link) => {
     setActiveLink(link);
@@ -64,6 +64,14 @@ export default function Navbar() {
                 <div className="evolution-archive-hover">
                   <Lik
                     className="nav-link text-white"
+                    to="oneoneone"
+                    duration={500}
+                    offset={-70}
+                  >
+                    ارشيف الثورة
+                  </Lik>
+                  <Lik
+                    className="nav-link text-white"
                     to="oneone"
                     duration={500}
                     offset={-70}
@@ -72,15 +80,18 @@ export default function Navbar() {
                   </Lik>
                   <Lik
                     className="nav-link text-white"
-                    to="onetwo"
+                    to="onethreefour"
                     duration={500}
                     offset={-70}
                   >
                     معارك الثوار
                   </Lik>
-                  <Link className="nav-link text-white" to={"/archiefthoura"}>
+                  <button
+                    className="nav-link text-white"
+                    onClick={() => setOpenAuth("enterinform")}
+                  >
                     ادعمنا بوثائق
-                  </Link>
+                  </button>
                 </div>
               </Link>
             </li>

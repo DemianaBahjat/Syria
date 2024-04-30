@@ -1,12 +1,10 @@
-import React  from 'react'
-
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../../context/Context';
-export default function LiberatedArchief() {
+export default function OneArchief() {
   const {lastNews} =  useUser()
   const navigate = useNavigate()
   return (
-    <div id='oneone'>
+    <div id="oneoneone">
       <div className="demonstrations py-3">
         <div className="container">
           <div className="row gy-3 mb-5">
@@ -15,7 +13,7 @@ export default function LiberatedArchief() {
                 <div className="image mb-4">
                   <img
                     src={`https://syrianrevolution1.com/postImages/${
-                      lastNews.filter((e) => e.category === "mozaharat")[0]
+                      lastNews.filter((e) => e.category === "archiefthoura")[0]
                         ?.selfImg
                     }`}
                     alt="mozaharat"
@@ -25,7 +23,7 @@ export default function LiberatedArchief() {
                 <div className="info">
                   <p>
                     {
-                      lastNews.filter((e) => e.category === "mozaharat")[0]
+                      lastNews.filter((e) => e.category === "archiefthoura")[0]
                         ?.name
                     }
                     <br />
@@ -35,7 +33,7 @@ export default function LiberatedArchief() {
                         navigate(
                           `/newsDetails/${
                             lastNews.filter(
-                              (e) => e.category === "mozaharat"
+                              (e) => e.category === "archiefthoura"
                             )[0]?._id
                           }`
                         )
@@ -50,7 +48,7 @@ export default function LiberatedArchief() {
             <div className="col-md-6">
               <div className="row gy-2">
                 {lastNews
-                  .filter((e) => e.category === "mozaharat")
+                  .filter((e) => e.category === "archiefthoura")
                   .slice(0, 4)
                   .map((e,i) => (
                     <div className="col-md-6" key={i}>
@@ -89,3 +87,4 @@ export default function LiberatedArchief() {
     </div>
   );
 }
+

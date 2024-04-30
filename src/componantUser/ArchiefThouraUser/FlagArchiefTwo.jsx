@@ -15,8 +15,8 @@ export default function FlagArchiefTwo() {
                 {lastNews
                   .filter((e) => e.category === "maarek")
                   .slice(4, 8)
-                  .map((e) => (
-                    <div className="col-md-6">
+                  .map((e,i) => (
+                    <div className="col-md-6" key={i}>
                       <div className="news">
                         <div className="item">
                           <div className="image">
@@ -50,10 +50,11 @@ export default function FlagArchiefTwo() {
               <div className=" muted p-2 overflow-hidden">
                 {lastNews
                   .filter((e) => e.category === "maarek")
-                  .map((e) => (
+                  .map((e,i) => (
                     <div
                       className="row border-bottom pb-2 pt-2 border-2 overflow-hidden"
-                      style={{ backgroundColor: "#ECECEC" }}
+                      style={ { backgroundColor: "#ECECEC" } }
+                      key={i}
                     >
                       <div className="col-md-4">
                         <img

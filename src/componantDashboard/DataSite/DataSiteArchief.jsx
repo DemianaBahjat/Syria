@@ -22,7 +22,8 @@ export default function DataSiteLastNews() {
               {lastNews &&
                 lastNews.map((user, index) =>
                   user.category === "mozaharat" ||
-                  user.category === "maarek" ? (
+                  user.category === "maarek" ||
+                  user.category === "archiefthoura" ? (
                     <tr key={index}>
                       <td>{user.name}</td>
                       <td>{user.category}</td>

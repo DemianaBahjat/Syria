@@ -4,14 +4,14 @@ import Navbar from '../Navbar/Navbar';
 import Footer from '../Footer/Footer';
 import axios from 'axios';
 import { useNavigate, useParams } from "react-router-dom";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFile, faFileZipper } from '@fortawesome/free-solid-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faFile, faFileZipper } from '@fortawesome/free-solid-svg-icons';
 import { ContextUser } from '../../context/Context';
 import one from '../../image/png-clipart-computer-icons-avatar-icon-design-avatar-heroes-computer-wallpaper-thumbnail.png'
 import AlertImageDash from '../../componantDashboard/AlertImageDash/AlertImageDash';
 export default function NewsDetailsMartyr() {
   const [ single, setSingle ] = useState( [] );
-     const { setOpenAlert, setOpenAlertStore ,openAlert,openAlertStore} = useContext(ContextUser);
+     const { openAlert,openAlertStore} = useContext(ContextUser);
   const { id } = useParams();
   useEffect(() => {
     async function getSingle() {
@@ -35,10 +35,10 @@ export default function NewsDetailsMartyr() {
     });
   }, []);
   /////////////////////////////
-    function openImage(src) {
-      setOpenAlert(true);
-      setOpenAlertStore(src);
-  }
+  //   function openImage(src) {
+  //     setOpenAlert(true);
+  //     setOpenAlertStore(src);
+  // }
   return (
     <>
       {openAlert && <AlertImageDash src={openAlertStore} />}
@@ -80,7 +80,7 @@ export default function NewsDetailsMartyr() {
               <p>
                 {single?.dateOfBirth ? single?.dateOfBirth.slice(0, 10) : ""}
               </p>
-              <h6> الوثائق والمستندات : </h6>
+              {/* <h6> الوثائق والمستندات : </h6>
 
               <div>
                 {" "}
@@ -148,7 +148,7 @@ export default function NewsDetailsMartyr() {
                       </div>
                     ))
                   : "لم تتم الاضافة"}{" "}
-              </div>
+              </div> */}
               <div style={{ display: "flex", gap: "10px", margin: "10px 0" }}>
                 <div
                   style={{ display: "flex", gap: "10px", marginBottom: "10px",alignItems:'center' }}
@@ -185,7 +185,7 @@ export default function NewsDetailsMartyr() {
             {/* /////////////////////// */}
             <div className="lastSlider1 col-md-4">
               <div className=" muted p-2 overflow-hidden">
-                {archief.map((e, i) => (
+                {archief.slice(0,50).map((e, i) => (
                   <div
                     className="row border-bottom pb-2 pt-2 border-2 overflow-hidden"
                     style={{ backgroundColor: "#fdfafa" }}

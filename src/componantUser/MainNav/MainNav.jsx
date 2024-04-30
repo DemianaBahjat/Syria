@@ -12,12 +12,16 @@ import RestNewPassword from "../ResetNewPassword/RestNewPassword";
 import imgone from "../../image/png-clipart-computer-icons-avatar-icon-design-avatar-heroes-computer-wallpaper-thumbnail.png";
 import UpdateLogin from "../UpdateLogin";
 import axios from "axios";
+import { useNavigate} from "react-router-dom";
 export default function MainNav() {
   const [open, setOpen] = useState(false);
   const [openNoti, setOpenNoti] = useState(false);
-  const { openAuth, setOpenAuth } = useContext(ContextUser);
+  const { openAuth, setOpenAuth,setSearchGlobal } =
+    useContext(ContextUser);
   const [notification, setNontification] = useState([]);
-  const [number, setNumber] = useState();
+  const [ number, setNumber ] = useState();
+  const navigate = useNavigate();
+
   /////////////logout//////////////
   function handleLogout() {
     localStorage.clear();
@@ -39,89 +43,38 @@ export default function MainNav() {
         .then((result) => {
           setNontification(result?.data);
           setNumber(
-            
-              result?.data?.child.length +
+            result?.data?.child.length +
               result?.data?.lists.length +
               result?.data?.massacres.length
           );
         })
         .catch((error) => console.log(error));
     }
-    getNotification();
+    if (localStorage.getItem("token")) {
+      getNotification();
+    }
   }, []);
+  ///////////////////////////////////function search//////////////////////////////
+
+function changeSearch(e) {
+  const value = e.target.value;
+  setSearchGlobal(value);
+  if (value !== "") {
+    navigate("/searchglobal");
+  } else {
+    navigate('/lastNews');
+  }
+}
 
   return (
     <>
       <div className="container">
         <div className="row py-3 gy-3  " style={{ alignItems: "center" }}>
-          <div className="col-md-6 d-flex justify-content-between align-items-center">
+          <div className="col-md-4 d-flex justify-content-between align-items-center">
             <h1 className="m-0 h4">الثورة السورية</h1>
-            {/* <div className="contact d-flex justify-content-between align-items-center position-relative">
-              {open === true ? (
-                <div className="social-icons d-flex align-items-center ms-5 p-2 text-white ">
-                  <a
-                    href="https://api.whatsapp.com/send/?phone=4917676000731"
-                    className="text-white"
-                  >
-                    {" "}
-                    <i className="fa-brands fa-whatsapp ms-2"></i>
-                  </a>
-                  <a
-                    href="https://www.instagram.com/syrian.revolution7"
-                    className="text-white"
-                  >
-                    <i className="fa-brands fa-instagram ms-2"></i>
-                  </a>
-                  <a
-                    href="https://t.me/Syrian_Revolution7"
-                    className="text-white"
-                  >
-                    <i class="fa-brands fa-telegram ms-2"></i>
-                  </a>
-                  <a
-                    href="https://www.tiktok.com/@syrian.revolution7"
-                    className="text-white"
-                  >
-                    <i className="fa-brands fa-tiktok ms-2"></i>
-                  </a>
-                  <a
-                    href="https://www.facebook.com/Syrian7Revolution"
-                    className="text-white"
-                  >
-                    <i className="fa-brands fa-square-facebook ms-2"></i>
-                  </a>
-                  <a
-                    href="https://twitter.com/syrian_revolut7"
-                    className="text-white"
-                  >
-                    <i className="fa-brands fa-square-twitter ms-2"></i>
-                  </a>
-
-                  <i
-                    className="fa-regular fa-circle-xmark text-danger close"
-                    onClick={() => setOpen(false)}
-                  ></i>
-                </div>
-              ) : null}
-              <p className="m-0 p-3 p-0 btn" onClick={() => setOpen(true)}>
-                تواصل معنا
-              </p>
-               <div style={{ position: "relative" }}>
-                <span style={{ position: "absolute", right: "-8px" }}>
-                  {number}
-                </span>
-                <div
-                  className="notification position-relative"
-                  onClick={() => setOpenNoti(true)}
-                >
-                  <i className="fa-regular fa-bell me-2"></i>
-                </div>
-              </div> 
-            </div> */}
           </div>
-
           <div
-            className="col-md-6 iop"
+            className="col-md-8 iop"
             style={{
               display: "flex",
               justifyContent: "end",
@@ -198,7 +151,15 @@ export default function MainNav() {
                 </div>
               </div>
             </div>
-
+            <div className="uio">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="ابحث هنا"
+                onChange={changeSearch}
+                style={{ Width: "100%" }}
+              />
+            </div>
             <div className="   search d-flex justify-content-between align-items-center position-relative">
               {localStorage.getItem("token") ? (
                 <div

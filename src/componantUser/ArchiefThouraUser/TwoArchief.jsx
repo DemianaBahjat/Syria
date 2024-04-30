@@ -1,19 +1,17 @@
-import React  from 'react'
-
 import {useNavigate} from 'react-router-dom'
 import { useUser } from '../../context/Context';
-export default function FlagArchief() {
+export default function TwoArchief() {
    const { lastNews } = useUser();
   const navigate = useNavigate();
   return (
-    <div id='onetwo'>
+    <div>
       <div className="demonstrations py-3">
         <div className="container">
           <div className="row" style={{ justifyContent: "space-between" }}>
             <div className="col-md-6">
               <div className="row gy-2">
                 {lastNews
-                  .filter((e) => e.category === "mozaharat")
+                  .filter((e) => e.category === "archiefthoura")
                   .slice(4, 8)
                   .map((e,i) => (
                     <div className="col-md-6" key={i}>
@@ -49,11 +47,11 @@ export default function FlagArchief() {
             <div className="lastSlider col-md-5">
               <div className=" muted p-2 overflow-hidden">
                 {lastNews
-                  .filter((e) => e.category === "mozaharat")
+                  .filter((e) => e.category === "archiefthoura")
                   .map((e,i) => (
                     <div
                       className="row border-bottom pb-2 pt-2 border-2 overflow-hidden"
-                      style={{ backgroundColor: "#ECECEC" }}
+                      style={ { backgroundColor: "#ECECEC" } }
                       key={i}
                     >
                       <div className="col-md-4">

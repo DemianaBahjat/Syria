@@ -7,15 +7,15 @@ import Footer from './Footer/Footer';
 import { Helmet } from 'react-helmet-async';
 import { ContextUser } from '../context/Context';
 import AlertImageDash from '../componantDashboard/AlertImageDash/AlertImageDash';
-export default function HomeUser() {
-   const { openAlert, openAlertStore } = useContext(ContextUser);
+export default function HomeUser({ searchGlobal, setSearchGlobal }) {
+  const { openAlert, openAlertStore } = useContext(ContextUser);
   return (
     <div>
       <Helmet>
         <title>الثورة السورية</title>
         <meta name="description" content="اخبار الثورة السورية" />
       </Helmet>
-      <MainNav />
+      <MainNav searchGlobal={searchGlobal} setSearchGlobal={setSearchGlobal} />
       <Navbar />
       <Header />
 

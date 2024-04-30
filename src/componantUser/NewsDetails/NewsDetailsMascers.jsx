@@ -170,7 +170,7 @@ export default function NewsDetailsMascers() {
             {/* /////////////////////// */}
             <div className="lastSlider1 col-md-4">
               <div className=" muted p-2 overflow-hidden">
-                {archief.map((e) => (
+                {archief.slice(0,50).map((e) => (
                   <div
                     className="row border-bottom pb-2 pt-2 border-2 overflow-hidden"
                     style={{ backgroundColor: "#fdfafa" }}

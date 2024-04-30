@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styles from '../styleDashboard/RevolutionArchiveDash.module.css'
-// import Archief from './Archief';
+import Archief from './Archief';
 import Mozaharat from '../Mozaharat';
 import Maarek from './Maarek';
 export default function RevolutionArchiveDash() {
@@ -12,12 +12,12 @@ export default function RevolutionArchiveDash() {
       </div>
       <div className={styles.filterAndDisplay}>
         <div className={styles.filter}>
-          {/* <span
+          <span
             onClick={() => setChoiceArchife("archife")}
             className={choiceArchife === "archife" ? styles.active : ""}
           >
             الارشيف
-          </span> */}
+          </span>
           <span
             onClick={() => setChoiceArchife("mozaharat")}
             className={choiceArchife === "mozaharat" ? styles.active : ""}
@@ -32,7 +32,7 @@ export default function RevolutionArchiveDash() {
           </span>
         </div>
       </div>
-      {/* {choiceArchife === "archife" && <Archief />} */}
+      {choiceArchife === "archife" && <Archief />}
       {choiceArchife === "mozaharat" && <Mozaharat />}
       {choiceArchife === "maarek" && <Maarek/>}
     </div>

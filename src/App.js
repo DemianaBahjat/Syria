@@ -28,7 +28,7 @@ import BlackListUser from './componantUser/BlackListUser/BlackListUser';
 import GaraamDaaehUser from './componantUser/GaraamDaaehUser/GaraamDaaehUser';
 import GaraamQasad from './componantUser/GraamQasad/GaraamQasad';
 import MainPage from './componantUser/MainPage/MainPage';
-import { ContextProvider } from './context/Context';
+import { ContextProvider} from './context/Context';
 import BaraemSystem from './componantUser/GaraamSystem/BaraemSystem';
 import NewsDetails from './componantUser/NewsDetails/NewsDetails';
 import WantedToSystem from './componantUser/WantedToSytstem/WantedToSystem';
@@ -51,6 +51,7 @@ import ExeclSheet from './componantDashboard/ExeclSheet.jsx';
 import MainPageFirst from './componantUser/MainPageFirst/MainPageFirst.jsx';
 import PrivacyPolicy from './componantUser/PrivacyPolicy/PrivacyPolicy.jsx';
 import Repaired from './componantUser/Repaired.jsx';
+import SearchGlobal from './componantUser/SearchGlobal/SearchGlobal.jsx';
 
 const HomeUser = lazy( () => import( './componantUser/HomeUser.jsx' ) );
 const HomeDashboard = lazy(() =>
@@ -58,15 +59,20 @@ const HomeDashboard = lazy(() =>
 );
 
 export default function App() {
+    
   return (
     <ContextDashboardProvider>
       <ContextProvider>
         <BrowserRouter>
           <Suspense fallback={<SpinnerFull />}>
             <Routes>
-              <Route path='/' index element={ <Repaired/>} />
-              <Route path="/" element={ <HomeUser /> }>
-                <Route path="/" element={<MainPageFirst />} />
+              <Route path="/" index element={<Repaired />} />
+              <Route
+                path="/"
+                element={ <HomeUser  />}
+              >
+             
+                   <Route path="/" element={<MainPageFirst />} />
                 <Route path="/lastNews" element={<MainPage />} />
                 <Route path="archiefthoura" element={<ArchiefThourahUser />} />
                 <Route path="symbolthourauser" element={<SymbolThouraUser />} />
@@ -76,6 +82,8 @@ export default function App() {
                 <Route path="graemdashuser" element={<GaraamDaaehUser />} />
                 <Route path="/success/:id" element={<UpdatedPassword />} />
                 <Route path="privacypolicy" element={<PrivacyPolicy />} />
+                <Route path='searchglobal' element={ <SearchGlobal/>} />
+             
               </Route>
               <Route path="newsDetails/:id" element={<NewsDetails />} />
               <Route

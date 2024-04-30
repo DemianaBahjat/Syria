@@ -7,7 +7,7 @@ export default function LiberatedArchiefTwo() {
     const { lastNews } = useUser();
   const navigate = useNavigate();
   return (
-    <div>
+    <div id="onethreefour">
       <div className="demonstrations py-3">
         <div className="container">
           <div className="row gy-3 mb-5">
@@ -49,8 +49,8 @@ export default function LiberatedArchiefTwo() {
                 {lastNews
                   .filter((e) => e.category === "maarek")
                   .slice(0, 4)
-                  .map((e) => (
-                    <div className="col-md-6">
+                  .map((e,i) => (
+                    <div className="col-md-6" key={i}>
                       <div className="news">
                         <div className="item">
                           <div className="image">

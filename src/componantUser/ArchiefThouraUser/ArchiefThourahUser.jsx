@@ -4,6 +4,8 @@ import FlagArchief from './FlagArchief';
 import LiberatedArchiefTwo from './LiberatedArchiefTwo';
 import FlagArchiefTwo from './FlagArchiefTwo';
 import { Helmet } from "react-helmet-async";
+import OneArchief from './OneArchief';
+import TwoArchief from './TwoArchief';
 export default function ArchiefThourahUser() {
   return (
     <>
@@ -11,6 +13,13 @@ export default function ArchiefThourahUser() {
         <title>الثورة السورية </title>
         <meta name="description" content="ارشيف الثورة السورية" />
       </Helmet>
+      <div className="container">
+        <div className="header position-relative py-5">
+          <h3 className=" text-danger">ارشيف الثورة</h3>
+        </div>
+      </div>
+      <OneArchief />
+      <TwoArchief/>
       <div className="container">
         <div className="header position-relative py-5">
           <h3 className=" text-danger">المظاهرات</h3>

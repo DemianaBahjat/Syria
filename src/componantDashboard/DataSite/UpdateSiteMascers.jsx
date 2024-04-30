@@ -1,16 +1,38 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './StyleUpdateUser.module.css';
 import { useParams } from 'react-router-dom';
 import { useUser } from '../../context/Context';
+import axios from 'axios';
 export default function UpdateSiteMascers() {
   //////////////////////////////////
-  const [userUpdate, setUserUpdate] = useState({});
-  const [ loading, setLoading ] = useState( false );
-  const {getMascersUser} = useUser()
+  const [userUpdate, setUserUpdate] = useState({
+    title: "",
+    governorate: "",
+    details: "",
+  });
+  const [loading, setLoading] = useState(false);
+  const { getMascersUser } = useUser();
   //////////////////////////
-  const [ success, setSuccess ] = useState( false );
+  const [success, setSuccess] = useState(false);
   ////////////////////////////////////
   const { id } = useParams();
+  ////////////////////////////////
+  //////////////getsingleChild//////////////////
+  useEffect(() => {
+    async function getSingleUser() {
+      await axios
+        .get(`https://syrianrevolution1.com/massacres/${id}`)
+        .then((result) => {
+          setUserUpdate({
+            title: result.data.title || "",
+            governorate: result.data.governorate || "",
+            details: result.data.details || "",
+          });
+        })
+        .catch((error) => console.log(error));
+    }
+    getSingleUser();
+  }, [id]);
   ////////////function handleChange///////////////
   function handlechange(e) {
     setUserUpdate((prevState) => ({
@@ -57,8 +79,8 @@ export default function UpdateSiteMascers() {
     }
 
     try {
-      setLoading( true );
-      setSuccess( false );
+      setLoading(true);
+      setSuccess(false);
       const response = await fetch(
         `https://syrianrevolution1.com/massacres/update/${id}`,
         {
@@ -73,7 +95,7 @@ export default function UpdateSiteMascers() {
       setLoading(false);
       console.log(result);
       if (result.data._id) {
-        setSuccess( true )
+        setSuccess(true);
         getMascersUser();
       }
     } catch (error) {
@@ -103,6 +125,7 @@ export default function UpdateSiteMascers() {
                 type="text"
                 placeholder="الاسم "
                 className="form-control"
+                value={userUpdate.title}
                 onChange={handlechange}
               />
             </div>
@@ -113,6 +136,7 @@ export default function UpdateSiteMascers() {
                 type="text"
                 placeholder=" المحافظة "
                 className="form-control"
+                value={userUpdate.governorate}
                 onChange={handlechange}
               />
             </div>
@@ -141,6 +165,7 @@ export default function UpdateSiteMascers() {
                 id="fsa3"
                 type="file"
                 className="form-control"
+                value={userUpdate.details}
                 onChange={handlechange}
               ></textarea>
             </div>

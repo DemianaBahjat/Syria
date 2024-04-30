@@ -15,7 +15,6 @@ export default function NewsDetails() {
            .catch((error) => console.log(error));
        }, [id]);
 
-  console.log(single)
   ///////////////////////////////
     const [archief, setArchirf] = useState([]);
     const navigate = useNavigate();
@@ -49,9 +48,7 @@ export default function NewsDetails() {
               <p> {single?.content !== "undefined" ? single?.content : ""}</p>
               <h6>المحافظة : </h6>
               <p>
-                {single?.governorate !== "undefined"
-                  ? single.externalLinks
-                  : ""}
+                {single?.governorate !== "undefined" ? single.governorate : ""}
               </p>
               <h6>رابط خارجي : </h6>
               <a
@@ -67,24 +64,37 @@ export default function NewsDetails() {
               <div
                 style={{ display: "flex", gap: "10px", marginBottom: "10px" }}
               >
-                { single?.user?.selfImg !== undefined &&
-                  single?.user?.selfImg !== "undefined" &&
-                  single?.user?.selfImg !== "" ? <img
-                  src={ `https://syrianrevolution1.com/images/${single?.user?.selfImg}` }
-                  alt="profile"
-                  style={ { width: "50px", height: "50px", borderRadius: "50%" } }
-                /> : <img
-                  src={ one }
-                  alt="profile"
-                  style={ { width: "50px", height: "50px", borderRadius: "50%" } } /> }
-             
+                {single?.user?.selfImg !== undefined &&
+                single?.user?.selfImg !== "undefined" &&
+                single?.user?.selfImg !== "" ? (
+                  <img
+                    src={`https://syrianrevolution1.com/images/${single?.user?.selfImg}`}
+                    alt="profile"
+                    style={{
+                      width: "50px",
+                      height: "50px",
+                      borderRadius: "50%",
+                    }}
+                  />
+                ) : (
+                  <img
+                    src={one}
+                    alt="profile"
+                    style={{
+                      width: "50px",
+                      height: "50px",
+                      borderRadius: "50%",
+                    }}
+                  />
+                )}
+
                 <p>{single?.user?.name}</p>
               </div>
             </div>
             {/* /////////////////////// */}
             <div className="lastSlider1 col-md-4">
               <div className=" muted  overflow-hidden">
-                {archief.map((e) => (
+                {archief.slice(0,50).map((e) => (
                   <div
                     className="row border-bottom pb-2 pt-2 border-2 overflow-hidden"
                     style={{ backgroundColor: "#ECECEC" }}

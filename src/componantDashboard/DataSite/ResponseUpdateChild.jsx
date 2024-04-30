@@ -1,10 +1,18 @@
-import React, { useState }  from "react";
+import React, { useEffect, useState }  from "react";
 import styles from "./UpdateChild.module.css";
 import { useParams } from "react-router-dom";
 import { useUser } from "../../context/Context";
+import axios from "axios";
 export default function ResponseUpdateChild() {
   //////////////////////////////////
-  const [userUpdate, setUserUpdate] = useState({});
+  const [userUpdate, setUserUpdate] = useState({
+    fatherName: "",
+    motherName: "",
+    nickname: "",
+    dateOfBirth: "",
+    governorate: "",
+  });
+
   const [ loading, setLoading ] = useState( false );
    const { getChildUser } = useUser();
   ////////////////////////////////////
@@ -23,6 +31,25 @@ export default function ResponseUpdateChild() {
   function handleImg(e) {
     setImageProfile(e.target.files[0]);
   }
+  //////////////getsingleChild//////////////////
+    useEffect(() => {
+      async function getSingleUser() {
+        await axios
+          .get(`https://syrianrevolution1.com/childData/${id}`)
+          .then( ( result ) => {
+            setUserUpdate({
+              fatherName: result.data.childData.fatherName || "",
+              motherName: result.data.childData.motherName || "",
+              nickname: result.data.childData.nickname || "",
+              dateOfBirth: result.data.childData.dateOfBirth || "",
+              governorate: result.data.childData.governorate || "",
+            });
+          })
+          .catch((error) => console.log(error));
+      }
+      getSingleUser();
+    }, [ id ] );
+  
   /////////////////function submit ///////////////////
   async function handleSubmit(e) {
     e.preventDefault();
@@ -87,11 +114,11 @@ export default function ResponseUpdateChild() {
       const result = await response.json();
       setLoading(false);
       console.log(result);
-      if (result.data._id) {
+      if (result?.data?._id) {
         setSuccess( true )
         getChildUser();
-      } else if ( result === 'Date of birth cannot be in the future' ) {
-        alert('التاريخ غير صالح')
+      }else if ( result === 'Date of birth cannot be in the future' ) {
+        alert( 'التاريخ غير صالح' )
       }
     } catch (error) {
       console.error(error);
@@ -120,6 +147,7 @@ export default function ResponseUpdateChild() {
                 placeholder="  اسم الاب"
                 className="form-control"
                 name="fatherName"
+                value={userUpdate.fatherName}
                 onChange={handlechange}
               />
             </div>
@@ -129,6 +157,7 @@ export default function ResponseUpdateChild() {
                 name="motherName"
                 type="text"
                 placeholder=" اسم الام "
+                value={userUpdate.motherName}
                 className="form-control"
                 onChange={handlechange}
               />
@@ -143,6 +172,7 @@ export default function ResponseUpdateChild() {
                 placeholder=" الكنية"
                 className="form-control"
                 onChange={handlechange}
+                value={userUpdate.nickname}
               />
             </div>
             <div className={styles.inp1}>
@@ -153,13 +183,16 @@ export default function ResponseUpdateChild() {
                 placeholder="  المواليد"
                 className="form-control"
                 onChange={handlechange}
+                value={
+                  userUpdate.dateOfBirth && userUpdate?.dateOfBirth.slice(0, 10)
+                }
               />
             </div>
           </div>
           <div className={styles.input}>
             <div className={styles.inp1}>
               <p style={{ fontSize: "10px", marginBottom: "5px" }}>
-                صورة  (اجباري)
+                صورة (اجباري)
               </p>
               <label htmlFor="q2" className="customfileupload">
                 {" "}
@@ -180,6 +213,7 @@ export default function ResponseUpdateChild() {
                 className="form-control"
                 placeholder="المحافظة"
                 onChange={handlechange}
+                value={userUpdate.governorate}
               />
             </div>
           </div>

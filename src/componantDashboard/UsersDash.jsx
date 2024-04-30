@@ -35,7 +35,6 @@ export default function UsersDash() {
       const result = await response.json();
       setUserDashboard(result.data);
       setReport( result.data );
-      console.log(result)
     } catch (error) {
       console.error(error);
     }

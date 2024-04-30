@@ -20,7 +20,7 @@ export default function RegimeMassacresUser() {
                     <img
                       src={`https://syrianrevolution1.com/postImages/${e.profileImage}`}
                       alt="home"
-                      className=" w-100 rounded-3"
+                      className=" w-100 rounded-3 fimg"
                     />
                   </div>
                   <p>

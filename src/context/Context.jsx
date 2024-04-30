@@ -9,7 +9,8 @@ function ContextProvider({ children }) {
   const [openAlertStore, setOpenAlertStore] = useState(false);
   const [openLogout, setOpenLogout] = useState(false);
   const [checkConfition, setCheckConfition] = useState(false);
-  const [role, setRole] = useState(localStorage.getItem("roleUserLogin"));
+  const [ role, setRole ] = useState( localStorage.getItem( "roleUserLogin" ) );
+ const [searchGlobal, setSearchGlobal] = useState();
   ///////////////////////////
   async function getSingleUser() {
     await axios
@@ -37,7 +38,10 @@ function ContextProvider({ children }) {
   async function getListUser() {
     await axios
       .get("https://syrianrevolution1.com/lists/userView")
-      .then((result) => setLastNews(result.data.data))
+      .then( ( result ) => {
+        setLastNews( result.data.data )
+     
+      } )
       .catch((error) => console.log(error));
   }
   useEffect(() => {
@@ -96,7 +100,8 @@ function ContextProvider({ children }) {
   useEffect( () => {
         
        getList();
-     }, []);
+  }, [] );
+  
   return (
     <ContextUser.Provider
       value={{
@@ -122,6 +127,8 @@ function ContextProvider({ children }) {
         getListUser,
         getChildUser,
         getMascersUser,
+        searchGlobal,
+        setSearchGlobal,
       }}
     >
       {children}

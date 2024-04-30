@@ -2,18 +2,47 @@ import React, { useState } from 'react'
 import styles from '../styleDashboard/UpdateSuperVisor.module.css';
 import { useNavigate } from 'react-router-dom';
 import Joi from 'joi';
+import { useEffect } from 'react';
+import axios from 'axios';
 export default function UpdateUser() {
   const navigate = useNavigate();
   //////////////////////////////////
   const [ userUpdate, setUserUpdate ] = useState( {} );
-  const [ errorListUpdate, setErrorListUpdate ] = useState(  );
+  const [ errorListUpdate, setErrorListUpdate ] = useState();
       ////////////function handleChange///////////////
       function handlechange(e) {
         setUserUpdate((prevState) => ({
           ...prevState,
           [e.target.name]: e.target.value,
         }));
-      }
+  }
+  ////////////////////////////
+  useEffect( () => {
+      async function getSingleUser() {
+        await axios
+          .get(
+            `https://syrianrevolution1.com/users/single/${localStorage.getItem(
+              "IdUpdateUser"
+            )}`,
+            {
+              headers: {
+                Authorization: localStorage.getItem("token"),
+              },
+            }
+          )
+          .then((result) => {
+            setUserUpdate({
+              name: result.data.name || "",
+              phone: result.data.phone || "",
+              government: result.data.government || "",
+              role: result.data.role || "",
+            });
+          })
+          .catch((error) => console.log(error));
+
+    }
+    getSingleUser()
+  },[])
       /////////handle image////////////////
       const [imageProfile, setImageProfile] = useState("");
 
@@ -28,8 +57,8 @@ export default function UpdateUser() {
           selfImg: Joi.string().allow(""),
           role: Joi.string().allow(""),
           government: Joi.string().allow(""),
-          phone: Joi.string().min(10).allow("").messages({
-            "string.min": "    رقم  الهاتف يجب الا يقل عن عشرة ارقام",
+          phone: Joi.string().min(7).allow("").messages({
+            "string.min": "    رقم  الهاتف يجب الا يقل عن سبعة ارقام",
           }),
         });
         return schema.validate(userUpdate, { abortEarly: false });
@@ -110,6 +139,7 @@ export default function UpdateUser() {
               <input
                 name="name"
                 type="text"
+                value={userUpdate.name || ""}
                 placeholder="الاسم بالكامل"
                 className="form-control"
                 onChange={handlechange}
@@ -120,6 +150,7 @@ export default function UpdateUser() {
               <input
                 name="phone"
                 type="text"
+                value={userUpdate.phone || ""}
                 placeholder=" رقم الهاتف"
                 className="form-control"
                 onChange={handlechange}
@@ -135,11 +166,16 @@ export default function UpdateUser() {
                 placeholder=" المحافظة "
                 className="form-control"
                 onChange={handlechange}
+                value={userUpdate.government || ""}
               />
             </div>
             <div className={styles.inp1}>
               <label htmlFor=""> الدور</label>
-              <select name="role" onChange={handlechange}>
+              <select
+                name="role"
+                onChange={handlechange}
+                value={userUpdate.role || ""}
+              >
                 <option value="">اختر الدور</option>
                 <option value="admin">ادمن</option>
                 <option value="supervisor">مشرف</option>
