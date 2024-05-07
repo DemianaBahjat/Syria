@@ -72,7 +72,7 @@ export default function Black() {
         const result = await response.json();
         console.log(result);
         setLoading(false);
-        if (result._id) {
+        if (result?._id) {
           setSuccessAdd(true);
           setErrorBackUser(null);
           setErrorListUser(null);

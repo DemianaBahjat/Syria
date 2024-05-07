@@ -87,7 +87,9 @@ export default function UpdateLastNews() {
       setLoading(true);
       setSuccess(false);
       const response = await fetch(
-        `https://syrianrevolution1.com/lists/${id}`,
+        `https://syrianrevolution1.com/lists/${id}/${localStorage.getItem(
+          "idUserLogin"
+        )}`,
         {
           method: "PATCH",
           headers: {

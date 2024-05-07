@@ -37,12 +37,18 @@ export default function ResponseLastChild() {
   async function handleDeletePost() {
     setLoading(true);
     await axios
-      .delete(`https://syrianrevolution1.com/childData/${id}`, {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-      })
+      .delete(
+        `https://syrianrevolution1.com/childData/${id}/${localStorage.getItem(
+          "idUserLogin"
+        )}`,
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      )
       .then((response) => {
+       
         if (response.data === "childData Deleted Successfully") {
           setLoading(false);
           navigate("/dashboard/dataDisplaySite");
@@ -62,15 +68,15 @@ export default function ResponseLastChild() {
         <div className={styles.allDetailseRight}>
           <div className={styles.detailsright}>
             <h6>الاسم : </h6>
-            <p>{martyrDisplay.name}</p>
+            <p>{martyrDisplay?.name}</p>
           </div>
           <div className={styles.detailsright}>
             <h6>اسم الاب : </h6>
             <p>
               {" "}
-              {martyrDisplay.fatherName !== undefined &&
-              martyrDisplay.fatherName !== "undefined"
-                ? martyrDisplay.fatherName
+              {martyrDisplay?.fatherName !== undefined &&
+              martyrDisplay?.fatherName !== "undefined"
+                ? martyrDisplay?.fatherName
                 : "لم تتم الاضافة"}{" "}
             </p>
           </div>
@@ -78,9 +84,9 @@ export default function ResponseLastChild() {
             <h6>اسم الام : </h6>
             <p>
               {" "}
-              {martyrDisplay.motherName !== undefined &&
-              martyrDisplay.motherName !== "undefined"
-                ? martyrDisplay.motherName
+              {martyrDisplay?.motherName !== undefined &&
+              martyrDisplay?.motherName !== "undefined"
+                ? martyrDisplay?.motherName
                 : "لم تتم الاضافة"}{" "}
             </p>
           </div>
@@ -88,18 +94,18 @@ export default function ResponseLastChild() {
             <h6> الكنية : </h6>
             <p>
               {" "}
-              {martyrDisplay.nickname !== undefined &&
-              martyrDisplay.nickname !== "undefined"
-                ? martyrDisplay.nickname
+              {martyrDisplay?.nickname !== undefined &&
+              martyrDisplay?.nickname !== "undefined"
+                ? martyrDisplay?.nickname
                 : "لم تتم الاضافة"}{" "}
             </p>
           </div>
           <div className={styles.detailsright}>
             <h6>مكان الحدث : </h6>
             <p>
-              {martyrDisplay.place !== undefined &&
-              martyrDisplay.place !== "undefined"
-                ? martyrDisplay.place
+              {martyrDisplay?.place !== undefined &&
+              martyrDisplay?.place !== "undefined"
+                ? martyrDisplay?.place
                 : "لم تتم الاضافة"}{" "}
             </p>
           </div>
@@ -107,10 +113,10 @@ export default function ResponseLastChild() {
             <h6>المواليد : </h6>
             <p>
               {" "}
-              {martyrDisplay.dateOfBirth !== undefined &&
-              martyrDisplay.dateOfBirth !== "undefined"
-                ? martyrDisplay.dateOfBirth &&
-                  martyrDisplay.dateOfBirth.slice(0, 10)
+              {martyrDisplay?.dateOfBirth !== undefined &&
+              martyrDisplay?.dateOfBirth !== "undefined"
+                ? martyrDisplay?.dateOfBirth &&
+                  martyrDisplay?.dateOfBirth.slice(0, 10)
                 : "لم تتم الاضافة"}{" "}
             </p>
           </div>
@@ -118,9 +124,9 @@ export default function ResponseLastChild() {
             <h6>الجهة المسؤؤلة : </h6>
             <p>
               {" "}
-              {martyrDisplay.responsibleAuthority !== undefined &&
-              martyrDisplay.responsibleAuthority !== "undefined"
-                ? martyrDisplay.responsibleAuthority
+              {martyrDisplay?.responsibleAuthority !== undefined &&
+              martyrDisplay?.responsibleAuthority !== "undefined"
+                ? martyrDisplay?.responsibleAuthority
                 : "لم تتم الاضافة"}{" "}
             </p>
           </div>
@@ -129,17 +135,17 @@ export default function ResponseLastChild() {
             <br />
             <p>
               {" "}
-              {martyrDisplay.profileImage &&
-              martyrDisplay.profileImage === "undefined" ? (
+              {martyrDisplay?.profileImage &&
+              martyrDisplay?.profileImage === "undefined" ? (
                 "لم تتم الاضافة"
-              ) : martyrDisplay.profileImage !== "undefined" ? (
+              ) : martyrDisplay?.profileImage !== "undefined" ? (
                 <img
-                  src={`https://syrianrevolution1.com/imgData/${martyrDisplay.profileImage}`}
+                  src={`https://syrianrevolution1.com/imgData/${martyrDisplay?.profileImage}`}
                   alt="martyr"
                   style={{ width: "100px" }}
                   onClick={() => {
                     openImage(
-                      `https://syrianrevolution1.com/imgData/${martyrDisplay.profileImage}`
+                      `https://syrianrevolution1.com/imgData/${martyrDisplay?.profileImage}`
                     );
                   }}
                 />
@@ -153,9 +159,9 @@ export default function ResponseLastChild() {
             <br />
             <div>
               {" "}
-              {martyrDisplay.documents !== undefined &&
-              martyrDisplay.documents !== "undefined"
-                ? martyrDisplay.documents.map((doc, index) => (
+              {martyrDisplay?.documents !== undefined &&
+              martyrDisplay?.documents !== "undefined"
+                ? martyrDisplay?.documents.map((doc, index) => (
                     <div key={index} style={{ display: "inline" }}>
                       {doc.slice(-4).toLowerCase() === ".jpg" ||
                       doc.slice(-4).toLowerCase() === ".png" ||
@@ -222,9 +228,9 @@ export default function ResponseLastChild() {
         <div className={styles.detailsLeft}>
           <div>
             <h6>شرح مفصل : </h6>{" "}
-            {martyrDisplay.details !== undefined &&
-            martyrDisplay.details !== "undefined"
-              ? martyrDisplay.details
+            {martyrDisplay?.details !== undefined &&
+            martyrDisplay?.details !== "undefined"
+              ? martyrDisplay?.details
               : "لم تتم الاضافة"}{" "}
           </div>
           {/* <p>{user?.name }</p> */}
@@ -261,7 +267,7 @@ export default function ResponseLastChild() {
           className="btn btn-warning"
           onClick={() =>
             navigate(
-              `/dashboard/dataChildDisplaySiteupdate/${martyrDisplay._id}`
+              `/dashboard/dataChildDisplaySiteupdate/${martyrDisplay?._id}`
             )
           }
         >

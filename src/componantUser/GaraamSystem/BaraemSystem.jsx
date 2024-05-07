@@ -13,7 +13,7 @@ export default function BaraemSystem() {
       </Helmet>
       <div className="container">
         <div className="header position-relative py-5">
-          <h3 className=" text-danger"> مجازر النظام</h3>
+          <h3 className=" text-danger"> جرائم النظام</h3>
         </div>
       </div>
       <RegimeMassacres />

@@ -41,11 +41,16 @@ export default function DataSiteResponseMassacre() {
   async function handleDeletePost() {
     setLoadingDel(true);
     await axios
-      .delete(`https://syrianrevolution1.com/massacres/${id}`, {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-      })
+      .delete(
+        `https://syrianrevolution1.com/massacres/${id}/${localStorage.getItem(
+          "idUserLogin"
+        )}`,
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      )
       .then((response) => {
         if (response.data === "massacres Deleted Successfully") {
           setLoadingDel(false);
@@ -69,15 +74,15 @@ export default function DataSiteResponseMassacre() {
         <div className={styles.allDetailseRight}>
           <div className={styles.detailsright}>
             <h6>العنوان : </h6>
-            <p>{martyrDisplay.title}</p>
+            <p>{martyrDisplay?.title}</p>
           </div>
 
           <div className={styles.detailsright}>
             <h6> المحافظة : </h6>
             <p>
-              {martyrDisplay.governorate !== undefined &&
-              martyrDisplay.governorate !== "undefined"
-                ? martyrDisplay.governorate
+              {martyrDisplay?.governorate !== undefined &&
+              martyrDisplay?.governorate !== "undefined"
+                ? martyrDisplay?.governorate
                 : "لم تتم الاضافة"}{" "}
             </p>
           </div>
@@ -85,9 +90,9 @@ export default function DataSiteResponseMassacre() {
             <h6>الجهة المسؤؤلة : </h6>
             <p>
               {" "}
-              {martyrDisplay.responsibleAuthority !== undefined &&
-              martyrDisplay.responsibleAuthority !== "undefined"
-                ? martyrDisplay.responsibleAuthority
+              {martyrDisplay?.responsibleAuthority !== undefined &&
+              martyrDisplay?.responsibleAuthority !== "undefined"
+                ? martyrDisplay?.responsibleAuthority
                 : "لم تتم الاضافة"}{" "}
             </p>
           </div>
@@ -96,17 +101,17 @@ export default function DataSiteResponseMassacre() {
             <br />
             <p>
               {" "}
-              {martyrDisplay.profileImage &&
-              martyrDisplay.profileImage === "undefined" ? (
+              {martyrDisplay?.profileImage &&
+              martyrDisplay?.profileImage === "undefined" ? (
                 "لم تتم الاضافة"
-              ) : martyrDisplay.profileImage !== "undefined" ? (
+              ) : martyrDisplay?.profileImage !== "undefined" ? (
                 <img
-                  src={`https://syrianrevolution1.com/postImages/${martyrDisplay.profileImage}`}
+                  src={`https://syrianrevolution1.com/postImages/${martyrDisplay?.profileImage}`}
                   alt="martyr"
                   style={{ width: "100px" }}
                   onClick={() => {
                     openImage(
-                      `https://syrianrevolution1.com/postImages/${martyrDisplay.profileImage}`
+                      `https://syrianrevolution1.com/postImages/${martyrDisplay?.profileImage}`
                     );
                   }}
                 />
@@ -120,9 +125,9 @@ export default function DataSiteResponseMassacre() {
             <br />
             <div>
               {" "}
-              {martyrDisplay.documents !== undefined &&
-              martyrDisplay.documents !== "undefined"
-                ? martyrDisplay.documents.map((doc, index) => (
+              {martyrDisplay?.documents !== undefined &&
+              martyrDisplay?.documents !== "undefined"
+                ? martyrDisplay?.documents.map((doc, index) => (
                     <div key={index} style={{ display: "inline" }}>
                       {doc.slice(-4).toLowerCase() === ".jpg" ||
                       doc.slice(-4).toLowerCase() === ".png" ||
@@ -186,9 +191,9 @@ export default function DataSiteResponseMassacre() {
         <div className={styles.detailsLeft}>
           <div>
             <h6>شرح مفصل : </h6>{" "}
-            {martyrDisplay.details !== undefined &&
-            martyrDisplay.details !== "undefined"
-              ? martyrDisplay.details
+            {martyrDisplay?.details !== undefined &&
+            martyrDisplay?.details !== "undefined"
+              ? martyrDisplay?.details
               : "لم تتم الاضافة"}{" "}
           </div>
           <div

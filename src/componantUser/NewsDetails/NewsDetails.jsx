@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, {  useEffect, useState } from 'react'
 import MainNav from '../MainNav/MainNav';
 import Navbar from '../Navbar/Navbar';
 import Footer from '../Footer/Footer';
 import one from '../../image/png-clipart-computer-icons-avatar-icon-design-avatar-heroes-computer-wallpaper-thumbnail.png'
 import axios from 'axios';
 import { useNavigate, useParams } from "react-router-dom";
+import { faSubscript } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+
 export default function NewsDetails() {
   const [ single, setSingle ] = useState( [] );
   const { id } = useParams();
@@ -22,7 +26,8 @@ export default function NewsDetails() {
       axios.get("https://syrianrevolution1.com/lists").then((result) => {
         setArchirf(result.data.data);
       }).catch((error)=>console.log(error));
-    }, []);
+    }, [] );
+  ///////////////////////////////
   return (
     <>
       <MainNav />
@@ -62,39 +67,63 @@ export default function NewsDetails() {
                   : ""}
               </a>
               <div
-                style={{ display: "flex", gap: "10px", marginBottom: "10px" }}
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                }}
               >
-                {single?.user?.selfImg !== undefined &&
-                single?.user?.selfImg !== "undefined" &&
-                single?.user?.selfImg !== "" ? (
-                  <img
-                    src={`https://syrianrevolution1.com/images/${single?.user?.selfImg}`}
-                    alt="profile"
-                    style={{
-                      width: "50px",
-                      height: "50px",
-                      borderRadius: "50%",
-                    }}
-                  />
-                ) : (
-                  <img
-                    src={one}
-                    alt="profile"
-                    style={{
-                      width: "50px",
-                      height: "50px",
-                      borderRadius: "50%",
-                    }}
-                  />
-                )}
+                <div
+                  style={{ display: "flex", gap: "10px", marginBottom: "10px" }}
+                >
+                  {single?.user?.selfImg !== undefined &&
+                  single?.user?.selfImg !== "undefined" &&
+                  single?.user?.selfImg !== "" ? (
+                    <img
+                      src={`https://syrianrevolution1.com/images/${single?.user?.selfImg}`}
+                      alt="profile"
+                      style={{
+                        width: "50px",
+                        height: "50px",
+                        borderRadius: "50%",
+                      }}
+                    />
+                  ) : (
+                    <img
+                      src={one}
+                      alt="profile"
+                      style={{
+                        width: "50px",
+                        height: "50px",
+                        borderRadius: "50%",
+                      }}
+                    />
+                  )}
 
-                <p>{single?.user?.name}</p>
+                  <p>{single?.user?.name}</p>
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "10px",
+                    alignItems: "center",
+                    height: "40px",
+                    backgroundColor: "#2FB9EE",
+                    padding: "0 20px",
+                    borderRadius: "10px",
+                    color: "white",
+                    cursor: "pointer",
+                  }}
+                 
+                >
+                  <p style={{ fontSize: "14px", marginTop: "12px" }}>مشاركة</p>
+                  <FontAwesomeIcon icon={faSubscript} />
+                </div>
               </div>
             </div>
             {/* /////////////////////// */}
             <div className="lastSlider1 col-md-4">
               <div className=" muted  overflow-hidden">
-                {archief.slice(0,50).map((e) => (
+                {archief.slice(0, 50).map((e) => (
                   <div
                     className="row border-bottom pb-2 pt-2 border-2 overflow-hidden"
                     style={{ backgroundColor: "#ECECEC" }}
@@ -125,6 +154,7 @@ export default function NewsDetails() {
           </div>
         </div>
       </div>
+   
       <Footer />
     </>
   );

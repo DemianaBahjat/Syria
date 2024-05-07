@@ -40,17 +40,22 @@ export default function DisplayDestainessDash() {
   async function handleDeletePost() {
     setLoading(true);
     await axios
-      .delete(`https://syrianrevolution1.com/childData/${id}`, {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-      })
+      .delete(
+        `https://syrianrevolution1.com/childData/${id}/${localStorage.getItem(
+          "idUserLogin"
+        )}`,
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      )
       .then((response) => {
         console.log(response);
         if (response.data === "childData Deleted Successfully") {
           setLoading(false);
-          navigate( "/dashboard/detaineesdash" );
-          getMartyr()
+          navigate("/dashboard/detaineesdash");
+          getMartyr();
         }
       })
       .catch((error) => console.log(error));
@@ -59,16 +64,22 @@ export default function DisplayDestainessDash() {
   async function handleAccepted() {
     setLoadingAccepted(true);
     await axios
-      .patch(`https://syrianrevolution1.com/childData/${id}`, null, {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-      })
+      .patch(
+        `https://syrianrevolution1.com/childData/${id}/${localStorage.getItem(
+          "idUserLogin"
+        )}`,
+        null,
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      )
       .then((response) => {
         if (response.data.success === "data updated successfully") {
           setLoading(false);
-          navigate( "/dashboard/detaineesdash" );
-          getMartyr()
+          navigate("/dashboard/detaineesdash");
+          getMartyr();
         }
       })
       .catch((error) => console.log(error));

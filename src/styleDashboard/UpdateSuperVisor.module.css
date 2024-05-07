@@ -1,6 +1,7 @@
 .AddSuperVisor{
     width: 100%;
     height: 100%;
+    padding-bottom: 10px;
 }
 .head p {
   background-color: #0d3a5a;
@@ -50,4 +51,39 @@
   .inp1{
     width: 100%;
   }
+}
+.singleUser{
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.singleUser h6{
+  color: #157cc6;
+  display: inline-block;
+}
+.singleUser .headInform p{
+  display: inline-block;
+}
+.singleUser .bottomInform{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+}
+@media(max-width:750px){
+  .singleUser .bottomInform{
+    width: 100%;
+    flex-direction: column;
+    gap: 50px;
+  }
+}
+.oneDiv{
+  width: 150px;
+  height: 100px;
+}
+.oneDiv img{
+  width: 100%;
+  height: 100%;
 }

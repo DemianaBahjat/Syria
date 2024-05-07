@@ -1,125 +1,143 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import styles from '../styleDashboard/UpdateSuperVisor.module.css';
 import { useNavigate } from 'react-router-dom';
 import Joi from 'joi';
 import { useEffect } from 'react';
 import axios from 'axios';
+import { ContextUser } from '../context/Context';
 export default function UpdateUser() {
   const navigate = useNavigate();
   //////////////////////////////////
-  const [ userUpdate, setUserUpdate ] = useState( {} );
+  const [userUpdate, setUserUpdate] = useState({});
   const [ errorListUpdate, setErrorListUpdate ] = useState();
-      ////////////function handleChange///////////////
-      function handlechange(e) {
-        setUserUpdate((prevState) => ({
-          ...prevState,
-          [e.target.name]: e.target.value,
-        }));
+    const { setOpenAlert, setOpenAlertStore } = useContext(ContextUser);
+  ////////////function handleChange///////////////
+  function handlechange(e) {
+    setUserUpdate((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
   }
   ////////////////////////////
-  useEffect( () => {
-      async function getSingleUser() {
-        await axios
-          .get(
-            `https://syrianrevolution1.com/users/single/${localStorage.getItem(
-              "IdUpdateUser"
-            )}`,
-            {
-              headers: {
-                Authorization: localStorage.getItem("token"),
-              },
-            }
-          )
-          .then((result) => {
-            setUserUpdate({
-              name: result.data.name || "",
-              phone: result.data.phone || "",
-              government: result.data.government || "",
-              role: result.data.role || "",
-            });
-          })
-          .catch((error) => console.log(error));
-
+  useEffect(() => {
+    async function getSingleUser() {
+      await axios
+        .get(
+          `https://syrianrevolution1.com/users/single/${localStorage.getItem(
+            "IdUpdateUser"
+          )}`,
+          {
+            headers: {
+              Authorization: localStorage.getItem("token"),
+            },
+          }
+        )
+        .then((result) => {
+          setUserUpdate({
+            name: result.data.name || "",
+            phone: result.data.phone || "",
+            government: result.data.government || "",
+            role: result.data.role || "",
+            selfImg: result.data.selfImg || "",
+          });
+        })
+        .catch((error) => console.log(error));
     }
-    getSingleUser()
-  },[])
-      /////////handle image////////////////
-      const [imageProfile, setImageProfile] = useState("");
+    getSingleUser();
+  }, []);
+  /////////handle image////////////////
+  const [imageProfile, setImageProfile] = useState("");
 
-      const [loading, setLoading] = useState(false);
-      function handleImg(e) {
-        setImageProfile(e.target.files[0]);
+  const [loading, setLoading] = useState(false);
+  function handleImg(e) {
+    setImageProfile(e.target.files[0]);
+  }
+  ////////////valid Joi///////////////
+  function validationAddUser() {
+    let schema = Joi.object({
+      name: Joi.string().allow(""),
+      selfImg: Joi.string().allow(""),
+      role: Joi.string().allow(""),
+      government: Joi.string().allow(""),
+      phone: Joi.string().min(7).allow("").messages({
+        "string.min": "    رقم  الهاتف يجب الا يقل عن سبعة ارقام",
+      }),
+    });
+    return schema.validate(userUpdate, { abortEarly: false });
+  }
+  /////////////////function submit ///////////////////
+  async function handleSubmit(e) {
+    setErrorListUpdate("");
+    e.preventDefault();
+    let responseValidateUser = validationAddUser();
+    if (responseValidateUser.error) {
+      setErrorListUpdate([responseValidateUser.error.details]);
+    } else {
+      setErrorListUpdate(null);
+      const formData = new FormData();
+      if (
+        userUpdate.name !== "" &&
+        userUpdate.name !== undefined &&
+        userUpdate.name !== null
+      ) {
+        formData.append("name", userUpdate.name);
       }
-      ////////////valid Joi///////////////
-      function validationAddUser() {
-        let schema = Joi.object({
-          name: Joi.string().allow(""),
-          selfImg: Joi.string().allow(""),
-          role: Joi.string().allow(""),
-          government: Joi.string().allow(""),
-          phone: Joi.string().min(7).allow("").messages({
-            "string.min": "    رقم  الهاتف يجب الا يقل عن سبعة ارقام",
-          }),
-        });
-        return schema.validate(userUpdate, { abortEarly: false });
+      if (
+        userUpdate.phone !== "" &&
+        userUpdate.phone !== undefined &&
+        userUpdate.phone !== null
+      ) {
+        formData.append("phone", userUpdate.phone);
       }
-      /////////////////function submit ///////////////////
-  async function handleSubmit( e ) {
-        setErrorListUpdate('')
-        e.preventDefault();
-        let responseValidateUser = validationAddUser();
-        if (responseValidateUser.error) {
-          setErrorListUpdate([responseValidateUser.error.details]);
-        } else{
-          setErrorListUpdate(null);
-          const formData = new FormData();
-          if ( userUpdate.name !== "" && userUpdate.name !== undefined && userUpdate.name !== null ) {
-            formData.append("name", userUpdate.name);
-          }
-           if (userUpdate.phone !== "" && userUpdate.phone !== undefined && userUpdate.phone !== null) {
-             formData.append("phone", userUpdate.phone);
-           }
-            if (userUpdate.government !== "" && userUpdate.government !== undefined && userUpdate.government !== null) {
-              formData.append("government", userUpdate.government);
-          }
-                  if (
-                    userUpdate.role !== "" &&
-                    userUpdate.role !== undefined &&
-                    userUpdate.role !== null
-                  ) {
-                    formData.append("role", userUpdate.role);
-                  }
-          if (imageProfile !== null && imageProfile !== undefined && imageProfile !== "") {
-            formData.append("photo", imageProfile);
-          }
-          
-         
-          try {
-            setLoading(true);
-            const response = await fetch(
-              `https://syrianrevolution1.com/users/${localStorage.getItem(
-                "IdUpdateUser"
-              )}`,
-              {
-                method: "PATCH",
-                headers: {
-                  Authorization: localStorage.getItem("token"),
-                },
-                body: formData,
-              }
-            );
-            const result = await response.json();
-            setLoading( false );
-            console.log( result );
-            if (result.user.createdAt) {
-              navigate("/dashboard/userdash");
-            }
-          } catch (error) {
-            console.error(error);
-          }
-        }
+      if (
+        userUpdate.government !== "" &&
+        userUpdate.government !== undefined &&
+        userUpdate.government !== null
+      ) {
+        formData.append("government", userUpdate.government);
+      }
+      if (
+        userUpdate.role !== "" &&
+        userUpdate.role !== undefined &&
+        userUpdate.role !== null
+      ) {
+        formData.append("role", userUpdate.role);
+      }
+      if (
+        imageProfile !== null &&
+        imageProfile !== undefined &&
+        imageProfile !== ""
+      ) {
+        formData.append("photo", imageProfile);
       }
 
+      try {
+        setLoading(true);
+        const response = await fetch(
+          `https://syrianrevolution1.com/users/${localStorage.getItem(
+            "IdUpdateUser"
+          )}`,
+          {
+            method: "PATCH",
+            headers: {
+              Authorization: localStorage.getItem("token"),
+            },
+            body: formData,
+          }
+        );
+        await response.json();
+        setLoading(false);
+          navigate("/dashboard/userdash");
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  }
+  ///////////////////////
+  function openImage(src) {
+    setOpenAlert(true);
+    setOpenAlertStore(src);
+  }
   return (
     <div className={styles.AddSuperVisor}>
       <div className={styles.head}>
@@ -188,17 +206,43 @@ export default function UpdateUser() {
               <p style={{ fontSize: "12px", marginBottom: "5px" }}>
                 الصورة الشخصية
               </p>
-              <label htmlFor="fsa" className={`customfileupload`}>
-                {" "}
-                ارفع الملف{" "}
-              </label>
-              <input
-                name="photo"
-                id="fsa"
-                type="file"
-                className="form-control"
-                onChange={handleImg}
-              />
+              <div style={{ display: "flex", gap: "20px" }}>
+                <div className={styles.oneDiv}>
+                  {userUpdate?.selfImg !== undefined &&
+                  userUpdate?.selfImg !== "undefined" &&
+                  userUpdate?.selfImg !== null &&
+                  userUpdate?.selfImg !== "" ? (
+                    <img
+                      src={`https://syrianrevolution1.com/images/${userUpdate?.selfImg}`}
+                      alt="profile"
+                      onClick={() => {
+                        openImage(
+                          `https://syrianrevolution1.com/images/${userUpdate?.selfImg}`
+                        );
+                      }}
+                    />
+                  ) : (
+                    ""
+                  )}
+                </div>
+                <div>
+                  <label
+                    htmlFor="fsa"
+                    style={{ width: "120px" }}
+                    className={`customfileupload`}
+                  >
+                    {" "}
+                    ارفع الملف{" "}
+                  </label>
+                  <input
+                    name="photo"
+                    id="fsa"
+                    type="file"
+                    className="form-control"
+                    onChange={handleImg}
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>

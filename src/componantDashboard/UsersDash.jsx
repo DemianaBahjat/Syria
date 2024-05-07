@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import { useDashboard } from '../context/DashboardContext';
 import {
+  faEye,
   faMagnifyingGlass,
   faPenToSquare,
   faTrash,
@@ -22,7 +23,11 @@ export default function UsersDash() {
   const [idloading, setIdLoading] = useState(false);
   const [nofile, setFile] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [report, setReport] = useState([]);
+  const [ report, setReport ] = useState( [] );
+  const [ onlyUser, setOnlyUSer ] = useState('0');
+  const [ onlyAdmin, setOnlyAdmin ] = useState( '0' )
+  const [onlySupervisor, setOnlySupervisor] = useState("0");
+  
   ////////////////////get all user/////////////////
   async function getAllUserDashboard() {
     try {
@@ -33,6 +38,9 @@ export default function UsersDash() {
         },
       });
       const result = await response.json();
+      setOnlyUSer( result.data.filter( ( e ) => e.role === "user" )?.length );
+      setOnlySupervisor(result.data.filter((e) => e.role === "supervisor")?.length);
+      setOnlyAdmin(result.data.filter((e) => e.role === "admin")?.length);
       setUserDashboard(result.data);
       setReport( result.data );
     } catch (error) {
@@ -81,7 +89,9 @@ export default function UsersDash() {
     try {
       setIdLoading(true);
       const response = await fetch(
-        `https://syrianrevolution1.com/users/${idDelete}`,
+        `https://syrianrevolution1.com/users/${idDelete}/${localStorage.getItem(
+          "idUserLogin"
+        )}`,
         {
           method: "DELETE",
           headers: {
@@ -120,38 +130,54 @@ export default function UsersDash() {
       <div className={styles.SuperVisor}>
         <div
           className={`headDashboard`}
-          style={{ display: "flex", gap: "10px" }}
+          style={{ display: "flex", justifyContent: "space-between" }}
         >
-          <p>المستخدمون/</p>
-          <div>
-            <span
-              className={styles.spanradiues}
-              style={{
-                backgroundColor: "yellow",
-                cursor: "pointer",
-              }}
-            ></span>
-            <small> انتظار </small>
+          <div style={{ display: "flex", gap: "10px" }}>
+            <p>المستخدمون/</p>
+            <div>
+              <span
+                className={styles.spanradiues}
+                style={{
+                  backgroundColor: "yellow",
+                  cursor: "pointer",
+                }}
+              ></span>
+              <small> انتظار </small>
+            </div>
+            <div>
+              <span
+                className={styles.spanradiues}
+                style={{
+                  backgroundColor: "red",
+                  cursor: "pointer",
+                }}
+              ></span>
+              <small> غير موثق </small>
+            </div>
+            <div>
+              <span
+                className={styles.spanradiues}
+                style={{
+                  backgroundColor: "green",
+                  cursor: "pointer",
+                }}
+              ></span>
+              <small> موثق </small>
+            </div>
           </div>
-          <div>
-            <span
-              className={styles.spanradiues}
-              style={{
-                backgroundColor: "red",
-                cursor: "pointer",
-              }}
-            ></span>
-            <small> غير موثق </small>
-          </div>
-          <div>
-            <span
-              className={styles.spanradiues}
-              style={{
-                backgroundColor: "green",
-                cursor: "pointer",
-              }}
-            ></span>
-            <small> موثق </small>
+          <div style={{ display: "flex", gap: "10px" }}>
+            <div style={{ display: "flex", gap: "10px" }}>
+              <p>عدد المستخدمين</p>
+              <span className={styles.counter}>{onlyUser}</span>
+            </div>
+            <div style={{ display: "flex", gap: "10px" }}>
+              <p>عدد المشرفين</p>
+              <span className={styles.counter}>{onlySupervisor}</span>
+            </div>
+            <div style={{ display: "flex", gap: "10px" }}>
+              <p>عدد المديرين</p>
+              <span className={styles.counter}>{onlyAdmin}</span>
+            </div>
           </div>
         </div>
         <div className={styles.search}>
@@ -181,7 +207,7 @@ export default function UsersDash() {
                 {report &&
                   report.map((user, index) => (
                     <tr key={index}>
-                      <td>{user.name}</td>
+                      <td>{user.username}</td>
                       <td>{user.phone}</td>
                       <td>{user.role}</td>
                       <td>
@@ -190,7 +216,7 @@ export default function UsersDash() {
                             className={styles.spanradiues}
                             style={{ backgroundColor: "green" }}
                           ></span>
-                        ) :( user?.docImg !== "")&&
+                        ) : user?.docImg !== "" &&
                           user?.isConfident === false ? (
                           <span
                             className={styles.spanradiues}
@@ -235,6 +261,12 @@ export default function UsersDash() {
                             localStorage.setItem("IdUpdateUser", user._id);
                             navigate("/dashboard/updateuser");
                           }}
+                        />
+                        <FontAwesomeIcon
+                          icon={faEye}
+                          style={{ cursor: "pointer" }}
+                          className="bg-primary p-1 text-white"
+                          onClick={()=>navigate(`/dashboard/singleUser/${user._id}`)}
                         />
                       </td>
                     </tr>

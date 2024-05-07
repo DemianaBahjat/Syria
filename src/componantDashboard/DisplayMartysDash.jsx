@@ -22,8 +22,6 @@ export default function DisplayMartysDash() {
           .get(`https://syrianrevolution1.com/childData/${id}`)
           .then( ( result ) => {
             setMartyrDataDisplay( result.data.childData );
-            
-            console.log(result)
           } )
           .catch((error) => {
             console.log(error);
@@ -44,17 +42,19 @@ export default function DisplayMartysDash() {
     setLoading( true );
     await axios
       .delete(
-        `https://syrianrevolution1.com/childData/${id}`,
+        `https://syrianrevolution1.com/childData/${id}/${localStorage.getItem(
+          "idUserLogin"
+        )}`,
         {
           headers: {
             Authorization: localStorage.getItem("token"),
           },
         }
       )
-      .then( ( response ) => {
-        if ( response.data === "childData Deleted Successfully" ) {
-          setLoading( false );
-          navigate( "/dashboard/martyrs" );
+      .then((response) => {
+        if (response.data === "childData Deleted Successfully") {
+          setLoading(false);
+          navigate("/dashboard/martyrs");
           getMartyr();
         }
       })
@@ -66,18 +66,24 @@ export default function DisplayMartysDash() {
      
     setLoadingAccepted(true);
     await axios
-      .patch(`https://syrianrevolution1.com/childData/${id}`, null,{
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-      })
+      .patch(
+        `https://syrianrevolution1.com/childData/${id}/${localStorage.getItem(
+          "idUserLogin"
+        )}`,
+        null,
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      )
       .then((response) => {
+        console.log(response);
         if (response.data.success === "data updated successfully") {
           setLoading(false);
-          navigate( "/dashboard/martyrs" );
+          navigate("/dashboard/martyrs");
           getMartyr();
         }
-        console.log( response );
       })
       .catch((error) => console.log(error));
   }

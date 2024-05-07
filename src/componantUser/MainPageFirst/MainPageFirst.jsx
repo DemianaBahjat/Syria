@@ -233,7 +233,7 @@ export default function MainPageFirst() {
       {/* five section  */}
       <div className="container">
         <div className="header position-relative py-5">
-          <h3 className=" text-danger"> المجازر </h3>
+          <h3 className=" text-danger"> الجرائم </h3>
         </div>
       </div>
       <section className="regime" style={{ marginBottom: "100px" }}>

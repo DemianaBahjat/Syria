@@ -76,3 +76,10 @@ select{
     width: 100%;
   }
 }
+.add {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  bottom: 3%;
+  transform: translateX(-50%);
+}

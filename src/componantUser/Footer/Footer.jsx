@@ -1,8 +1,12 @@
 import React from "react";
 import './Footer.css'
 import { Link, NavLink } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPaypal } from "@fortawesome/free-brands-svg-icons";
+import { useUser } from "../../context/Context";
 
 export default function Footer() {
+  const {messageAndPaypal} =  useUser()
   return (
     <>
       <div className="footer pt-5 pb-3 ">
@@ -58,7 +62,7 @@ export default function Footer() {
                 </div>
               </div>
             </div>
-            <div className="col-md-4 d-flex justify-content-center align-items-center">
+            <div className="col-md-2 d-flex justify-content-center align-items-center">
               <div className="contact-footer text-center">
                 <p className=" para mb-3 p-0">تواصل معنا</p>
                 <div className="social-icons-footer d-flex align-items-center">
@@ -93,13 +97,23 @@ export default function Footer() {
                   >
                     <i className="fa-brands fa-square-twitter ms-3"></i>
                   </a>
+                  {/* ///////////////////// */}
+                  <a
+                    href="https://youtube.com/syrian.revolution7"
+                    className="text-white"
+                  >
+                    <i className="fa-brands fa-square-youtube ms-3"></i>
+                  </a>
                 </div>
               </div>
             </div>
             <div className="col-md-2 d-flex justify-content-center align-items-center">
               <div className="contact-footer text-center">
                 <p className=" para mb-3 p-0"> تثبيت التطبيق</p>
-                <div className="social-icons-footer d-flex align-items-center" style={{gap:'10px'}}>
+                <div
+                  className="social-icons-footer d-flex align-items-center"
+                  style={{ gap: "10px" }}
+                >
                   <a href="https://download938.mediafire.com/ksvcxnlsirvg7anWQbCfZCKdsfKPWKjzXTy3_4QoqYkVC5NO2xgGhzPM1mGJ_x2c5rwhYpeGv7FG3jtSBW4miGL4VygJP9LUGeB8JEI6qn_CGv1RPBnHodPV4MUvg83-qnxtOL6CHZKHA8B66w5ERZtYZzY9jvMq1gjdOAaq/4255p8y3xparesh/Syrian.Revolution+.apk">
                     <button
                       className="btn oda"
@@ -116,6 +130,36 @@ export default function Footer() {
                       ايفون
                     </button>
                   </a>
+                </div>
+              </div>
+            </div>
+            <div className="col-md-3 d-flex justify-content-center align-items-center">
+              <div className="contact-footer text-center">
+                <p className=" para mb-3 p-0">
+                  {" "}
+                  ادعم موقعنا لنستمر بالتطوير وتقديم رسالتنا (تبرع الان)
+                </p>
+                <div
+                  className="social-icons-footer d-flex align-items-center"
+                  style={{ gap: "10px", justifyContent: "center" }}
+                >
+                  <div>
+                    {messageAndPaypal
+                      .filter((e) => e.category === "paypal")
+                      .map((e, i) => (
+                        <>
+                          <a href={e.content} key={i} style={{textDecoration:'none', fontSize:'13px'}}>
+                            {e.content}
+                          </a>
+                          <br />
+                        </>
+                      ))}
+                  </div>
+
+                  <FontAwesomeIcon
+                    icon={faPaypal}
+                    style={{ fontSize: "25px" }}
+                  />
                 </div>
               </div>
             </div>

@@ -1,6 +1,6 @@
 import React, { Suspense, lazy } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import SuperVisors from './componantDashboard/SuperVisors';
+// import SuperVisors from './componantDashboard/SuperVisors';
 import AddSuperVisor from './componantDashboard/AddSuperVisor';
 import UpdateSupervisors from './componantDashboard/UpdateSupervisors';
 import MartyrsDash from './componantDashboard/MartyrsDash';
@@ -50,8 +50,12 @@ import AllExcelDash from './componantDashboard/AllExcelDash.jsx';
 import ExeclSheet from './componantDashboard/ExeclSheet.jsx';
 import MainPageFirst from './componantUser/MainPageFirst/MainPageFirst.jsx';
 import PrivacyPolicy from './componantUser/PrivacyPolicy/PrivacyPolicy.jsx';
-import Repaired from './componantUser/Repaired.jsx';
 import SearchGlobal from './componantUser/SearchGlobal/SearchGlobal.jsx';
+import SingleUser from './componantDashboard/SingleUser.jsx';
+import MessageDashboard from './componantDashboard/MessageDashboard.jsx';
+import PaypalDashboard from './componantDashboard/PaypalDashboard.jsx';
+import MainHistory from './componantDashboard/History/MainHistory.jsx';
+import SingleMessageAndPaypal from './componantDashboard/SingleMessageAndPaypal.jsx';
 
 const HomeUser = lazy( () => import( './componantUser/HomeUser.jsx' ) );
 const HomeDashboard = lazy(() =>
@@ -66,13 +70,8 @@ export default function App() {
         <BrowserRouter>
           <Suspense fallback={<SpinnerFull />}>
             <Routes>
-              <Route path="/" index element={<Repaired />} />
-              <Route
-                path="/"
-                element={ <HomeUser  />}
-              >
-             
-                   <Route path="/" element={<MainPageFirst />} />
+              <Route path="/" element={<HomeUser />}>
+                <Route path="/" element={<MainPageFirst />} />
                 <Route path="/lastNews" element={<MainPage />} />
                 <Route path="archiefthoura" element={<ArchiefThourahUser />} />
                 <Route path="symbolthourauser" element={<SymbolThouraUser />} />
@@ -82,8 +81,7 @@ export default function App() {
                 <Route path="graemdashuser" element={<GaraamDaaehUser />} />
                 <Route path="/success/:id" element={<UpdatedPassword />} />
                 <Route path="privacypolicy" element={<PrivacyPolicy />} />
-                <Route path='searchglobal' element={ <SearchGlobal/>} />
-             
+                <Route path="searchglobal" element={<SearchGlobal />} />
               </Route>
               <Route path="newsDetails/:id" element={<NewsDetails />} />
               <Route
@@ -104,12 +102,21 @@ export default function App() {
                   </ProtectedRouted>
                 }
               >
-                <Route path="supervisor" element={<SuperVisors />} />
+                <Route path="singleUser/:id" element={<SingleUser />} />
                 <Route path="addsupervisor" element={<AddSuperVisor />} />
                 <Route
                   path="updatesupervisor"
                   element={<UpdateSupervisors />}
                 />
+                <Route path="message" element={<MessageDashboard />} />
+                <Route path="paypal" element={<PaypalDashboard />} />
+                <Route
+                  path="singlemessageandpaypal/:id"
+                  element={<SingleMessageAndPaypal />}
+                />
+
+                <Route path="history" element={<MainHistory />} />
+                <Route path="addsupervisor" element={<AddSuperVisor />} />
                 <Route path="martyrs" element={<MartyrsDash />} />
                 <Route path="martyrs/:id" element={<DisplayMartysDash />} />
                 <Route path="detaineesdash" element={<DetaineesDash />} />
@@ -140,7 +147,6 @@ export default function App() {
                   path="symbolsoftherevolution"
                   element={<SymbolsoftheRevolution />}
                 />
-
                 <Route path="allexcel" element={<AllExcelDash />} />
                 <Route path="excel" element={<ExeclSheet />} />
                 <Route path="blacklist" element={<BlackListDash />} />

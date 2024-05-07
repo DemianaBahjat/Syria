@@ -82,7 +82,9 @@ export default function UpdateSiteMascers() {
       setLoading(true);
       setSuccess(false);
       const response = await fetch(
-        `https://syrianrevolution1.com/massacres/update/${id}`,
+        `https://syrianrevolution1.com/massacres/update/${id}/${localStorage.getItem(
+          "idUserLogin"
+        )}`,
         {
           method: "PATCH",
           headers: {

@@ -86,12 +86,7 @@ export default function Navbar() {
                   >
                     معارك الثوار
                   </Lik>
-                  <button
-                    className="nav-link text-white"
-                    onClick={() => setOpenAuth("enterinform")}
-                  >
-                    ادعمنا بوثائق
-                  </button>
+              
                 </div>
               </Link>
             </li>
@@ -184,7 +179,7 @@ export default function Navbar() {
                     duration={500}
                     offset={-70}
                   >
-                    مجازر النظام{" "}
+                    جرائم النظام{" "}
                   </Lik>
                   <Lik
                     className="nav-link text-white"
@@ -231,7 +226,7 @@ export default function Navbar() {
                     duration={500}
                     offset={-70}
                   >
-                    مجازر قسد{" "}
+                    جرائم قسد{" "}
                   </Lik>
                   <Lik
                     className="nav-link text-white"
@@ -278,7 +273,7 @@ export default function Navbar() {
                     duration={500}
                     offset={-70}
                   >
-                    مجازر داعش{" "}
+                    جرائم داعش{" "}
                   </Lik>
                   <Lik
                     className="nav-link text-white"
@@ -321,7 +316,9 @@ export default function Navbar() {
               </Link>
             </li>
 
-            {role === "admin" || role === "supervisor" ? (
+            {role === "admin" ||
+            role === "supervisor" ||
+            role === "owner" ? (
               <li className="nav-item">
                 <NavLink
                   className="nav-link"

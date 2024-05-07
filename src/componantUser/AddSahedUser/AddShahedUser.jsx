@@ -63,7 +63,7 @@ export default function AddShahedUser() {
       });
       return schema.validate(addData, { abortEarly: false });
     }
-      console.log(checkConfition);
+      
 
     async function handleSubmit(e) {
       e.preventDefault();

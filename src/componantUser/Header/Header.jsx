@@ -1,5 +1,5 @@
 import {React,useContext} from 'react';
-import image1 from '../../assests/photo_2024-04-03_23-07-55.jpg';
+import image1 from '../../assests/thowra.jpg';
 import './Header.css';
 import { ContextUser } from '../../context/Context';
 import EnterInformUser from '../EnterInformUser/EnterInformUser';

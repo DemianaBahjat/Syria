@@ -24,6 +24,7 @@ export default function HomeUser({ searchGlobal, setSearchGlobal }) {
       </div>
       <Footer />
       {openAlert && <AlertImageDash src={openAlertStore} />}
+     
     </div>
   );
 }
