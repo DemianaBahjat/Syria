@@ -69,3 +69,40 @@ border-radius: 50%;
   justify-content: center;
   align-items: center;
 }
+/* /////////////////////////////////// */
+.useruseruser{
+display: flex;
+justify-content: space-between;
+  background-color: #0d3a5a;
+  padding: 10px 20px 0 0;
+  color: white;
+  transform: translateY(20px);
+  font-size: 14px;
+  height: fit-content;
+}
+@media(max-width:1000px){
+  .useruseruser{
+    flex-direction: column;
+    gap: 12px;
+  }
+  .search {
+  margin-top: 80px;
+}
+.counter{
+  width: 20px;
+  padding: 10px;
+}
+.youseef p{
+  font-size: 7px !important;
+}
+}
+/* ///////////////////////////// */
+.useruseruser  span{
+width: 14px;
+height: 14px;
+}
+@media (max-width: 900px) {
+  .useruseruser p {
+    font-size: 10px;
+  }
+}

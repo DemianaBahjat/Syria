@@ -56,6 +56,11 @@ import MessageDashboard from './componantDashboard/MessageDashboard.jsx';
 import PaypalDashboard from './componantDashboard/PaypalDashboard.jsx';
 import MainHistory from './componantDashboard/History/MainHistory.jsx';
 import SingleMessageAndPaypal from './componantDashboard/SingleMessageAndPaypal.jsx';
+import LastNewsDashFromUser from './componantDashboard/InformMessagesFromUser/LastNewsDashFromUser.jsx';
+import DisplayLastNewsFromUser from './componantDashboard/InformMessagesFromUser/DisplayLastNewsFromUser.jsx';
+import WathaaqFromUser from './componantDashboard/InformMessagesFromUser/WathaaqFromUser.jsx';
+import DisplayWathaaqFromUser from './componantDashboard/InformMessagesFromUser/DisplayWathaaqFromUser.jsx';
+import ProtectedRoutedOnUser from './componantDashboard/ProtectedRoutedOnUser.jsx';
 
 const HomeUser = lazy( () => import( './componantUser/HomeUser.jsx' ) );
 const HomeDashboard = lazy(() =>
@@ -114,7 +119,6 @@ export default function App() {
                   path="singlemessageandpaypal/:id"
                   element={<SingleMessageAndPaypal />}
                 />
-
                 <Route path="history" element={<MainHistory />} />
                 <Route path="addsupervisor" element={<AddSuperVisor />} />
                 <Route path="martyrs" element={<MartyrsDash />} />
@@ -138,6 +142,20 @@ export default function App() {
                 <Route path="traitors/:id" element={<DisplayTraitorsDash />} />
                 <Route path="honorcard" element={<HonorCard />} />
                 <Route path="honorcard/:id" element={<DisplayHonorCard />} />
+                <Route
+                  path="lastnewsfromuser"
+                  element={<LastNewsDashFromUser />}
+                />
+                <Route
+                  path="displaylastnewsfromuser/:id"
+                  element={<DisplayLastNewsFromUser />}
+                />
+                <Route path="wathaaqfromuser" element={<WathaaqFromUser />} />
+                <Route
+                  path="displaywathaaqfromuser/:id"
+                  element={<DisplayWathaaqFromUser />}
+                />
+
                 <Route path="lastnewsdash" element={<LastNewsDash />} />
                 <Route
                   path="revolutionarchivedash"
@@ -151,7 +169,14 @@ export default function App() {
                 <Route path="excel" element={<ExeclSheet />} />
                 <Route path="blacklist" element={<BlackListDash />} />
                 <Route path="crimessystem" element={<CrimesSystem />} />
-                <Route path="userDash" element={<UsersDash />} />
+                <Route
+                  path="userDash"
+                  element={
+                    <ProtectedRoutedOnUser>
+                      <UsersDash />
+                    </ProtectedRoutedOnUser>
+                  }
+                />
                 <Route path="AddUser" element={<AddUser />} />
                 <Route path="updateuser" element={<UpdateUser />} />
                 <Route path="dataDisplaySite" element={<DataDisplaySite />} />

@@ -1,16 +1,16 @@
-import React, { useContext, useState } from 'react'
-import styles from '../styleDashboard/UpdateSuperVisor.module.css';
-import { useNavigate } from 'react-router-dom';
-import Joi from 'joi';
-import { useEffect } from 'react';
-import axios from 'axios';
-import { ContextUser } from '../context/Context';
+import React, { useContext, useState } from "react";
+import styles from "../styleDashboard/UpdateSuperVisor.module.css";
+import { useNavigate } from "react-router-dom";
+import Joi from "joi";
+import { useEffect } from "react";
+import axios from "axios";
+import { ContextUser } from "../context/Context";
 export default function UpdateUser() {
   const navigate = useNavigate();
   //////////////////////////////////
   const [userUpdate, setUserUpdate] = useState({});
-  const [ errorListUpdate, setErrorListUpdate ] = useState();
-    const { setOpenAlert, setOpenAlertStore } = useContext(ContextUser);
+  const [errorListUpdate, setErrorListUpdate] = useState();
+  const { setOpenAlert, setOpenAlertStore } = useContext(ContextUser);
   ////////////function handleChange///////////////
   function handlechange(e) {
     setUserUpdate((prevState) => ({
@@ -34,11 +34,14 @@ export default function UpdateUser() {
         )
         .then((result) => {
           setUserUpdate({
+            username: result.data.username || "",
+            email: result.data.email || "",
             name: result.data.name || "",
             phone: result.data.phone || "",
             government: result.data.government || "",
             role: result.data.role || "",
             selfImg: result.data.selfImg || "",
+            docImg: result.data.docImg || "",
           });
         })
         .catch((error) => console.log(error));
@@ -52,11 +55,19 @@ export default function UpdateUser() {
   function handleImg(e) {
     setImageProfile(e.target.files[0]);
   }
+  /////////////////////
+  const [doc, setDoc] = useState("");
+  function handleDoc(e) {
+    setDoc(e.target.files[0]);
+  }
   ////////////valid Joi///////////////
   function validationAddUser() {
     let schema = Joi.object({
       name: Joi.string().allow(""),
       selfImg: Joi.string().allow(""),
+      docImg: Joi.string().allow(""),
+      username: Joi.string().allow(""),
+      email: Joi.string().allow(""),
       role: Joi.string().allow(""),
       government: Joi.string().allow(""),
       phone: Joi.string().min(7).allow("").messages({
@@ -75,6 +86,20 @@ export default function UpdateUser() {
     } else {
       setErrorListUpdate(null);
       const formData = new FormData();
+        if (
+          userUpdate.username !== "" &&
+          userUpdate.username !== undefined &&
+          userUpdate.username !== null
+        ) {
+          formData.append("username", userUpdate.username);
+      }
+         if (
+           userUpdate.email !== "" &&
+           userUpdate.email !== undefined &&
+           userUpdate.email !== null
+         ) {
+           formData.append("email", userUpdate.email);
+         }
       if (
         userUpdate.name !== "" &&
         userUpdate.name !== undefined &&
@@ -108,7 +133,10 @@ export default function UpdateUser() {
         imageProfile !== undefined &&
         imageProfile !== ""
       ) {
-        formData.append("photo", imageProfile);
+        formData.append("selfImg", imageProfile);
+      }
+      if (doc !== null && doc !== undefined && doc !== "") {
+        formData.append("docImg", doc);
       }
 
       try {
@@ -116,7 +144,7 @@ export default function UpdateUser() {
         const response = await fetch(
           `https://syrianrevolution1.com/users/${localStorage.getItem(
             "IdUpdateUser"
-          )}`,
+          )}/${localStorage.getItem("idUserLogin")}`,
           {
             method: "PATCH",
             headers: {
@@ -125,9 +153,17 @@ export default function UpdateUser() {
             body: formData,
           }
         );
-        await response.json();
-        setLoading(false);
-          navigate("/dashboard/userdash");
+        const result =  await response.json();
+        
+        if ( result?.user?._id ) {
+             setLoading(false);
+             navigate("/dashboard/userdash");
+        } else {
+          alert("الاسم او الايميل مستخدمين من قبل")
+          console.log( result );
+          setLoading(false)
+        }
+     
       } catch (error) {
         console.error(error);
       }
@@ -151,6 +187,31 @@ export default function UpdateUser() {
             </p>
           ))}
         <div className={styles.headForm}>
+          <div className={styles.input}>
+            <div className={styles.inp1}>
+              <label htmlFor=""> الاسم </label>
+              <input
+                name="username"
+                type="text"
+                value={userUpdate.username || ""}
+                placeholder="الاسم "
+                className="form-control"
+                onChange={handlechange}
+              />
+            </div>
+            <div className={styles.inp1}>
+              <label htmlFor=""> الايميل </label>
+              <input
+                name="email"
+                type="email"
+                value={userUpdate.email || ""}
+                placeholder="الايميل "
+                className="form-control"
+                onChange={handlechange}
+              />
+            </div>
+          </div>
+          {/* /////////////////// */}
           <div className={styles.input}>
             <div className={styles.inp1}>
               <label htmlFor=""> الاسم بالكامل</label>
@@ -235,11 +296,53 @@ export default function UpdateUser() {
                     ارفع الملف{" "}
                   </label>
                   <input
-                    name="photo"
+                    name="selfImg"
                     id="fsa"
                     type="file"
                     className="form-control"
                     onChange={handleImg}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className={styles.inp1}>
+              <p style={{ fontSize: "12px", marginBottom: "5px" }}>
+                الوثيقة الشخصية
+              </p>
+              <div style={{ display: "flex", gap: "20px" }}>
+                <div className={styles.oneDiv}>
+                  {userUpdate?.docImg !== undefined &&
+                  userUpdate?.docImg !== "undefined" &&
+                  userUpdate?.docImg !== null &&
+                  userUpdate?.docImg !== "" ? (
+                    <img
+                      src={`https://syrianrevolution1.com/images/${userUpdate?.docImg}`}
+                      alt="profile"
+                      onClick={() => {
+                        openImage(
+                          `https://syrianrevolution1.com/images/${userUpdate?.docImg}`
+                        );
+                      }}
+                    />
+                  ) : (
+                    ""
+                  )}
+                </div>
+                <div>
+                  <label
+                    htmlFor="fsa1"
+                    style={{ width: "120px" }}
+                    className={`customfileupload`}
+                  >
+                    {" "}
+                    ارفع الملف{" "}
+                  </label>
+                  <input
+                    name="photo"
+                    id="fsa1"
+                    type="file"
+                    className="form-control"
+                    onChange={handleDoc}
                   />
                 </div>
               </div>

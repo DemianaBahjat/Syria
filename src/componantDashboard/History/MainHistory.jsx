@@ -7,8 +7,16 @@ import HistorySupervisor from "./HistorySupervisor";
 import { useUser } from "../../context/Context";
 
 export default function MainHistory() {
-  const [ choice, setChoice ] = useState( "all" );
-  const {role}= useUser()
+    const { role } = useUser();
+  const [choice, setChoice] = useState(
+    role === "owner"
+      ? "all"
+      : role === "admin"
+      ? "supervisor"
+        : role === "supervisor" ?
+          "user":""
+  );
+
   return (
     <div className={styles.MainHistory}>
       <div className={styles.head}>
@@ -25,7 +33,7 @@ export default function MainHistory() {
           </span>:""
          }
           {
-            role ==="owner"||role==="admin"?   <span
+            role ==="owner"?   <span
             className={`${choice === "admin" ? styles.active : ""}`}
             onClick={() => setChoice("admin")}
           >
@@ -33,7 +41,7 @@ export default function MainHistory() {
           </span>:""
        }
           {
-            role==="owner"||role==="admin"||role==="supervisor"?  <span
+            role==="owner"||role==="admin"?  <span
             className={`${choice === "supervisor" ? styles.active : ""}`}
             onClick={() => setChoice("supervisor")}
           >

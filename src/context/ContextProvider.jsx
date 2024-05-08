@@ -1,7 +1,6 @@
 import axios from "axios";
-import { createContext, useContext, useEffect, useState } from "react";
-
-const ContextUser = createContext();
+import { useEffect, useState } from "react";
+import { ContextUser } from "./Context";
 
 function ContextProvider({ children }) {
   const [openAuth, setOpenAuth] = useState();
@@ -10,47 +9,21 @@ function ContextProvider({ children }) {
   const [openLogout, setOpenLogout] = useState(false);
   const [checkConfition, setCheckConfition] = useState(false);
   const [role, setRole] = useState(localStorage.getItem("roleUserLogin"));
-  const [ searchGlobal, setSearchGlobal ] = useState();
-  const [ messageAndPaypal, setMessageAndPaypal ] = useState( [] )
-  const [ history, setHistory ] = useState( [] );
-  const [ openSubscrips, setOpenSubscrips ] = useState( false )
-  const [openOne,setOpenOne] = useState(false)
+  const [searchGlobal, setSearchGlobal] = useState();
+  const [messageAndPaypal, setMessageAndPaypal] = useState([]);
+  const [history, setHistory] = useState([]);
+  const [openSubscrips, setOpenSubscrips] = useState(false);
+  const [openOne, setOpenOne] = useState(true);
   ////////////////////////
-  
-  useEffect( () => {
-    if ( localStorage.getItem( 'messageOpen' ) ) {
-      if ( messageAndPaypal.length > 0 ) {
-            if (
-              messageAndPaypal.filter((e) => e.category === "message")[0]
-                ?.content !== localStorage.getItem("messageOpen")
-            ) {
-              setTimeout(() => {
-                setOpenOne(true);
-              }, [ 5000 ] );
-              localStorage.setItem(
-                "messageOpen",
-                messageAndPaypal.filter((e) => e.category === "message")[0]
-                  ?.content
-              );
-            }
-      }
-  
+  useEffect(() => {
+    if (localStorage.getItem("messageOpen")) {
     } else {
-      if ( messageAndPaypal.length > 0 ) {
-           localStorage.setItem(
-             "messageOpen",
-             messageAndPaypal.filter((e) => e.category === "message")[0]
-               ?.content
-           );
-           setTimeout(() => {
-             setOpenOne(true);
-           }, [5000]);
-      }
-   
-     
+      localStorage.setItem(
+        "messageOpen",
+        messageAndPaypal.filter((e) => e.category === "message")[0]?.content
+      );
     }
-  
-  }, [ messageAndPaypal ] )
+  }, []);
   ///////////////////////////
   async function getSingleUser() {
     await axios
@@ -64,42 +37,14 @@ function ContextProvider({ children }) {
           },
         }
       )
-      .then( ( result ) => {
-        console.log(result)
+      .then((result) => {
+        console.log(result);
         result?.data?.isConfident === true
           ? setCheckConfition(true)
           : setCheckConfition(false);
       })
       .catch((error) => console.log(error));
   }
-  ////////////////////////useEffectFirst////////////////////
-  useEffect( () => {
-    if ( localStorage.getItem( 'token' ) ) {
-      async function getUserFirst(){
-          await axios.get(
-            `https://syrianrevolution1.com/users/single/${localStorage.getItem(
-              "idUserLogin"
-            )}`,
-            {
-              headers: {
-                Authorization: localStorage.getItem("token"),
-              },
-            }
-          ).then( ( result ) => {
-            console.log( result )
-            if ( result?.data?._id ) {
-              localStorage.setItem( "roleUserLogin", result?.data?.role );
-              localStorage.setItem( "selfImg", result?.data?.selfImg );
-            }
-            else {
-              localStorage.clear()
-            }
-          }
-            ).catch((error)=>console.log(error));
-      }
-    getUserFirst()
-    }
-  },[])
   ////////////////////////
   // ListUserView
   const [lastNews, setLastNews] = useState([]);
@@ -145,8 +90,8 @@ function ContextProvider({ children }) {
   async function getMartyr() {
     await axios
       .get("https://syrianrevolution1.com/childData")
-      .then( ( result ) => {
-         setChildDash(result.data.data);
+      .then((result) => {
+        setChildDash(result.data.data);
       })
       .catch((error) => {
         console.log(error);
@@ -177,23 +122,23 @@ function ContextProvider({ children }) {
   }
   useEffect(() => {
     getAllMessageAndPaypal();
-  }, [] );
+  }, []);
   /////////////get All History////////////////
-    async function getAllHistory() {
-      await axios
-        .get("https://syrianrevolution1.com/sgel", {
-          headers: {
-            Authorization: localStorage.getItem("token"),
-          },
-        })
-        .then((result) => {
-          setHistory(result.data.data);
-        })
-        .catch((error) => console.log(error));
-    }
-    useEffect(() => {
-      getAllHistory();
-    }, []);
+  async function getAllHistory() {
+    await axios
+      .get("https://syrianrevolution1.com/sgel", {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      })
+      .then((result) => {
+        setHistory(result.data.data);
+      })
+      .catch((error) => console.log(error));
+  }
+  useEffect(() => {
+    getAllHistory();
+  }, []);
   return (
     <ContextUser.Provider
       value={{
@@ -234,12 +179,3 @@ function ContextProvider({ children }) {
     </ContextUser.Provider>
   );
 }
-
-function useUser() {
-  const context = useContext(ContextUser);
-  if (context === undefined) {
-    throw new Error("proplem in context");
-  }
-  return context;
-}
-export { ContextProvider, ContextUser, useUser };

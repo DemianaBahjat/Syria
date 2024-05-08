@@ -7,13 +7,27 @@ import DataSiteBlackList from './DataSite/DataSiteBlackList';
 import DataSiteSystem from './DataSite/DataSiteSystem';
 import DataSiteDaaeh from './DataSite/DataSiteDaaeh';
 import DataSiteQasaad from './DataSite/DataSiteQasaad';
+import SearchOnAllSiteDashboard from './DataSite/SearchOnAllSiteDashboard';
+
 export default function DataDisplaySite() {
-    const [choiceArchife, setChoiceArchife] = useState("lastNews");
+  const [ choiceArchife, setChoiceArchife ] = useState( "lastNews" );
+  const [searchDashboard,setSearchDashboard] = useState()
+  ///////////////////////////////////////////////////////////////////
+  function changeSearch(e) {
+    const value = e.target.value;
+    setSearchDashboard(value);
+    if (value !== "") {
+      setChoiceArchife("search");
+    } else {
+      setChoiceArchife("lastNews");
+    }
+  }
   return (
     <div>
       <div className={`headDashboard`}>
         <p> البيانات المعروضة بالموقع</p>
       </div>
+
       <div className={styles.filterAndDisplay}>
         <div className={styles.filter}>
           <span
@@ -59,6 +73,15 @@ export default function DataDisplaySite() {
             جرائم قسد
           </span>
         </div>
+        <div>
+          <input
+            type="text"
+            className={`form-control ${styles.inputSearchDashboard}`}
+            placeholder="جدول البحث هنا"
+            onChange={changeSearch}
+          />
+        </div>
+     
       </div>
       {choiceArchife === "lastNews" && <DataSiteLastNews />}
       {choiceArchife === "archiefThowra" && <DataSiteArchief />}
@@ -67,6 +90,9 @@ export default function DataDisplaySite() {
       {choiceArchife === "system" && <DataSiteSystem />}
       {choiceArchife === "daaeh" && <DataSiteDaaeh />}
       {choiceArchife === "qasad" && <DataSiteQasaad />}
+      {choiceArchife === "search" && (
+        <SearchOnAllSiteDashboard searchDashboard={searchDashboard} />
+      )}
     </div>
   );
 }

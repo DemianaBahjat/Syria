@@ -1,30 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./DetaineesUser.css";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import SliderDaaehThree from "../SliderDaaehThree";
 import { useUser } from "../../../context/Context";
 export default function DetaineesUser() {
-  const [ martyr, setMartyr ] = useState( [] );
+ 
   const {child} = useUser()
   const navigate = useNavigate();
-  useEffect(() => {
-    async function getMartyr() {
-      await axios
-        .get("https://syrianrevolution1.com/childData/userView")
-        .then((result) => {
-          setMartyr(
-            result.data.data.filter(
-              (e) =>
-                e.category === "adetaine" && e.responsibleAuthority === "daaeh"
-            )
-          );
-        })
-        .catch((error) => console.log(error));
-    }
-    getMartyr();
-  }, []);
-  console.log(martyr);
   return (
     <>
       <section className="detainees" id="sevenfour">

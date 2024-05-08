@@ -17,6 +17,8 @@ export default function TraitorsDash() {
           <thead>
             <tr>
               <th>اسم الخائن</th>
+              <th>اسم الناشر</th>
+
               <th> البيانات المرفوعة</th>
             </tr>
           </thead>
@@ -25,6 +27,8 @@ export default function TraitorsDash() {
               user.category === "Traitors" && user.isAccepted === false ? (
                 <tr key={index}>
                   <td>{user.name} </td>
+                  <td>{user?.user?.username} </td>
+
                   <td>
                     <button
                       className={`add `}

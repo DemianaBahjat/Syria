@@ -6,7 +6,8 @@ import { faPaypal } from "@fortawesome/free-brands-svg-icons";
 import { useUser } from "../../context/Context";
 
 export default function Footer() {
-  const {messageAndPaypal} =  useUser()
+  const { messageAndPaypal } = useUser()
+ 
   return (
     <>
       <div className="footer pt-5 pb-3 ">
@@ -114,7 +115,11 @@ export default function Footer() {
                   className="social-icons-footer d-flex align-items-center"
                   style={{ gap: "10px" }}
                 >
-                  <a href="https://download938.mediafire.com/ksvcxnlsirvg7anWQbCfZCKdsfKPWKjzXTy3_4QoqYkVC5NO2xgGhzPM1mGJ_x2c5rwhYpeGv7FG3jtSBW4miGL4VygJP9LUGeB8JEI6qn_CGv1RPBnHodPV4MUvg83-qnxtOL6CHZKHA8B66w5ERZtYZzY9jvMq1gjdOAaq/4255p8y3xparesh/Syrian.Revolution+.apk">
+                  <a
+                    href={
+                      messageAndPaypal.filter((e) => e.category === "android")[0]?.content
+                    }
+                  >
                     <button
                       className="btn oda"
                       style={{ border: "2px solid white", color: "white" }}
@@ -122,7 +127,11 @@ export default function Footer() {
                       اندرويد
                     </button>
                   </a>
-                  <a href="https://www.mediafire.com/file/w5lzwl0sxvgvqoh/Syrian.Revolution/file?dkey=zwy4s8f1ig4&r=438">
+                  <a
+                    href={
+                      messageAndPaypal.filter((e) => e.category === "desktop")[0]?.content
+                    }
+                  >
                     <button
                       className="btn"
                       style={{ border: "2px solid white", color: "white" }}
@@ -147,12 +156,15 @@ export default function Footer() {
                     {messageAndPaypal
                       .filter((e) => e.category === "paypal")
                       .map((e, i) => (
-                        <>
-                          <a href={e.content} key={i} style={{textDecoration:'none', fontSize:'13px'}}>
+                        <div key={i}>
+                          <a
+                            href={e.content}
+                            style={{ textDecoration: "none", fontSize: "13px" }}
+                          >
                             {e.content}
                           </a>
                           <br />
-                        </>
+                        </div>
                       ))}
                   </div>
 
@@ -176,3 +188,14 @@ export default function Footer() {
     </>
   );
 }
+
+
+
+
+
+
+
+
+
+
+

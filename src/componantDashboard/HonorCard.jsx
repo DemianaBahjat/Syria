@@ -16,6 +16,8 @@ export default function HonorCard() {
           <thead>
             <tr>
               <th>اسم البطاقة</th>
+              <th>اسم الناشر</th>
+
               <th> البيانات المرفوعة</th>
             </tr>
           </thead>
@@ -24,6 +26,8 @@ export default function HonorCard() {
               user.category === "takrem" && user.isAccepted === false ? (
                 <tr key={index}>
                   <td>{user.name} </td>
+                  <td>{user?.user?.username} </td>
+
                   <td>
                     <button
                       className={`add `}

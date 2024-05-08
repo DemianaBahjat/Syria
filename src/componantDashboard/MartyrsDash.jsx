@@ -19,6 +19,8 @@ const {childDash} =  useUser()
             <thead>
               <tr>
                 <th>اسم الشهيد</th>
+                <th>اسم الناشر</th>
+
                 <th> البيانات المرفوعة</th>
               </tr>
             </thead>
@@ -27,6 +29,8 @@ const {childDash} =  useUser()
                 user.category === "martyr" && user.isAccepted === false ? (
                   <tr key={index}>
                     <td>{user.name} </td>
+                    <td>{user?.user?.username} </td>
+
                     <td>
                       <button
                         className={`add `}

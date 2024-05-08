@@ -23,7 +23,7 @@ export default function RegisterUser() {
       const [loading, setLoading] = useState(false);
       function handleImg(e) {
         setImageProfile(e.target.files[0]);
-      }
+  }
       ////////////valid Joi///////////////
       function validationAddUser() {
         let schema = Joi.object({
@@ -58,7 +58,7 @@ export default function RegisterUser() {
               formData.append("government", userUpdate.government);
             }
           if (imageProfile !== null && imageProfile !== undefined && imageProfile !== "") {
-            formData.append("photo", imageProfile);
+            formData.append("selfImg", imageProfile);
           }
           try {
             setLoading(true);
@@ -121,11 +121,10 @@ export default function RegisterUser() {
            ))}
          {success && (
            <p
-           
              className="alert alert-secondary alerthemself"
              style={{ width: "90%" }}
            >
-            تم التحديث بنجاح
+             تم التحديث بنجاح
            </p>
          )}
          <div className={style.inform}>

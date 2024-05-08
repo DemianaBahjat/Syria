@@ -15,6 +15,7 @@ export default function DataSiteLastNews() {
             <thead>
               <tr>
                 <th> عنوان الخبر</th>
+                <th>اسم الناشر</th>
                 <th>البيانات المنشورة</th>
               </tr>
             </thead>
@@ -24,6 +25,8 @@ export default function DataSiteLastNews() {
                   user.category === "lastNews" ? (
                     <tr key={index}>
                       <td>{user.name}</td>
+                      <td>{user?.user?.username}</td>
+
                       <td>
                         <button
                           className={`add `}

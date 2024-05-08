@@ -48,7 +48,7 @@ export default function LoginUser() {
           await axios
             .post("https://syrianrevolution1.com/users/login", user)
             .then((result) => {
-              console.log(result);
+             
               if (result.data.message === "success") {
                 const decodedToken = jwtDecode(result.data.token);
                 localStorage.setItem("token", result.data.token);

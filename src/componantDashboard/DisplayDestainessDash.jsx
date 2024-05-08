@@ -8,7 +8,7 @@ import { ContextUser, useUser } from '../context/Context';
 import one from "../image/png-clipart-computer-icons-avatar-icon-design-avatar-heroes-computer-wallpaper-thumbnail.png";
 export default function DisplayDestainessDash() {
   const { setOpenAlert, setOpenAlertStore } = useContext( ContextUser );
-  const {getMartyr} =  useUser()
+  const {getMartyr,role} =  useUser()
   const [martyrDisplay, setMartyrDataDisplay] = useState([]);
   const [loading, setLoading] = useState(false);
   const [ loadingAccepted, setLoadingAccepted ] = useState( false );
@@ -252,40 +252,58 @@ export default function DisplayDestainessDash() {
           </div>
         </div>
         <div className={styles.detailsLeft}>
+          {/* <p>{user?.name }</p> */}
+          <div style={{ display: "flex", gap: "30px" }}>
+            <div
+              style={{
+                display: "flex",
+                gap: "10px",
+                marginBottom: "10px",
+                alignItems: "center",
+              }}
+            >
+              {martyrDisplay?.user?.selfImg !== undefined &&
+              martyrDisplay?.user?.selfImg !== "undefined" &&
+              martyrDisplay?.user?.selfImg !== "" ? (
+                <img
+                  src={`https://syrianrevolution1.com/images/${martyrDisplay?.user?.selfImg}`}
+                  alt="profile"
+                  style={{ width: "50px", height: "50px", borderRadius: "50%" }}
+                />
+              ) : (
+                <img
+                  src={one}
+                  alt="profile"
+                  style={{ width: "50px", height: "50px", borderRadius: "50%" }}
+                />
+              )}
+
+              <h6>{martyrDisplay?.user?.name}</h6>
+            </div>
+            {role === "admin" || role === "owner" ? (
+              <div>
+                <h6>الوثيقة الشخصية : </h6>
+                <img
+                  src={`https://syrianrevolution1.com/images/${martyrDisplay?.user?.docImg}`}
+                  alt="profile"
+                  style={{ width: "80px", height: "80px" }}
+                  onClick={() => {
+                    openImage(
+                      `https://syrianrevolution1.com/images/${martyrDisplay?.user?.docImg}`
+                    );
+                  }}
+                />
+              </div>
+            ) : (
+              ""
+            )}
+          </div>
           <div>
             <h6>شرح مفصل : </h6>{" "}
-            {martyrDisplay?.details !== undefined &&
-            martyrDisplay?.details !== "undefined"
-              ? martyrDisplay?.details
+            {martyrDisplay.details !== undefined &&
+            martyrDisplay.details !== "undefined"
+              ? martyrDisplay.details
               : "لم تتم الاضافة"}{" "}
-          </div>
-          {/* <p>{user?.name }</p> */}
-          {/* <p>{user?.name }</p> */}
-          <div
-            style={{
-              display: "flex",
-              gap: "10px",
-              marginBottom: "10px",
-              alignItems: "center",
-            }}
-          >
-            {martyrDisplay?.user?.selfImg !== undefined &&
-            martyrDisplay?.user?.selfImg !== "undefined" &&
-            martyrDisplay?.user?.selfImg !== "" ? (
-              <img
-                src={`https://syrianrevolution1.com/images/${martyrDisplay?.user?.selfImg}`}
-                alt="profile"
-                style={{ width: "50px", height: "50px", borderRadius: "50%" }}
-              />
-            ) : (
-              <img
-                src={one}
-                alt="profile"
-                style={{ width: "50px", height: "50px", borderRadius: "50%" }}
-              />
-            )}
-
-            <h6>{martyrDisplay?.user?.name}</h6>
           </div>
         </div>
       </div>

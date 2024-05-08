@@ -18,6 +18,7 @@ export default function MissingDash() {
           <thead>
             <tr>
               <th>اسم المفقود</th>
+              <th>اسم الناشر</th>
               <th> البيانات المرفوعة</th>
             </tr>
           </thead>
@@ -26,6 +27,8 @@ export default function MissingDash() {
               user.category === "missing" && user.isAccepted === false ? (
                 <tr key={index}>
                   <td>{user.name} </td>
+                  <td>{user?.user?.name} </td>
+
                   <td>
                     <button
                       className={`add `}

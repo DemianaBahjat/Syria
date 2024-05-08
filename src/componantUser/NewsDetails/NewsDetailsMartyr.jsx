@@ -9,9 +9,13 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ContextUser } from '../../context/Context';
 import one from '../../image/png-clipart-computer-icons-avatar-icon-design-avatar-heroes-computer-wallpaper-thumbnail.png'
 import AlertImageDash from '../../componantDashboard/AlertImageDash/AlertImageDash';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSubscript } from '@fortawesome/free-solid-svg-icons';
+import Subscribes from '../subscribe/Subscribes';
 export default function NewsDetailsMartyr() {
   const [ single, setSingle ] = useState( [] );
-     const { openAlert,openAlertStore} = useContext(ContextUser);
+     const { openAlert, openAlertStore, setOpenSubscrips, openSubscrips } =
+       useContext(ContextUser);
   const { id } = useParams();
   useEffect(() => {
     async function getSingle() {
@@ -149,43 +153,72 @@ export default function NewsDetailsMartyr() {
                     ))
                   : "لم تتم الاضافة"}{" "}
               </div> */}
-              <div style={{ display: "flex", gap: "10px", margin: "10px 0" }}>
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <div
-                  style={{ display: "flex", gap: "10px", marginBottom: "10px",alignItems:'center' }}
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                  }}
                 >
-                  {single?.user?.selfImg !== undefined &&
-                  single?.user?.selfImg !== "undefined" &&
-                  single?.user?.selfImg !== "" ? (
-                    <img
-                      src={`https://syrianrevolution1.com/images/${single?.user?.selfImg}`}
-                      alt="profile"
-                      style={{
-                        width: "50px",
-                        height: "50px",
-                        borderRadius: "50%",
-                      }}
-                    />
-                  ) : (
-                    <img
-                      src={one}
-                      alt="profile"
-                      style={{
-                        width: "50px",
-                        height: "50px",
-                        borderRadius: "50%",
-                      }}
-                    />
-                  )}
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: "10px",
+                      marginBottom: "10px",
+                      alignItems: "center",
+                    }}
+                  >
+                    {single?.user?.selfImg !== undefined &&
+                    single?.user?.selfImg !== "undefined" &&
+                    single?.user?.selfImg !== "" ? (
+                      <img
+                        src={`https://syrianrevolution1.com/images/${single?.user?.selfImg}`}
+                        alt="profile"
+                        style={{
+                          width: "50px",
+                          height: "50px",
+                          borderRadius: "50%",
+                        }}
+                      />
+                    ) : (
+                      <img
+                        src={one}
+                        alt="profile"
+                        style={{
+                          width: "50px",
+                          height: "50px",
+                          borderRadius: "50%",
+                        }}
+                      />
+                    )}
 
+                    <p>{single?.user?.name}</p>
+                  </div>
                   <p>{single?.user?.name}</p>
                 </div>
-                <p>{single?.user?.name}</p>
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "10px",
+                    alignItems: "center",
+                    height: "40px",
+                    backgroundColor: "#2FB9EE",
+                    padding: "0 20px",
+                    borderRadius: "10px",
+                    color: "white",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => setOpenSubscrips(true)}
+                >
+                  <p style={{ fontSize: "14px", marginTop: "12px" }}>مشاركة</p>
+                  <FontAwesomeIcon icon={faSubscript} />
+                </div>
               </div>
             </div>
             {/* /////////////////////// */}
             <div className="lastSlider1 col-md-4">
               <div className=" muted p-2 overflow-hidden">
-                {archief.slice(0,50).map((e, i) => (
+                {archief.slice(0, 50).map((e, i) => (
                   <div
                     className="row border-bottom pb-2 pt-2 border-2 overflow-hidden"
                     style={{ backgroundColor: "#fdfafa" }}
@@ -218,6 +251,7 @@ export default function NewsDetailsMartyr() {
             </div>
           </div>
         </div>
+        {openSubscrips && <Subscribes />}
       </div>
       <Footer />
     </>

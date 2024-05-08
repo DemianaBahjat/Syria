@@ -117,7 +117,7 @@ export default function AddLastNeswUser() {
             "Cannot read property 'filename' of undefined" && (
             <p
               className="alert alert-secondary alerthemself"
-              style={{ transform: "translateY(0)", width: "90%" }}
+              style={{ transform: "translateY(15px)", width: "90%" }}
             >
               يرجي رفع الصورة
             </p>

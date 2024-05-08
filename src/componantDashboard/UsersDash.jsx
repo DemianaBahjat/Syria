@@ -129,8 +129,9 @@ export default function UsersDash() {
     <>
       <div className={styles.SuperVisor}>
         <div
-          className={`headDashboard`}
-          style={{ display: "flex", justifyContent: "space-between" }}
+          className={styles.useruseruser}
+         
+          
         >
           <div style={{ display: "flex", gap: "10px" }}>
             <p>المستخدمون/</p>
@@ -165,7 +166,7 @@ export default function UsersDash() {
               <small> موثق </small>
             </div>
           </div>
-          <div style={{ display: "flex", gap: "10px" }}>
+          <div style={{ display: "flex", gap: "10px" }} className={styles.youseef}>
             <div style={{ display: "flex", gap: "10px" }}>
               <p>عدد المستخدمين</p>
               <span className={styles.counter}>{onlyUser}</span>

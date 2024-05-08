@@ -127,9 +127,10 @@ export default function LeftSideBar() {
               <NavLink to="/dashboard/warcriminals"> مجرمين حرب</NavLink>
               <span>{numberMogrem}</span>
             </div>
-
             <NavLink to="/dashboard/traitors">خونة</NavLink>
             <NavLink to="/dashboard/honorcard"> بطاقات تكريم</NavLink>
+            <NavLink to="/dashboard/lastnewsfromuser"> ألاخبار </NavLink>
+            <NavLink to="/dashboard/wathaaqfromuser"> وثائق </NavLink>
           </div>
         </div>
         <div className={style.secondsecond}>

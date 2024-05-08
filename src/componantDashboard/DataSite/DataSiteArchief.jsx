@@ -14,6 +14,7 @@ export default function DataSiteLastNews() {
             <thead>
               <tr>
                 <th> عنوان الخبر</th>
+                <th>اسم الناشر</th>
                 <th>التصنيف</th>
                 <th>البيانات المنشورة</th>
               </tr>
@@ -26,6 +27,7 @@ export default function DataSiteLastNews() {
                   user.category === "archiefthoura" ? (
                     <tr key={index}>
                       <td>{user.name}</td>
+                      <td>{user?.user?.username}</td>
                       <td>{user.category}</td>
                       <td>
                         <button

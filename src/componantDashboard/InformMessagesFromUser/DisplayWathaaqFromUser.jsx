@@ -1,16 +1,17 @@
-import React, { useContext, useEffect, useState } from 'react'
-import styles from "../styleDashboard/DisplayMartysDash.module.css";
+import React, { useEffect, useState } from 'react'
+import styles from "../../styleDashboard/DisplayMartysDash.module.css";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
-import { ContextUser, useUser } from "../context/Context";
-import one from "../image/png-clipart-computer-icons-avatar-icon-design-avatar-heroes-computer-wallpaper-thumbnail.png";
-export default function DisplayTraitorsDash() {
-    const { setOpenAlert, setOpenAlertStore,role } = useContext(ContextUser);
+import {  useParams } from "react-router-dom";
+import { ContextUser} from "../../context/Context";
+import one from "../../image/png-clipart-computer-icons-avatar-icon-design-avatar-heroes-computer-wallpaper-thumbnail.png";
+import { useContext } from 'react';
+export default function DisplayWathaaqFromUser() {
+  const { setOpenAlert, setOpenAlertStore,role } = useContext(ContextUser);
   const [martyrDisplay, setMartyrDataDisplay] = useState([]);
-  const [ loading, setLoading ] = useState( false );
-   const { getList } = useUser();
-  const [loadingAccepted, setLoadingAccepted] = useState(false);
-  const navigate = useNavigate();
+//   const [ loading, setLoading ] = useState( false );
+//    const { getList } = useUser();
+//   const [loadingAccepted, setLoadingAccepted] = useState(false);
+//   const navigate = useNavigate();
   const { id } = useParams();
   useEffect(() => {
     async function getMartyr() {
@@ -20,7 +21,10 @@ export default function DisplayTraitorsDash() {
             Authorization: localStorage.getItem("token"),
           },
         })
-        .then((result) => setMartyrDataDisplay(result.data))
+        .then( ( result ) => {
+          setMartyrDataDisplay( result.data );
+          console.log(result)
+        })
         .catch((error) => {
           console.log(error);
         });
@@ -33,85 +37,82 @@ export default function DisplayTraitorsDash() {
     setOpenAlertStore(src);
   }
   //////////////////handleDelete/////////////////
-  async function handleDeletePost() {
-    setLoading(true);
-    await axios
-      .delete(
-        `https://syrianrevolution1.com/lists/${id}/${localStorage.getItem(
-          "idUserLogin"
-        )}`,
-        {
-          headers: {
-            Authorization: localStorage.getItem("token"),
-          },
-        }
-      )
-      .then((response) => {
-        console.log(response);
-        if (response.data === "list Deleted Successfully") {
-          setLoading(false);
-          navigate("/dashboard/traitors");
-          getList();
-        }
-      })
-      .catch((error) => console.log(error));
-  }
-
+//   async function handleDeletePost() {
+//     setLoading(true);
+//     await axios
+//       .delete(
+//         `https://syrianrevolution1.com/lists/${id}/${localStorage.getItem(
+//           "idUserLogin"
+//         )}`,
+//         {
+//           headers: {
+//             Authorization: localStorage.getItem("token"),
+//           },
+//         }
+//       )
+//       .then((response) => {
+//         if (response.data === "list Deleted Successfully") {
+//           setLoading(false);
+//           navigate("/dashboard/wathaaqfromuser");
+//           getList();
+//         }
+//       })
+//       .catch((error) => console.log(error));
+//   }
   /////////////////////////handleAccepted//////////////
 
-  async function handleAccepted() {
-    setLoadingAccepted(true);
-    await axios
-      .patch(
-        `https://syrianrevolution1.com/lists/accept/${id}/${localStorage.getItem(
-          "idUserLogin"
-        )}`,
-        null,
-        {
-          headers: {
-            Authorization: localStorage.getItem("token"),
-          },
-        }
-      )
-      .then((response) => {
-        if (response.data.success === "data updated successfully") {
-          setLoading(false);
-          navigate("/dashboard/traitors");
-          getList();
-        }
-      })
-      .catch((error) => console.log(error));
-  }
-  console.log(martyrDisplay);
-
+//   async function handleAccepted() {
+//     setLoadingAccepted(true);
+//     await axios
+//       .patch(
+//         `https://syrianrevolution1.com/lists/accept/${id}/${localStorage.getItem(
+//           "idUserLogin"
+//         )}`,
+//         null,
+//         {
+//           headers: {
+//             Authorization: localStorage.getItem("token"),
+//           },
+//         }
+//       )
+//       .then((response) => {
+//         if (response.data.success === "data updated successfully") {
+//           setLoading(false);
+//           navigate("/dashboard/wathaaqfromuser");
+//           getList();
+//         }
+//         console.log(response);
+//       })
+//       .catch((error) => console.log(error));
+//   }
   return (
     <div className={styles.DisplayMartysDash}>
       {" "}
       <div className={`headDashboard`}>
-        <p>البيانات المستلمة / الخائنون / بيانات الخائن</p>
+        <p>البيانات المستلمة / وثائق / بيانات الوثيقة</p>
       </div>
       <div className={styles.details}>
         <div className={styles.allDetailseRight}>
           <div className={styles.detailsright}>
-            <h6>اسم الخائن : </h6>
-            <p>{martyrDisplay.name}</p>
+            <h6>اسم الوثيقة : </h6>
+            <p>{martyrDisplay?.name}</p>
           </div>
           <div className={styles.detailsright}>
             <h6> الصورة : </h6>
             <br />
             <p>
               {" "}
-              {martyrDisplay.profileImage &&
-              martyrDisplay.profileImage === "undefined" ? (
+              {martyrDisplay?.profileImage &&
+              martyrDisplay?.profileImage === "undefined" ? (
                 "لم تتم الاضافة"
-              ) : martyrDisplay.profileImage !== "undefined" ? (
+              ) : martyrDisplay?.profileImage !== "undefined" ? (
                 <img
-                  src={`https://syrianrevolution1.com/postImages/${martyrDisplay.selfImg}`}
+                  src={`https://syrianrevolution1.com/postImages/${martyrDisplay?.selfImg}`}
                   alt="trails"
                   style={{ width: "100px" }}
                   onClick={() => {
                     openImage(
-                      `https://syrianrevolution1.com/postImages/${martyrDisplay.selfImg}`
+                      `https://syrianrevolution1.com/postImages/${martyrDisplay?.selfImg}`
                     );
                   }}
                 />
@@ -122,18 +123,18 @@ export default function DisplayTraitorsDash() {
           </div>
           <div className={styles.detailsright}>
             <h6> روابط خارجية : </h6>{" "}
-            {martyrDisplay.externalLinks !== undefined &&
-            martyrDisplay.externalLinks !== "undefined" ? (
-              <a href={martyrDisplay.externalLinks}> رابط خارجي</a>
+            {martyrDisplay?.externalLinks !== undefined &&
+            martyrDisplay?.externalLinks !== "undefined" ? (
+              <a href={martyrDisplay?.externalLinks}> رابط خارجي</a>
             ) : (
               "لم تتم الاضافة"
             )}{" "}
           </div>
           <div className={styles.detailsLeft}>
             <h6>شرح مفصل : </h6>{" "}
-            {martyrDisplay.governorate !== undefined &&
-            martyrDisplay.governorate !== "undefined"
-              ? martyrDisplay.governorate
+            {martyrDisplay?.governorate !== undefined &&
+            martyrDisplay?.governorate !== "undefined"
+              ? martyrDisplay?.governorate
               : "لم تتم الاضافة"}{" "}
           </div>
         </div>
@@ -193,7 +194,7 @@ export default function DisplayTraitorsDash() {
           </div>
         </div>
       </div>
-      <div className={styles.btnbottom}>
+      {/* <div className={styles.btnbottom}>
         <button className="btn btn-success" onClick={handleAccepted}>
           {loadingAccepted ? (
             <div className="spinner-border text-secondary" role="status">
@@ -212,12 +213,7 @@ export default function DisplayTraitorsDash() {
             " رفض"
           )}
         </button>
-      </div>
+      </div> */}
     </div>
   );
 }
-
-
-
-
-

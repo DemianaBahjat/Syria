@@ -15,15 +15,19 @@ export default function WarCriminals() {
           <thead>
             <tr>
               <th>اسم مجرم الحرب</th>
+              <th>اسم ألناشر</th>
+
               <th> البيانات المرفوعة</th>
             </tr>
           </thead>
           <tbody>
             {listDash &&
-              listDash.map((user) =>
+              listDash.map((user,index) =>
                 user.category === "mogramharb" && user.isAccepted === false ? (
-                  <tr>
+                  <tr key={index}>
                     <td>{user.name} </td>
+                    <td>{user?.user?.username} </td>
+
                     <button
                       className={`add `}
                       style={{ backgroundColor: "#3B9058", color: "white" }}

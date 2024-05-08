@@ -6,6 +6,9 @@ export default function HistorySupervisor() {
   const { history } = useUser();
   const navigate = useNavigate();
 
+
+
+
   return (
     <div className={styles.AllHistory}>
       {history
@@ -79,7 +82,7 @@ export default function HistorySupervisor() {
                   </>
                 ) : //////////////come back/////////////////
                 e?.type === "update user" ? (
-                  "بتحديث بيانات مستخدم"
+                  "بتحديث بياناتة "
                 ) : ////////////come back/////////////
                 e?.type === "update user docImg" ? (
                   <>
@@ -119,7 +122,7 @@ export default function HistorySupervisor() {
                 ) : e?.type === "delete" ? (
                   " بحذف حساب بيبال "
                 ) : e?.type === "add desktop" ? (
-                  " باضافة رابط تحميل التطبيق للكمبيوتر "
+                  " باضافة رابط تحميل التطبيق لايفون "
                 ) : e?.type === "add android" ? (
                   " بأضافة رابط تحميل التطبيق للاندرويد "
                 ) : ////////////////masscers /////////////////////
@@ -178,6 +181,13 @@ export default function HistorySupervisor() {
                       {e?.data?.name.slice(0, 40)}
                     </small>
                   </>
+                ) : e?.type === "update user from dashboard" ? (
+                  <>
+                    بتحديث بيانات
+                    <small style={{ color: "#2d2dc3", fontSize: "14px" }}>
+                      {e?.data?.username}
+                    </small>
+                  </>
                 ) : (
                   ""
                 )}
@@ -190,7 +200,8 @@ export default function HistorySupervisor() {
             e?.type === "delete user" ||
             e?.type === "update user docImg" ||
             e?.type === "user update password" ||
-            e?.type === "accept user doc" ? (
+            e?.type === "accept user doc" ||
+            e?.type === "update user from dashboard" ? (
               <button
                 className={styles.display}
                 onClick={() =>

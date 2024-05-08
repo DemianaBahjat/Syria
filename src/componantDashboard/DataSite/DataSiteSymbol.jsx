@@ -15,6 +15,8 @@ const {lastNews} = useUser()
             <thead>
               <tr>
                 <th> عنوان الخبر</th>
+                <th> اسم الناشر</th>
+
                 <th>التصنيف</th>
                 <th>البيانات المنشورة</th>
               </tr>
@@ -25,6 +27,8 @@ const {lastNews} = useUser()
                   user.category === "symbols" ? (
                     <tr key={index}>
                       <td>{user.name}</td>
+                      <td>{user?.user?.username}</td>
+
                       <td>{user.category}</td>
                       <td>
                         <button

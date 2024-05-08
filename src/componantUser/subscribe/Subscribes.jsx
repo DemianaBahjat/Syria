@@ -1,6 +1,10 @@
-import React from "react";
-
+import React, { useContext, useState} from "react";
+import { ContextUser } from "../../context/Context";
+import CopyToClipboard from "react-copy-to-clipboard";
 export default function Subscribes() {
+  const { setOpenSubscrips } = useContext( ContextUser );
+  ///////////////////////////////
+  const [copied,setCopied] = useState(false)
   return (
     <div
       style={{
@@ -30,10 +34,15 @@ export default function Subscribes() {
             fontSize: "15px",
           }}
         >
-       شارك المحتوي الان
+          شارك المحتوي الان
         </p>
 
-        <input type="text" className="form-control" />
+        <input
+          type="text"
+          className="form-control"
+          value={ window.location.href }
+          
+        />
         <div
           style={{
             position: "absolute",
@@ -44,8 +53,15 @@ export default function Subscribes() {
             gap: "5px",
           }}
         >
-          <button className="btn btn-danger">رجوع</button>
-          <button className="btn btn-primary">نسخ رابط المنشور</button>
+          <button
+            className="btn btn-danger"
+            onClick={() => setOpenSubscrips(false)}
+          >
+            رجوع
+          </button>
+          <CopyToClipboard text={window.location.href} onCopy={()=>setCopied(true)}>
+            <button className="btn btn-primary" disabled={copied}>نسخ رابط المنشور</button>
+          </CopyToClipboard>
         </div>
       </div>
     </div>

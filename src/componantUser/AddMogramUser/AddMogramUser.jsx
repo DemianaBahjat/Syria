@@ -117,7 +117,7 @@ export default function AddMogramUser() {
             "Cannot read property 'filename' of undefined" && (
             <p
               className="alert alert-secondary alerthemself"
-              style={{ transform: "translateY(0)", width: "100%" }}
+              style={{ transform: "translateY(0)", width: "90%" }}
             >
               يرجي رفع الصورة
             </p>

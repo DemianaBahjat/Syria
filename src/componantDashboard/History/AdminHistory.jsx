@@ -8,15 +8,19 @@ export default function AdminHistory() {
 
   return (
     <div className={styles.AllHistory}>
-      { history.slice().reverse()
-        .filter(
-          ( e ) =>
-            e?.upUser ?
-            e.upUser?.role === "admin" ||
-            e?.upUser?.role === "supervisor" :e?.user?
-            e?.user?.role === "admin" ||
-            e?.user?.role === "supervisor" ||
-            e?.user?.role === "user" : e?.data?.role === "admin" || e?.data?.role === "supervisor" || e?.data?.role === "user"
+      {history
+        .slice()
+        .reverse()
+        .filter((e) =>
+          e?.upUser
+            ? e.upUser?.role === "admin" || e?.upUser?.role === "supervisor"
+            : e?.user
+            ? e?.user?.role === "admin" ||
+              e?.user?.role === "supervisor" ||
+              e?.user?.role === "user"
+            : e?.data?.role === "admin" ||
+              e?.data?.role === "supervisor" ||
+              e?.data?.role === "user"
         )
         .map((e, i) => (
           <div className={styles.oneNotific} key={i}>
@@ -79,7 +83,7 @@ export default function AdminHistory() {
                   </>
                 ) : //////////////come back/////////////////
                 e?.type === "update user" ? (
-                  "بتحديث بيانات مستخدم"
+                  "بتحديث بياناتة "
                 ) : ////////////come back/////////////
                 e?.type === "update user docImg" ? (
                   <>
@@ -119,7 +123,7 @@ export default function AdminHistory() {
                 ) : e?.type === "delete" ? (
                   " بحذف حساب بيبال "
                 ) : e?.type === "add desktop" ? (
-                  " باضافة رابط تحميل التطبيق للكمبيوتر "
+                  " باضافة رابط تحميل التطبيق للايفون "
                 ) : e?.type === "add android" ? (
                   " بأضافة رابط تحميل التطبيق للاندرويد "
                 ) : ////////////////masscers /////////////////////
@@ -178,6 +182,14 @@ export default function AdminHistory() {
                       {e?.data?.name.slice(0, 40)}
                     </small>
                   </>
+                ) : ////////////////////////////
+                e?.type === "update user from dashboard" ? (
+                  <>
+                    بتحديث بيانات
+                    <small style={{ color: "#2d2dc3", fontSize: "14px" }}>
+                      {e?.data?.username}
+                    </small>
+                  </>
                 ) : (
                   ""
                 )}
@@ -190,7 +202,8 @@ export default function AdminHistory() {
             e?.type === "delete user" ||
             e?.type === "update user docImg" ||
             e?.type === "user update password" ||
-            e?.type === "accept user doc" ? (
+            e?.type === "accept user doc" ||
+            e?.type === "update user from dashboard" ? (
               <button
                 className={styles.display}
                 onClick={() =>

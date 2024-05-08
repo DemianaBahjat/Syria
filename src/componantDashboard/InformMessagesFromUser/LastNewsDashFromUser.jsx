@@ -1,30 +1,29 @@
-import React from 'react';
-import style from '../styleDashboard/MartyrsDash.module.css';
+import React from 'react'
+import style from "../../styleDashboard/MartyrsDash.module.css";
+import { useNavigate } from "react-router-dom";
+import { useUser } from '../../context/Context';
 
-import { useNavigate } from 'react-router-dom';
-import { useUser } from '../context/Context';
-export default function DetaineesDash() {
-  const navigate = useNavigate();
-   const { childDash } = useUser();
-
+export default function LastNewsDashFromUser() {
+    const navigate = useNavigate();
+      const { listDash } = useUser();
   return (
     <div className={style.MartyrsDash}>
       <div className={`headDashboard`}>
-        <p>البيانات المستلمة / معتقلين</p>
+        <p>البيانات المستلمة / الاخبار</p>
       </div>
       <div className={`containerTable`}>
         <table>
           <thead>
             <tr>
-              <th>اسم المعتقل</th>
+              <th>اسم الخبر</th>
               <th>اسم الناشر</th>
 
-              <th>البيانات المرفوعة</th>
+              <th> البيانات المرفوعة</th>
             </tr>
           </thead>
           <tbody>
-            {childDash.map((user, index) =>
-              user.category === "adetaine" && user.isAccepted === false ? (
+            {listDash.map((user, index) =>
+              user.category === "lastNews" && user.isAccepted === false ? (
                 <tr key={index}>
                   <td>{user.name} </td>
                   <td>{user?.user?.username} </td>
@@ -34,7 +33,7 @@ export default function DetaineesDash() {
                       className={`add `}
                       style={{ backgroundColor: "#3B9058", color: "white" }}
                       onClick={() => {
-                        navigate(`/dashboard/detaineesdash/${user._id}`);
+                        navigate(`/dashboard/displaylastnewsfromuser/${user._id}`);
                       }}
                     >
                       عرض
@@ -51,3 +50,4 @@ export default function DetaineesDash() {
     </div>
   );
 }
+

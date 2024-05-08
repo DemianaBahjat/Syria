@@ -1,4 +1,4 @@
-import React, {  useEffect, useState } from 'react'
+import React, {  useContext, useEffect, useState } from 'react'
 import MainNav from '../MainNav/MainNav';
 import Navbar from '../Navbar/Navbar';
 import Footer from '../Footer/Footer';
@@ -7,10 +7,13 @@ import axios from 'axios';
 import { useNavigate, useParams } from "react-router-dom";
 import { faSubscript } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { ContextUser } from '../../context/Context';
+import Subscribes from '../subscribe/Subscribes';
 
 
 export default function NewsDetails() {
   const [ single, setSingle ] = useState( [] );
+  const { setOpenSubscrips, openSubscrips } = useContext(ContextUser);
   const { id } = useParams();
        useEffect(() => {
          axios
@@ -23,7 +26,7 @@ export default function NewsDetails() {
     const [archief, setArchirf] = useState([]);
     const navigate = useNavigate();
     useEffect(() => {
-      axios.get("https://syrianrevolution1.com/lists").then((result) => {
+      axios.get("https://syrianrevolution1.com/lists/userview").then((result) => {
         setArchirf(result.data.data);
       }).catch((error)=>console.log(error));
     }, [] );
@@ -113,7 +116,7 @@ export default function NewsDetails() {
                     color: "white",
                     cursor: "pointer",
                   }}
-                 
+                  onClick={() => setOpenSubscrips(true)}
                 >
                   <p style={{ fontSize: "14px", marginTop: "12px" }}>مشاركة</p>
                   <FontAwesomeIcon icon={faSubscript} />
@@ -123,10 +126,11 @@ export default function NewsDetails() {
             {/* /////////////////////// */}
             <div className="lastSlider1 col-md-4">
               <div className=" muted  overflow-hidden">
-                {archief.slice(0, 50).map((e) => (
+                {archief.slice(0, 50).map((e,i) => (
                   <div
                     className="row border-bottom pb-2 pt-2 border-2 overflow-hidden"
-                    style={{ backgroundColor: "#ECECEC" }}
+                    style={ { backgroundColor: "#ECECEC" } }
+                    key={i}
                   >
                     <div className="col-md-4">
                       <img
@@ -154,7 +158,7 @@ export default function NewsDetails() {
           </div>
         </div>
       </div>
-   
+      {openSubscrips && <Subscribes />}
       <Footer />
     </>
   );

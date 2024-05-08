@@ -17,6 +17,8 @@ export default function DataSiteLastNews() {
             <thead>
               <tr>
                 <th> عنوان الخبر</th>
+                <th> اسم الناشر</th>
+
                 <th>التصنيف</th>
                 <th>البيانات المنشورة</th>
               </tr>
@@ -30,6 +32,8 @@ export default function DataSiteLastNews() {
                   user.responsibleAuthority === "system" ? (
                     <tr key={index}>
                       <td>{user.name}</td>
+                      <td>{user?.user?.username}</td>
+
                       <td>{user.category}</td>
                       <td>
                         <button
@@ -54,6 +58,8 @@ export default function DataSiteLastNews() {
                   user.responsibleAuthority === "system" ? (
                     <tr key={index}>
                       <td>{user.title}</td>
+                      <td>{user?.user?.username}</td>
+
                       <td>massacres</td>
                       <td>
                         <button
